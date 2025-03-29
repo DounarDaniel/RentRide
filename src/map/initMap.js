@@ -9,7 +9,8 @@ export async function initMap() {
     try {
         map = new google.maps.Map(document.getElementById('map'), MAP_OPTIONS);
     } catch (error) {
-        console.log(error)
+        window.location.reload();
+        console.error('Error in creating map element', error)
     }
 
     await addMapMarkers(map);
