@@ -15,22 +15,22 @@ export async function addMapMarkers(map) {
 
         switch (transport.name) {
             case 'scooter':
-                transportImageUrl = '../../public/mapIcons/scooter.png'
+                transportImageUrl = '../../mapIcons/scooter.png'
                 break;
             case 'car':
-                transportImageUrl = '../../public/mapIcons/car.png'
+                transportImageUrl = '../../mapIcons/car.png'
                 break
             case 'moped':
-                transportImageUrl = '../../public/mapIcons/moped.png'
+                transportImageUrl = '../../mapIcons/moped.png'
                 break
             case 'electric_bike':
-                transportImageUrl = '../../public/mapIcons/electric_bike.png'
+                transportImageUrl = '../../mapIcons/electric_bike.png'
                 break
             case 'bike':
-                transportImageUrl = '../../public/mapIcons/pedal_bike.png'
+                transportImageUrl = '../../mapIcons/pedal_bike.png'
                 break
             default:
-                transportImageUrl = '../../public/mapIcons/help.png'
+                transportImageUrl = '../../mapIcons/help.png'
                 break;
         }
 
