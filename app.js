@@ -1,2 +1,3 @@
-import { initMap } from "./src/index.js";
-initMap()
+import { initMap, createTransportContainer } from "./src/index.js";
+initMap();
+createTransportContainer();

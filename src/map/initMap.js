@@ -2,9 +2,9 @@ import { MAP_OPTIONS, ROOT_ELEMENT } from '../constants.js';
 import { addMapMarkers } from "./addMapMarkers.js";
 import { watchUserPosition } from "./watchUserPos.js";
 
+let map;
 export async function initMap() {
     createAndAppendMapElement()
-    let map;
 
     try {
         map = new google.maps.Map(document.getElementById('map'), MAP_OPTIONS);
