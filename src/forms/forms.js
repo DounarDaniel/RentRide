@@ -9,7 +9,7 @@ export function registerUser() {
     // const form = drawRegisterForm();
     // функция отрисовывает форму и возвращает её элемент
 
-    form.addEventListener('submit', async (event) => {
+    form.addEventListener('submit', async function(event) {
         event.preventDefault()
 
         const formsElements = event.target.elements;
@@ -18,9 +18,13 @@ export function registerUser() {
         const confirmPasswordInput = formsElements.confirm_password;
         const nicknameInput = formsElements.nickname;
 
+        const avatarInput = formsElements.avatar;
+        const avatar = URL.createObjectURL(avatarInput.files[0]);
+
         if (passwordInput.value != confirmPasswordInput.value) {
             passwordInput.style.borderColor = 'red';
             confirmPasswordInput.style.borderColor = 'red';
+            return;
         }
 
         const usersData = await firebase.getDoc(USERS_COLLECTION_NAME, USERS_DOC_ID);
@@ -32,10 +36,23 @@ export function registerUser() {
 
         if(!isNicknameUnique){
             nicknameInput.style.borderColor = 'red';
+            return;
         }
 
-        console.log(isNicknameUnique)
+        const userId = new Date().getTime() + nicknameInput.value;
+        localStorage.setItem('userData', userId);
 
-        console.log(event.target.elements)
+        const exampleOfPieceOfAdminPassword = 'adminLK0'
+        const isAdmin = !!passwordInput.value.includes(exampleOfPieceOfAdminPassword)
+
+        const firebaseUserData = {
+            isAdmin,
+            avatar,
+            userId,
+            nickname: nicknameInput.value,
+            password: passwordInput.value,
+        }
+
+        firebase.addDataToFirebase(USERS_COLLECTION_NAME, USERS_DOC_ID, 'users', firebaseUserData);
     })
 }
