@@ -46,7 +46,7 @@ export function registerUser() {
         }
 
         const userId = new Date().getTime() + nicknameInput.value;
-        localStorage.setItem('userData', userId);
+        localStorage.setItem('userId', userId);
 
         const exampleOfPieceOfAdminPassword = 'adminLK0'
         const isAdmin = !!passwordInput.value.includes(exampleOfPieceOfAdminPassword)
