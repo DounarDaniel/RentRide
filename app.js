@@ -1,8 +1,8 @@
 import { initMap, createTransportContainer, registerUser } from "./src/index.js";
 
-const userData = JSON.parse(localStorage.getItem('userData'));
+const userId = localStorage.getItem('userId');
 
-if (!userData || !userData.isLoged) {
+if (!userId) {
     registerUser()  
 } else {
     initMap();
