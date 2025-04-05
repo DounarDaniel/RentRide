@@ -1,6 +1,6 @@
 import { drawRegisterForm } from "./drawRegisterForm.js";
 import { firebase } from "../index.js";
-import { USERS_COLLECTION_NAME, USERS_DOC_ID } from "../constants.js";
+import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR } from "../constants.js";
 
 export function registerUser() {
     drawRegisterForm();
@@ -19,7 +19,7 @@ export function registerUser() {
         const nicknameInput = formsElements.nickname;
 
         const avatarInput = formsElements.avatar;
-        const avatar = URL.createObjectURL(avatarInput.files[0]);
+        const avatar = URL.createObjectURL(avatarInput.files[0]) || DEFAULT_AVATAR;
 
         if (passwordInput.value != confirmPasswordInput.value) {
             passwordInput.style.borderColor = 'red';
