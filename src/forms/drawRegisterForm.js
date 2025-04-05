@@ -10,7 +10,7 @@ export function drawRegisterForm(){
 
             <div class="input-group">
                 <label for="nickname">Nickname:</label>
-                <input type="text" id="nickname" name="nickname" placeholder="Enter your nickname">
+                <input type="text" id="nickname" name="nickname" placeholder="Enter your nickname" minlength="2" required>
             </div>
 
             <div class="input-group">
@@ -20,13 +20,13 @@ export function drawRegisterForm(){
 
             <div class="input-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" minlength="4">
+                <input type="password" id="password" name="password" placeholder="Enter your password" minlength="4" required>
             </div>
 
             <div class="input-group">
                 <label for="confirm_password">Confirm Password:</label>
                 <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password"
-                   minlength="4">
+                    required minlength="4">
             </div>
 
             <button type="submit">Register</button>
