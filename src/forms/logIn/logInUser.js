@@ -1,9 +1,13 @@
 import { drawLogInForm } from './drawLodInForm.js';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { firebase, decryptPassword, initMap, createTransportContainer } from "../../index.js";
 =======
 import { firebase, decryptPassword } from "../../index.js";
 >>>>>>> 73b50af (redesigned the project architecture)
+=======
+import { firebase, decryptPassword, initMap, createTransportContainer } from "../../index.js";
+>>>>>>> d94e188 (fix bug with removing forms)
 import { USERS_COLLECTION_NAME, USERS_DOC_ID } from "../../constants.js";
 
 export function logInUser() {
@@ -41,6 +45,7 @@ export function logInUser() {
         } else {
             passwordInput.style.borderColor = 'green';
 <<<<<<< HEAD
+<<<<<<< HEAD
         }
 
         localStorage.setItem('userId', user.id);
@@ -51,5 +56,13 @@ export function logInUser() {
             return user;
         }
 >>>>>>> 73b50af (redesigned the project architecture)
+=======
+        }
+
+        localStorage.setItem('userId', user.id);
+        form.remove();
+        initMap();
+        createTransportContainer();
+>>>>>>> d94e188 (fix bug with removing forms)
     });
 }

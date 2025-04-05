@@ -1,9 +1,13 @@
 import { drawRegisterForm } from "./drawRegisterForm.js";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { firebase, encryptPassword, initMap, createTransportContainer } from "../../index.js";
 =======
 import { firebase, encryptPassword } from "../../index.js";
 >>>>>>> 73b50af (redesigned the project architecture)
+=======
+import { firebase, encryptPassword, initMap, createTransportContainer } from "../../index.js";
+>>>>>>> d94e188 (fix bug with removing forms)
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR } from "../../constants.js";
 
 export function registerUser() {
@@ -17,11 +21,16 @@ export function registerUser() {
         event.preventDefault()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         const form = event.target
         const formsElements = form.elements;
 =======
         const formsElements = event.target.elements;
 >>>>>>> 73b50af (redesigned the project architecture)
+=======
+        const form = event.target
+        const formsElements = form.elements;
+>>>>>>> d94e188 (fix bug with removing forms)
 
         const passwordInput = formsElements.password;
         const confirmPasswordInput = formsElements.confirm_password;
@@ -77,12 +86,18 @@ export function registerUser() {
 
         firebase.addDataToFirebase(USERS_COLLECTION_NAME, USERS_DOC_ID, 'users', firebaseUserData);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d94e188 (fix bug with removing forms)
 
         form.remove();
         initMap();
         createTransportContainer();
+<<<<<<< HEAD
 =======
 >>>>>>> 73b50af (redesigned the project architecture)
+=======
+>>>>>>> d94e188 (fix bug with removing forms)
     })
 }
 

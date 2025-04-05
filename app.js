@@ -21,12 +21,17 @@ if (!userId) {
 >>>>>>> 4363412 (added user registration logic)
 =======
 if (!userId) {
+<<<<<<< HEAD
     registerUser()  
 >>>>>>> 73b50af (redesigned the project architecture)
+=======
+    registerUser()
+>>>>>>> d94e188 (fix bug with removing forms)
 } else {
     initMap();
     createTransportContainer();
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 // if (!userId) {
@@ -42,3 +47,5 @@ console.log(logInUser())
 
 logInUser()
 >>>>>>> 73b50af (redesigned the project architecture)
+=======
+>>>>>>> d94e188 (fix bug with removing forms)
