@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+import { ROOT_ELEMENT } from "../../constants.js";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
-    <link rel="stylesheet" href="style.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap"
-        rel="stylesheet">
-</head>
-
-<body>
+export function drawLogInForm() {
+    ROOT_ELEMENT.insertAdjacentHTML('beforeend', `
     <div class="container">
-        <form action="#" method="GET" class="form">
+        <form action="" method="GET" class="form" name="logIn">
             <h2 class="title">RentRide</h2>
             <p class="subtitle">Log In</p>
 
@@ -30,7 +20,5 @@
             <button type="submit">Sign In</button>
             <p class="login-text">No account? <a href="#" class="login-link">Create an account</a></p>
         </form>
-    </div>
-</body>
-
-</html>
+    </div>`)
+}

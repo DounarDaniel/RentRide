@@ -1,4 +1,4 @@
-import { ROOT_ELEMENT } from "../constants";
+import { ROOT_ELEMENT } from "../../constants";
 
 // потом надо будет переделать, пока что это функция-заглушка
 export function drawRegisterForm(){
