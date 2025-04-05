@@ -13,7 +13,9 @@ export const TRANSPORT_DOC_NAME = "transportList";
 export const TRANSPORT_DOC_ID = "ONqHzt5Wqka6s8UQs93U";
 
 export const USERS_COLLECTION_NAME = 'users';
-export const USERS_DOC_ID = 'IlgpJNwGtViN9Lklv2fO'
+export const USERS_DOC_ID = 'IlgpJNwGtViN9Lklv2fO';
+
+export const DEFAULT_AVATAR = 'https://png.pngtree.com/thumb_back/fw800/background/20230610/pngtree-picture-of-a-blue-bird-on-a-black-background-image_2937385.jpg';
 
 const DEFAULT_MAP_ZOOM = 10;
 const MIN_MAP_ZOOM = DEFAULT_MAP_ZOOM - 7.3;
