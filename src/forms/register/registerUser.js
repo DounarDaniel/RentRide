@@ -1,5 +1,5 @@
 import { drawRegisterForm } from "./drawRegisterForm.js";
-import { firebase, encryptPassword } from "../../index.js";
+import { firebase, encryptPassword, initMap, createTransportContainer } from "../../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR } from "../../constants.js";
 
 export function registerUser() {
@@ -12,7 +12,8 @@ export function registerUser() {
     form.addEventListener('submit', async function (event) {
         event.preventDefault()
 
-        const formsElements = event.target.elements;
+        const form = event.target
+        const formsElements = form.elements;
 
         const passwordInput = formsElements.password;
         const confirmPasswordInput = formsElements.confirm_password;
@@ -67,6 +68,10 @@ export function registerUser() {
         }
 
         firebase.addDataToFirebase(USERS_COLLECTION_NAME, USERS_DOC_ID, 'users', firebaseUserData);
+
+        form.remove();
+        initMap();
+        createTransportContainer();
     })
 }
 

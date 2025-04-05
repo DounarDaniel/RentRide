@@ -3,10 +3,8 @@ import { initMap, createTransportContainer, registerUser, logInUser } from "./sr
 const userId = localStorage.getItem('userId');
 
 if (!userId) {
-    registerUser()  
+    registerUser()
 } else {
     initMap();
     createTransportContainer();
 }
-
-logInUser()
