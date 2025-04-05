@@ -1,5 +1,5 @@
 import { drawRegisterForm } from "./drawRegisterForm.js";
-import { firebase } from "../index.js";
+import { firebase, encryptPassword } from "../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR } from "../constants.js";
 
 export function registerUser() {
@@ -19,7 +19,13 @@ export function registerUser() {
         const nicknameInput = formsElements.nickname;
 
         const avatarInput = formsElements.avatar;
-        const avatar = URL.createObjectURL(avatarInput.files[0]) || DEFAULT_AVATAR;
+        let avatar;
+
+        if(!avatarInput.files[0]){
+            avatar = DEFAULT_AVATAR;
+        } else{
+            avatar = URL.createObjectURL(avatarInput.files[0])
+        }
 
         if (passwordInput.value != confirmPasswordInput.value) {
             passwordInput.style.borderColor = 'red';
@@ -45,12 +51,14 @@ export function registerUser() {
         const exampleOfPieceOfAdminPassword = 'adminLK0'
         const isAdmin = !!passwordInput.value.includes(exampleOfPieceOfAdminPassword)
 
+        const encryptedPassword = encryptPassword(passwordInput.value)
+
         const firebaseUserData = {
             isAdmin,
             avatar,
-            userId,
+            id: userId,
             nickname: nicknameInput.value,
-            password: passwordInput.value,
+            password: encryptedPassword,
         }
 
         firebase.addDataToFirebase(USERS_COLLECTION_NAME, USERS_DOC_ID, 'users', firebaseUserData);
