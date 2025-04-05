@@ -1,5 +1,9 @@
 import { drawLogInForm } from './drawLodInForm.js';
+<<<<<<< HEAD
 import { firebase, decryptPassword, initMap, createTransportContainer } from "../../index.js";
+=======
+import { firebase, decryptPassword } from "../../index.js";
+>>>>>>> 73b50af (redesigned the project architecture)
 import { USERS_COLLECTION_NAME, USERS_DOC_ID } from "../../constants.js";
 
 export function logInUser() {
@@ -36,11 +40,16 @@ export function logInUser() {
             return;
         } else {
             passwordInput.style.borderColor = 'green';
+<<<<<<< HEAD
         }
 
         localStorage.setItem('userId', user.id);
         form.remove();
         initMap();
         createTransportContainer();
+=======
+            return user;
+        }
+>>>>>>> 73b50af (redesigned the project architecture)
     });
 }
