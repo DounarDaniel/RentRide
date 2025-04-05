@@ -1,6 +1,7 @@
 import { drawRegisterForm } from "./drawRegisterForm.js";
-import { firebase, encryptPassword } from "../index.js";
+import { firebase, encryptPassword, decryptPassword } from "../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR } from "../constants.js";
+import { drawLogInForm } from './drawLodInForm.js'
 
 export function registerUser() {
     drawRegisterForm();
@@ -9,7 +10,7 @@ export function registerUser() {
     // const form = drawRegisterForm();
     // функция отрисовывает форму и возвращает её элемент
 
-    form.addEventListener('submit', async function(event) {
+    form.addEventListener('submit', async function (event) {
         event.preventDefault()
 
         const formsElements = event.target.elements;
@@ -21,16 +22,19 @@ export function registerUser() {
         const avatarInput = formsElements.avatar;
         let avatar;
 
-        if(!avatarInput.files[0]){
+        if (!avatarInput.files[0]) {
             avatar = DEFAULT_AVATAR;
-        } else{
+        } else {
             avatar = URL.createObjectURL(avatarInput.files[0])
         }
 
-        if (passwordInput.value != confirmPasswordInput.value) {
+        if (passwordInput.value !== confirmPasswordInput.value) {
             passwordInput.style.borderColor = 'red';
             confirmPasswordInput.style.borderColor = 'red';
             return;
+        } else {
+            passwordInput.style.borderColor = 'green';
+            confirmPasswordInput.style.borderColor = 'green';
         }
 
         const usersData = await firebase.getDoc(USERS_COLLECTION_NAME, USERS_DOC_ID);
@@ -40,9 +44,11 @@ export function registerUser() {
             user.nickname.toLowerCase() === nicknameInput.value.toLowerCase()
         );
 
-        if(!isNicknameUnique){
+        if (!isNicknameUnique) {
             nicknameInput.style.borderColor = 'red';
             return;
+        } else {
+            nicknameInput.style.borderColor = 'green';
         }
 
         const userId = new Date().getTime() + nicknameInput.value;
@@ -63,4 +69,43 @@ export function registerUser() {
 
         firebase.addDataToFirebase(USERS_COLLECTION_NAME, USERS_DOC_ID, 'users', firebaseUserData);
     })
+}
+
+export function logInUser() {
+    drawLogInForm();
+    const form = document.forms.logIn;
+
+    // const form = drawLogInForm();
+    // функция отрисовывает форму и возвращает её элемент, потом надо будет доделать
+
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const formsElements = event.target.elements;
+
+        const usernameInput = formsElements.username;
+        const passwordInput = formsElements.password;
+
+        const usersData = await firebase.getDoc(USERS_COLLECTION_NAME, USERS_DOC_ID);
+        const usersList = usersData.users;
+
+        const user = usersList.find(user => user.nickname === usernameInput.value);
+
+        if (!user) {
+            usernameInput.style.borderColor = 'red';
+            console.warn('Error in username');
+            return;
+        }
+
+        const decryptedPassword = decryptPassword(user.password)
+
+        if (decryptedPassword !== passwordInput.value) {
+            passwordInput.style.borderColor = 'red';
+            console.warn('Error in password');
+            return;
+        } else {
+            passwordInput.style.borderColor = 'green';
+            return user;
+        }
+    });
 }
