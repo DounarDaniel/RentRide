@@ -1,0 +1,23 @@
+.slider {
+    width: 60px;
+    height: 6px;
+    background-color: #000000;
+    border-radius: 2px;
+    margin: 0 auto;
+}
+
+.transportContainer {
+    background-color: #00000000;
+    height: 10px;
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out;
+    transform: translateY(-17px);
+    overflow-y: scroll;
+}
+
+.transportContainer.active {
+    transform: translateY(-315px);
+    background-color: #e0dfd8;
+    height: 315px;
+    padding: 15px;
+}
