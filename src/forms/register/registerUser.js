@@ -68,6 +68,7 @@ export function registerUser() {
         }
 
         firebase.addDataToFirebase(USERS_COLLECTION_NAME, USERS_DOC_ID, 'users', firebaseUserData);
+
         form.remove();
         initMap();
         createTransportContainer();
