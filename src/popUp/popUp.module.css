@@ -8,21 +8,26 @@ body {
     height: 100vh;
 }
 
-.container {
+.popUp {
     width: 100%;
     height: 100%;
     position: fixed;
     left: 0;
     top: 0;
     background-color: #212529c7;
-
     opacity: 0;
     visibility: hidden;
-
     transition: opacity .4s ease;
+    z-index: 10;
 }
 
-.popup {
+
+.popUp.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popUpBody {
     display: flex;
     align-items: center;
     min-height: 100%;

@@ -1,4 +1,4 @@
-import { initMap, createTransportContainer, registerUser, logInUser } from "./src/index.js";
+import { initMap, createTransportContainer, registerUser, logInUser, renderPopUp } from "./src/index.js";
 
 const userId = localStorage.getItem('userId');
 
@@ -7,4 +7,5 @@ if (!userId) {
 } else {
     initMap();
     createTransportContainer();
+    renderPopUp();
 }
