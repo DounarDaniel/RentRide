@@ -31,3 +31,5 @@ export const MAP_OPTIONS = {
 }
 
 export const ROOT_ELEMENT = document.querySelector('#root');
+
+export const ESC_KEY_CODE = 27;
