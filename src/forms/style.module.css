@@ -1,15 +1,11 @@
 .container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
     padding: 20px 0;
 }
 
 .form {
     width: 450px;
-    padding: 20px;
     background-color: #e0e5ec;
     padding: 30px;
     border-radius: 20px;
@@ -32,7 +28,6 @@
     margin-bottom: 20px;
     font-size: 21px;
     margin-top: 0;
-    margin-bottom: 21px;
 }
 
 .inputGroup {
@@ -41,8 +36,6 @@
 }
 
 label {
-    display: block;
-    margin-bottom: 6.5px;
     font-weight: 500;
     font-size: 18px;
 }
@@ -56,9 +49,7 @@ input {
     box-shadow: inset 5px 5px 10px #bec3c9,
         inset -5px -5px 10px #ffffff;
     color: #333;
-    font-size: 1em;
-    outline: none;
-    box-sizing: border-box;
+    margin-top: 8px;
 }
 
 input::placeholder {
@@ -73,23 +64,18 @@ button {
     background-color: #e0e5ec;
     color: #777;
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 18px;
     cursor: pointer;
     box-shadow: 5px 5px 10px #bec3c9,
         -5px -5px 10px #ffffff;
     transition: all 0.3s ease-in-out;
-    outline: none;
+    margin: 10px;
 }
 
 button:hover {
     box-shadow: inset 5px 5px 10px #bec3c9,
         inset -5px -5px 10px #ffffff;
     color: #333;
-}
-
-button:active {
-    box-shadow: 2px 2px 5px #bec3c9,
-        -2px -2px 5px #ffffff;
 }
 
 .loginText {
