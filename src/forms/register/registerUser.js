@@ -1,13 +1,12 @@
-import { drawRegisterForm } from "./drawRegisterForm.js";
-import { firebase, encryptPassword, initMap, createTransportContainer } from "../../index.js";
-import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR } from "../../constants.js";
+import { renderRegisterForm } from "./renderRegisterForm.js";
+import { firebase, encryptPassword, initMap, createTransportContainer, renderPopUp } from "../../index.js";
+import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR, ROOT_ELEMENT } from "../../constants.js";
+
+import styles from '../style.module.css'
 
 export function registerUser() {
-    drawRegisterForm();
+    renderRegisterForm();
     const form = document.forms.register;
-
-    // const form = drawRegisterForm();
-    // функция отрисовывает форму и возвращает её элемент
 
     form.addEventListener('submit', async function (event) {
         event.preventDefault()
@@ -29,12 +28,12 @@ export function registerUser() {
         }
 
         if (passwordInput.value !== confirmPasswordInput.value) {
-            passwordInput.style.borderColor = 'red';
-            confirmPasswordInput.style.borderColor = 'red';
+            passwordInput.classList.add(styles.error);
+            confirmPasswordInput.classList.add(styles.error);
             return;
         } else {
-            passwordInput.style.borderColor = 'green';
-            confirmPasswordInput.style.borderColor = 'green';
+            passwordInput.classList.add(styles.successfull);
+            confirmPasswordInput.classList.add(styles.successfull);
         }
 
         const usersData = await firebase.getDoc(USERS_COLLECTION_NAME, USERS_DOC_ID);
@@ -45,10 +44,10 @@ export function registerUser() {
         );
 
         if (!isNicknameUnique) {
-            nicknameInput.style.borderColor = 'red';
+            nicknameInput.classList.add(styles.error);
             return;
         } else {
-            nicknameInput.style.borderColor = 'green';
+            nicknameInput.classList.add(styles.error);
         }
 
         const userId = new Date().getTime() + nicknameInput.value;
@@ -69,9 +68,13 @@ export function registerUser() {
 
         firebase.addDataToFirebase(USERS_COLLECTION_NAME, USERS_DOC_ID, 'users', firebaseUserData);
 
-        form.remove();
+        this.remove();
+        document.querySelector('#container').remove();
+
+        ROOT_ELEMENT.style.overflow = 'hidden';
         initMap();
         createTransportContainer();
+        renderPopUp();
     })
 }
 
