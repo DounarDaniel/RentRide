@@ -1,13 +1,10 @@
-import { drawRegisterForm } from "./drawRegisterForm.js";
+import { renderRegisterForm } from "./renderRegisterForm.js";
 import { firebase, encryptPassword, initMap, createTransportContainer } from "../../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR } from "../../constants.js";
 
 export function registerUser() {
-    drawRegisterForm();
+    renderRegisterForm();
     const form = document.forms.register;
-
-    // const form = drawRegisterForm();
-    // функция отрисовывает форму и возвращает её элемент
 
     form.addEventListener('submit', async function (event) {
         event.preventDefault()

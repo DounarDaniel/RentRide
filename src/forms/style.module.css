@@ -1,13 +1,10 @@
-body {
-    min-height: 100vh;
-}
-
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 20px 0;
 }
 
 .form {
@@ -38,7 +35,7 @@ body {
     margin-bottom: 21px;
 }
 
-.input-group {
+.inputGroup {
     margin-bottom: 20px;
     color: #777;
 }
@@ -95,18 +92,18 @@ button:active {
         -2px -2px 5px #ffffff;
 }
 
-.login-text {
+.loginText {
     text-align: center;
     margin-top: 20px;
     color: #777;
     font-size: 18px;
 }
 
-.login-link {
+.loginLink {
     color: #007bff;
     text-decoration: none;
 }
 
-.login-link:hover {
+.loginLink:hover {
     text-decoration: underline;
 }
