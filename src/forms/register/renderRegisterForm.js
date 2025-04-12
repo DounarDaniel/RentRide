@@ -6,6 +6,7 @@ import styles from '../style.module.css'
 export function renderRegisterForm() {
     const container = document.createElement('div');
     container.classList.add(styles.container);
+    container.setAttribute('id', 'container');
 
     const form = `
     <form action="" class=${styles.form} name="register">
@@ -39,6 +40,8 @@ export function renderRegisterForm() {
 
     container.insertAdjacentHTML('afterbegin', form);
     ROOT_ELEMENT.appendChild(container);
+
+    ROOT_ELEMENT.style.overflow = 'visible';
 
     document.getElementById('loginLink').addEventListener('click', () => {
         logInUser(container);

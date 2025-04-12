@@ -43,7 +43,7 @@ label {
 input {
     width: 100%;
     padding: 12px;
-    border: none;
+    border-style: none;
     border-radius: 20px;
     background-color: #e0e5ec;
     box-shadow: inset 5px 5px 10px #bec3c9,
@@ -54,6 +54,16 @@ input {
 
 input::placeholder {
     color: #aaa;
+}
+
+input.error{
+    border-style: inset;
+    border-color: red;
+}
+
+input.successfull{
+    border-style: inset;
+    border-color: green;
 }
 
 button {
