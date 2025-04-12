@@ -1,5 +1,5 @@
 import { renderRegisterForm } from "./renderRegisterForm.js";
-import { firebase, encryptPassword, initMap, createTransportContainer, renderPopUp } from "../../index.js";
+import { firebase, encryptPassword, initMap, createTransportContainer, triggerPopUp } from "../../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR, ROOT_ELEMENT } from "../../constants.js";
 
 import styles from '../style.module.css'
@@ -30,6 +30,11 @@ export function registerUser() {
         if (passwordInput.value !== confirmPasswordInput.value) {
             passwordInput.classList.add(styles.error);
             confirmPasswordInput.classList.add(styles.error);
+
+            triggerPopUp({ 
+                title: 'Uncorrect password', 
+                text: 'Please check that password and confirm password are same' 
+            });
             return;
         } else {
             passwordInput.classList.add(styles.successfull);
@@ -45,6 +50,12 @@ export function registerUser() {
 
         if (!isNicknameUnique) {
             nicknameInput.classList.add(styles.error);
+
+            triggerPopUp({ 
+                title: 'Unique Nickname', 
+                text: 'Please choose another nickname, this nickname has been already taken' 
+            });
+
             return;
         } else {
             nicknameInput.classList.add(styles.error);
@@ -74,7 +85,6 @@ export function registerUser() {
         ROOT_ELEMENT.style.overflow = 'hidden';
         initMap();
         createTransportContainer();
-        renderPopUp();
     })
 }
 
