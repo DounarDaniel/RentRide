@@ -1,4 +1,5 @@
 import { ROOT_ELEMENT } from "../../constants";
+import { logInUser } from "../logIn/logInUser.js";
 
 import styles from '../style.module.css'
 
@@ -33,9 +34,13 @@ export function renderRegisterForm() {
         </div>
 
         <button type="submit">Register</button>
-        <p class=${styles.loginText}>Already have an account? <a href="#" class=${styles.loginLink}>Log In</a></p>
+        <p class=${styles.loginText}>Already have an account? <a href="#" class=${styles.loginLink} id="loginLink">Log In</a></p>
     </form>`
 
     container.insertAdjacentHTML('afterbegin', form);
     ROOT_ELEMENT.appendChild(container);
+
+    document.getElementById('loginLink').addEventListener('click', () => {
+        logInUser(container);
+    })
 }

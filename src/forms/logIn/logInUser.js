@@ -1,13 +1,10 @@
-import { drawLogInForm } from './drawLodInForm.js';
+import { renderLogInForm } from "./renderLodInForm.js";
 import { firebase, decryptPassword, initMap, createTransportContainer } from "../../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID } from "../../constants.js";
 
-export function logInUser() {
-    drawLogInForm();
+export function logInUser(container) {
+    renderLogInForm(container);
     const form = document.forms.logIn;
-
-    // const form = drawLogInForm();
-    // функция отрисовывает форму и возвращает её элемент, потом надо будет доделать
 
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
