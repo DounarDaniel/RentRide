@@ -38,7 +38,7 @@ export function renderRegisterForm() {
                 required minlength="4">
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit" class=${styles.button}>Register</button>
         <p class=${styles.loginText}>Already have an account? <a href="#" class=${styles.loginLink} id="loginLink">Log In</a></p>
     </form>`
 

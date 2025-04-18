@@ -31,9 +31,9 @@ export function registerUser() {
             passwordInput.classList.add(styles.error);
             confirmPasswordInput.classList.add(styles.error);
 
-            triggerPopUp({ 
-                title: 'Uncorrect password', 
-                text: 'Please check that password and confirm password are same' 
+            triggerPopUp({
+                title: 'Uncorrect password',
+                text: 'Please check that password and confirm password are same'
             });
             return;
         } else {
@@ -51,9 +51,9 @@ export function registerUser() {
         if (!isNicknameUnique) {
             nicknameInput.classList.add(styles.error);
 
-            triggerPopUp({ 
-                title: 'Unique Nickname', 
-                text: 'Please choose another nickname, this nickname has been already taken' 
+            triggerPopUp({
+                title: 'Unique Nickname',
+                text: 'Please choose another nickname, this nickname has been already taken'
             });
 
             return;
