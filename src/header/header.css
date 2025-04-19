@@ -8,7 +8,9 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 20px 35px;
-    animation: rainbowGlow 10s linear infinite;
+    box-shadow:
+        0 10px 20px rgba(0, 150, 255, 0.5),
+        0 -5px 15px rgba(255, 255, 255, 0.3);
 }
 
 .title {
@@ -30,6 +32,14 @@ nav {
 
 .menu li {
     position: relative;
+    transition: all .7s ease-in-out;
+}
+
+.menu li:hover {
+    background-color: #d2d2d2;
+    border-radius: 15px;
+    padding: 10px 40px;
+    width: 100%;
 }
 
 .menu li:hover .icon {
@@ -92,39 +102,5 @@ nav {
 
     75% {
         transform: translateY(0);
-    }
-}
-
-@keyframes rainbowGlow {
-    0% {
-        box-shadow: 0 0 10px #f32626, 0 0 20px #ff0000, 0 0 30px #ff0000;
-    }
-
-    14% {
-        box-shadow: 0 0 10px #ff7f00, 0 0 20px #ff7f00, 0 0 30px #ff7f00;
-    }
-
-    28% {
-        box-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00;
-    }
-
-    42% {
-        box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
-    }
-
-    57% {
-        box-shadow: 0 0 10px #0000ff, 0 0 20px #0000ff, 0 0 30px #0000ff;
-    }
-
-    71% {
-        box-shadow: 0 0 10px #4b0082, 0 0 20px #4b0082, 0 0 30px #4b0082;
-    }
-
-    85% {
-        box-shadow: 0 0 10px #9400d3, 0 0 20px #9400d3, 0 0 30px #9400d3;
-    }
-
-    100% {
-        box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
     }
 }
