@@ -5,5 +5,4 @@ export { registerUser } from './forms/register/registerUser.js';
 export { logInUser } from './forms/logIn/logInUser.js';
 export { encryptPassword } from './encryption.js';
 export { decryptPassword } from './encryption.js';
-export { renderPopUp } from './popUp/renderPopUp.js';
-export { triggerPopUp } from './popUp/triggerPopUp.js'
+export { renderPopUp } from './popUp/renderPopUp.js'

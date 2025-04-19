@@ -7,10 +7,10 @@ export function renderPopUp() {
     <div class=${styles.popUp} id="popUp">
         <div class=${styles.popUpBody}>
             <section class=${styles.content}>
-                <a class=${styles.close} id="popUp_close"></a>
+                <button class=${styles.close} id="popUp_close"></button>
 
-                <h2 class=${styles.title} id="popUpTitle"></h2>
-                <p class=${styles.text} id="popUpText"></p>
+                <h2 class=${styles.title}></h2>
+                <p class=${styles.text}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ex architecto odit adipisci, id sed iure ullam magnam ipsum harum. Ullam, rem.</p>
             </section>
         </div>
     </div>`

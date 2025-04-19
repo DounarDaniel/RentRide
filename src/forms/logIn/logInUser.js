@@ -1,5 +1,5 @@
 import { renderLogInForm } from "./renderLodInForm.js";
-import { firebase, decryptPassword, initMap, createTransportContainer } from "../../index.js";
+import { firebase, decryptPassword, initMap, createTransportContainer, renderPopUp } from "../../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, ROOT_ELEMENT } from "../../constants.js";
 
 import styles from '../style.module.css'
@@ -20,12 +20,23 @@ export function logInUser(container) {
         const usersList = usersData.users;
 
         const user = usersList.find(user => user.nickname === usernameInput.value);
-        const decryptedPassword = decryptPassword(user.password);
 
-        if (!user || decryptedPassword !== passwordInput.value) {
+        if (!user) {
             usernameInput.classList.add(styles.error);
-            passwordInput.classList.add(styles.error);
+            console.warn('Error in username');
             return;
+        } else {
+            usernameInput.classList.add(styles.successfull);
+        }
+
+        const decryptedPassword = decryptPassword(user.password)
+
+        if (decryptedPassword !== passwordInput.value) {
+            passwordInput.classList.add(styles.error);
+            console.warn('Error in password');
+            return;
+        } else {
+            passwordInput.classList.add(styles.successfull);
         }
 
         localStorage.setItem('userId', user.id);
@@ -36,5 +47,6 @@ export function logInUser(container) {
         ROOT_ELEMENT.style.overflow = 'hidden';
         initMap();
         createTransportContainer();
+        renderPopUp();
     });
 }
