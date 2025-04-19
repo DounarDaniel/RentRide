@@ -1,5 +1,6 @@
-import styles from '../style.module.css'
 import { registerUser } from '../register/registerUser.js';
+
+import styles from '../style.module.css'
 
 export function renderLogInForm(container) {
     const form = `
@@ -17,11 +18,11 @@ export function renderLogInForm(container) {
             <input type="password" id="password" name="password" placeholder="••••••••" required>
         </div>
 
-        <button type="submit">Sign In</button>
+        <button type="submit" class=${styles.button}>Sign In</button>
         <p class=${styles.loginText}>No account? <a href="#" class=${styles.loginLink} id="registerLink">Create an account</a></p>
     </form>`
 
-    if(document.forms.length > 0 && !!document.forms.register){
+    if (document.forms.length > 0 && !!document.forms.register) {
         document.forms.register.remove();
     }
 
