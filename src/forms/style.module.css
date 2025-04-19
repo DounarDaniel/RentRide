@@ -56,12 +56,12 @@ input::placeholder {
     color: #aaa;
 }
 
-input.error{
+input.error {
     border-style: inset;
     border-color: red;
 }
 
-input.successfull{
+input.successfull {
     border-style: inset;
     border-color: green;
 }
@@ -102,4 +102,11 @@ button:hover {
 
 .loginLink:hover {
     text-decoration: underline;
+}
+
+.togglePassword {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
 }
