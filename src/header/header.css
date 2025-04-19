@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 35px;
+    animation: rainbowGlow 10s linear infinite;
+}
+
+.title {
+    color: #5555ff;
+    font-family: "Montserrat Alternates";
+    font-weight: 600;
+    font-size: 35px;
+}
+
+nav {
+    margin: auto 0;
+}
+
+.menu {
+    list-style-type: none;
+    display: flex;
+    gap: 25px;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu li:hover .icon {
+    transform: translateX(-110%);
+}
+
+.menu li:hover .text {
+    opacity: 1;
+    animation: textTransform 1s ease-in-out;
+    transform: translateY(0);
+}
+
+.text {
+    font-size: 18px;
+    font-family: "Montserrat Alternates";
+    font-weight: 500;
+    opacity: 0;
+    display: inline-block;
+    transform: translateY(-300%);
+    animation: textTransformBack .8s ease-in-out;
+    cursor: pointer;
+}
+
+.icon {
+    height: 35px;
+    width: 35px;
+    margin: auto 0;
+    position: absolute;
+    top: -6px;
+    font-weight: 400;
+    transition: all .4s ease-in-out;
+}
+
+@keyframes textTransformBack {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-300%);
+        opacity: 0;
+    }
+}
+
+@keyframes textTransform {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(30px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    75% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes rainbowGlow {
+    0% {
+        box-shadow: 0 0 10px #f32626, 0 0 20px #ff0000, 0 0 30px #ff0000;
+    }
+
+    14% {
+        box-shadow: 0 0 10px #ff7f00, 0 0 20px #ff7f00, 0 0 30px #ff7f00;
+    }
+
+    28% {
+        box-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00;
+    }
+
+    42% {
+        box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+    }
+
+    57% {
+        box-shadow: 0 0 10px #0000ff, 0 0 20px #0000ff, 0 0 30px #0000ff;
+    }
+
+    71% {
+        box-shadow: 0 0 10px #4b0082, 0 0 20px #4b0082, 0 0 30px #4b0082;
+    }
+
+    85% {
+        box-shadow: 0 0 10px #9400d3, 0 0 20px #9400d3, 0 0 30px #9400d3;
+    }
+
+    100% {
+        box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+    }
+}
