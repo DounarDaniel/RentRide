@@ -1,5 +1,5 @@
 import { renderRegisterForm } from "./renderRegisterForm.js";
-import { firebase, encryptPassword, initMap, createTransportContainer, triggerPopUp } from "../../index.js";
+import { firebase, encryptPassword, initMap, createTransportContainer, triggerPopUp, renderHeader } from "../../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR, ROOT_ELEMENT } from "../../constants.js";
 
 import styles from '../style.module.css'
@@ -85,6 +85,7 @@ export function registerUser() {
         ROOT_ELEMENT.style.overflow = 'hidden';
         initMap();
         createTransportContainer();
+        renderHeader();
     })
 }
 

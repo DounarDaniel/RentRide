@@ -11,6 +11,11 @@ header {
     box-shadow:
         0 10px 20px rgba(0, 150, 255, 0.5),
         0 -5px 15px rgba(255, 255, 255, 0.3);
+    background-color: white;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
 }
 
 .title {
