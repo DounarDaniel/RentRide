@@ -7,4 +7,5 @@ export { encryptPassword } from './encryption.js';
 export { decryptPassword } from './encryption.js';
 export { renderPopUp } from './popUp/renderPopUp.js';
 export { triggerPopUp } from './popUp/triggerPopUp.js';
-export { renderHeader } from './header/renderHeader.js'
+export { renderHeader } from './header/renderHeader.js';
+export { renderMainPage } from './renderMainPage.js'

@@ -1,5 +1,5 @@
 import { renderLogInForm } from "./renderLodInForm.js";
-import { firebase, decryptPassword, initMap, createTransportContainer, renderHeader } from "../../index.js";
+import { firebase, decryptPassword, renderMainPage } from "../../index.js";
 import { USERS_COLLECTION_NAME, USERS_DOC_ID, ROOT_ELEMENT } from "../../constants.js";
 
 import styles from '../style.module.css'
@@ -34,8 +34,6 @@ export function logInUser(container) {
         document.querySelector('#container').remove();
 
         ROOT_ELEMENT.style.overflow = 'hidden';
-        initMap();
-        createTransportContainer();
-        renderHeader();
+        renderMainPage();
     });
 }
