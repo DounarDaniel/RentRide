@@ -1,5 +1,6 @@
-import styles from '../style.module.css'
 import { registerUser } from '../register/registerUser.js';
+
+import styles from '../style.module.css'
 
 export function renderLogInForm(container) {
     const form = `
@@ -20,7 +21,7 @@ export function renderLogInForm(container) {
             </button>
         </div>
 
-        <button type="submit">Sign In</button>
+        <button type="submit" class=${styles.button}>Sign In</button>
         <p class=${styles.loginText}>No account? <a href="#" class=${styles.loginLink} id="registerLink">Create an account</a></p>
     </form>`
 

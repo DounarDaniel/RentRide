@@ -38,6 +38,8 @@
 label {
     font-weight: 500;
     font-size: 18px;
+    display: inline-block;
+    width: 100%;
 }
 
 input {
@@ -66,7 +68,7 @@ input.successfull {
     border-color: green;
 }
 
-button {
+.button {
     width: 100%;
     padding: 14px;
     border: none;
@@ -82,7 +84,7 @@ button {
     margin: 10px;
 }
 
-button:hover {
+.button:hover {
     box-shadow: inset 5px 5px 10px #bec3c9,
         inset -5px -5px 10px #ffffff;
     color: #333;

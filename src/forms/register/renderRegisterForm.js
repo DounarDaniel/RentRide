@@ -4,9 +4,13 @@ import { logInUser } from "../logIn/logInUser.js";
 import styles from '../style.module.css'
 
 export function renderRegisterForm() {
-    const container = document.createElement('div');
-    container.classList.add(styles.container);
-    container.setAttribute('id', 'container');
+    let container = document.querySelector('#container');
+    
+    if (!container) {
+        container = document.createElement('div');
+        container.classList.add(styles.container);
+        container.setAttribute('id', 'container');
+    }
 
     const form = `
     <form action="" class=${styles.form} name="register">
@@ -25,7 +29,7 @@ export function renderRegisterForm() {
 
         <div class=${styles.inputGroup}>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" minlength="4" required>
+            <input type="password" id="password" name="password" placeholder="Enter your password" minlength="4" required value="">
         </div>
 
          <div class=${styles.inputGroup}>
@@ -34,7 +38,7 @@ export function renderRegisterForm() {
                 required minlength="4">
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit" class=${styles.button}>Register</button>
         <p class=${styles.loginText}>Already have an account? <a href="#" class=${styles.loginLink} id="loginLink">Log In</a></p>
     </form>`
 
