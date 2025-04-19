@@ -43,12 +43,11 @@ nav {
 .menu li:hover {
     background-color: #d2d2d2;
     border-radius: 15px;
-    padding: 10px 40px;
-    width: 100%;
+    padding: 10px 10px 10px 45px;
 }
 
 .menu li:hover .icon {
-    transform: translateX(-110%);
+    left: 0;
 }
 
 .menu li:hover .text {
@@ -64,16 +63,17 @@ nav {
     opacity: 0;
     display: inline-block;
     transform: translateY(-300%);
-    animation: textTransformBack .8s ease-in-out;
+    animation: textTransformBack 1s ease-in-out;
     cursor: pointer;
 }
 
 .icon {
     height: 35px;
     width: 35px;
-    margin: auto 0;
     position: absolute;
-    top: -6px;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
     font-weight: 400;
     transition: all .4s ease-in-out;
 }
