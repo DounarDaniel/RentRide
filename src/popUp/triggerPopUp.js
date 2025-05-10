@@ -1,7 +1,13 @@
 import styles from './popUp.module.css'
+import { renderPopUp } from './renderPopUp';
 
 export function triggerPopUp({ title, text }) {
-    const popUp = document.querySelector('#popUp');
+    let popUp = document.querySelector('#popUp');
+
+    if (!popUp) {
+        popUp = renderPopUp();
+    }
+
     const popUpText = document.querySelector('#popUpText');
     const popUpTitle = document.querySelector('#popUpTitle');
 

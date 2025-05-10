@@ -1,16 +1,20 @@
 import { MAP_OPTIONS, ROOT_ELEMENT } from '../constants.js';
 import { addMapMarkers } from "./addMapMarkers.js";
 import { watchUserPosition } from "./watchUserPos.js";
+import { startLoading, stopLoading } from '../index.js';
 
 let map;
 export async function initMap() {
-    createAndAppendMapElement()
+    const loaderType = 'mapLoader';
+    startLoading(loaderType)
+
+    createAndAppendMapElement();
 
     try {
         map = new google.maps.Map(document.getElementById('map'), MAP_OPTIONS);
     } catch (error) {
         window.location.reload();
-        console.error('Error in creating map element', error)
+        console.error('Error in creating map element', error);
     }
 
     await addMapMarkers(map);
@@ -21,6 +25,8 @@ export async function initMap() {
         alert("Геолокация не поддерживается вашим браузером");
         console.warn("Геолокация не поддерживается вашим браузером");
     }
+
+    stopLoading();
 }
 
 function createAndAppendMapElement() {

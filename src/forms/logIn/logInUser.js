@@ -1,8 +1,7 @@
 import { renderLogInForm } from "./renderLodInForm.js";
-import { firebase, decryptPassword, renderMainPage } from "../../index.js";
-import { USERS_COLLECTION_NAME, USERS_DOC_ID, ROOT_ELEMENT } from "../../constants.js";
-
-import styles from '../style.module.css'
+import { firebase, renderMainPage, encryptPassword, decryptPassword } from "../../index.js";
+import { USERS_COLLECTION_NAME, ROOT_ELEMENT } from "../../constants.js";
+import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 
 export function logInUser(container) {
     renderLogInForm(container);
@@ -13,27 +12,37 @@ export function logInUser(container) {
 
         const formsElements = event.target.elements;
 
-        const usernameInput = formsElements.username;
+        const nicknameInput = formsElements.username;
         const passwordInput = formsElements.password;
+        const emailInput = formsElements.email;
 
-        const usersData = await firebase.getDoc(USERS_COLLECTION_NAME, USERS_DOC_ID);
-        const usersList = usersData.users;
+        let user;
+        const allInputs = [nicknameInput, passwordInput, emailInput];
 
-        const user = usersList.find(user => user.nickname === usernameInput.value);
-        const decryptedPassword = decryptPassword(user.password);
-
-        if (!user || decryptedPassword !== passwordInput.value) {
-            usernameInput.classList.add(styles.error);
-            passwordInput.classList.add(styles.error);
-            return;
+        try {
+            user = await firebase.lodinUser(emailInput.value, passwordInput.value)
+            submitSuccessHandle(allInputs)
+        } catch (error) {
+            submitErrorHandle(allInputs);
         }
 
-        localStorage.setItem('userId', user.id);
+        console.log(user)
+
+        // const decryptedPassword = decryptPassword(user.password);
+
+        // if (nicknameInput.value !== user.nickname || passwordInput.value !== decryptedPassword) {
+        //     submitErrorHandle([nicknameInput, passwordInput]);
+        //     return;
+        // }
+
+        return;
 
         this.remove();
         document.querySelector('#container').remove();
 
         ROOT_ELEMENT.style.overflow = 'hidden';
-        renderMainPage();
+
+        const isAdmin = user.isAdmin;
+        renderMainPage(isAdmin);
     });
 }

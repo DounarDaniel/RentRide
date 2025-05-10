@@ -1,9 +1,18 @@
 import { FIREBASE_CONFIG } from "./constants.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getFirestore, doc, collection, getDoc, updateDoc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
 
 const app = initializeApp(FIREBASE_CONFIG);
+
 const db = getFirestore(app);
+const auth = getAuth(app)
+
+// const user = auth.currentUser;
+
+// все кнопочки синие
+// grid для карточек транспорта
+console.log(auth)
 
 class FirebaseService {
     async getDoc(collectionName, docId) {
@@ -13,105 +22,55 @@ class FirebaseService {
         if (docSnap.exists()) {
             return docSnap.data();
         } else {
-            console.warn("Document is undifined!");
-            return null;
-        }
-    };
-
-    async updateDoc(collectionName, docId, updatedFirebaseDoc) {
-        const docRef = doc(db, collectionName, docId);
-
-        // const updatedFirebaseDoc = {};
-        // updatedFirebaseDoc[propertyName] = firebaseUpdatedData;
-
-        try {
-            await updateDoc(docRef, updatedFirebaseDoc);
-        } catch (error) {
-            console.warn("Error in updating doc:", error);
-        }
-    };
-
-    async setDoc(collectionName, docId, data) {
-        try {
-            const doc = doc(db, collectionName, docId)
-            await setDoc(doc, data, { merge: true })
-        } catch (error) {
-            console.warn('Error in setting data to firebase!', error)
+            console.error("Document is undefined");
         }
     };
 
     async addDoc(collectionName, data) {
         try {
             const firebaseCollection = collection(db, collectionName);
-            await addDoc(firebaseCollection, data);
+            const docRef = await addDoc(firebaseCollection, data);
+
+            return docRef.id;
         } catch (error) {
-            console.warn('Error in adding document!', error)
+            console.error("Error in adding document!", error);
         }
     }
 
-    async addDataToFirebase(collectionName, docId, propertyName, newData) {
-        const firebaseDoc = await this.getDoc(collectionName, docId)
-        let firebaseData = firebaseDoc[propertyName];
+    async updateDoc(collectionName, docId, updatedFirebaseDoc) {
+        const docRef = doc(db, collectionName, docId);
 
-        if (!(Array.isArray(firebaseData)) && typeof firebaseData === 'object' && !Object.keys(firebaseData).length) {
-            console.warn('Error in firebaseData.');
-            firebaseData = [];
+        try {
+            await updateDoc(docRef, updatedFirebaseDoc);
+        } catch (error) {
+            console.error("Error in updating doc:", error);
         }
-
-        if (typeof firebaseData === 'undefined') {
-            firebaseData = [];
-        }
-
-        const isDuplicate = firebaseData.some(item => item.id === newData.id);
-
-        if (isDuplicate) {
-            console.warn('Объект с таким ID уже существует');
-            return;
-        }
-
-        firebaseData.push(newData);
-
-        const updatedFirebaseDoc = {};
-        updatedFirebaseDoc[propertyName] = firebaseData;
-
-        this.updateDoc(collectionName, docId, updatedFirebaseDoc);
     };
 
-    async deleteDataFromFirebase(collectionName, docId, propertyName, identifier, itemToDeleteId) {
-        const firebaseDoc = await this.getDoc(collectionName, docId);
-        let firebaseData = firebaseDoc[propertyName];
-
-        const filteredFirebaseData = firebaseData.filter(item => {
-            if (typeof item[identifier] === 'object' && typeof itemToDeleteId === 'object') {
-                return JSON.stringify(item[identifier]) !== JSON.stringify(itemToDeleteId);
-            }
-
-            return item[identifier] !== itemToDeleteId;
-        });
-
-        const updatedFirebaseDoc = {};
-        updatedFirebaseDoc[propertyName] = filteredFirebaseData;
-
-        this.updateFirebaseData(collectionName, docId, updatedFirebaseDoc);
+    async setDoc(collectionName, docId, data) {
+        try {
+            const firebaseDoc = doc(db, collectionName, docId);
+            await setDoc(firebaseDoc, data, { merge: true });
+        } catch (error) {
+            console.warn('Error in setting data to firebase!', error);
+        }
     };
+
+    async createUser(email, password) {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        const user = cred.user;
+        console.log(user)
+    }
+
+    async lodinUser(email, password) {
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        const user = cred.user
+        return user
+    }
+
+    async logoutUser() {
+        await signOut()
+    }
 }
 
 export const firebase = new FirebaseService();
-
-// Пример использования:
-// const transportList = await firebase.getDataFromFirebase(TRANSPORT_COLLECTION_NAME, TRANSPORT_DOC_NAME)
-
-// const newTransport = {
-//     name: "car",
-//     additional_info: "Max distant: 1km",
-//     basic_info: "An electric car IX3",
-//     batery: 2,
-
-//     cords: {
-//         lat: "11.353",
-//         lon: "1.921"
-//     },
-// }
-
-// firebase.setDataToFirebase(TRANSPORT_COLLECTION_NAME, TRANSPORT_DOC_NAME, 'transportList', newTransport);
-// firebase.deleteFirebaseData(TRANSPORT_COLLECTION_NAME, TRANSPORT_DOC_ID, TRANSPORT_DOC_NAME, 'cords', {lat: "11.353", lon: "1.921"});

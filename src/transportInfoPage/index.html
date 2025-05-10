@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&family=Special+Gothic+Expanded+One&display=swap"
+        rel="stylesheet">
+    <title>More info</title>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+
+<body>
+    <section class="top" data-aos="fade-up" data-aos-duration="1500">
+        <div class="allowBox" data-aos="fade-up" data-aos-duration="1500">
+            <button class="allow">
+                <img src="./Allow.png" alt="Allow">
+            </button>
+
+            <h2>Bicycle</h2>
+        </div>
+
+        <button data-aos="fade-up" data-aos-duration="1500" class="button" id="rentButton">Арендовать</button>
+    </section>
+
+    <main>
+        <div class="slider-container" data-aos="fade-down" data-aos-duration="1500">
+            <div class="slider">
+                <img src="./photo_1.avif" alt="transport" class="active">
+                <img src="./photo_2.avif" alt="transport">
+                <img src="./photo_3.avif" alt="transport">
+            </div>
+
+            <button class="prev-button" type="button"><img src="./Allow.png" alt="Allow"></button>
+            <button class="next-button" type="button"><img src="./Allow.png" alt="Allow"></button>
+        </div>
+
+        <section class="content">
+            <h3 class="title" data-aos="fade-right" data-aos-duration="1500">Bicycle</h3>
+            <p class="text" data-aos="fade-left" data-aos-duration="1500">Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Nulla molestiae, modi cumque
+                aliquid voluptas culpa?</p>
+        </section>
+
+        <div class="prices">
+            <div class="price">
+                <img src="./icon-time.png" alt="clock">
+                <h4>За минуту</h4>
+                <p>$0.10</p>
+            </div>
+
+            <div class="price">
+                <img src="./icon-time.png" alt="clock">
+                <h4>За час</h4>
+                <p>$5.00</p>
+            </div>
+
+            <div class="price">
+                <img src="./icon-time.png" alt="clock">
+                <h4>За день</h4>
+                <p>$35.00</p>
+            </div>
+        </div>
+
+        <form name="reviewForm" class="reviewForm" action="">
+            <h2 data-aos="fade-left" data-aos-duration="1500">Оставьте отзыв о транспорте</h2>
+            <p data-aos="fade-right" data-aos-duration="1500">Это поможет нам узнать какой транспорт не пользуется
+                популярностью и убрать его, а те которые понравились - зарядить побольше!</p>
+
+            <div class="rating">
+                <input value="5" name="rating" id="star5" type="radio">
+                <label for="star5"></label>
+
+                <input value="4" name="rating" id="star4" type="radio">
+                <label for="star4"></label>
+
+                <input value="3" name="rating" id="star3" type="radio">
+                <label for="star3"></label>
+
+                <input value="2" name="rating" id="star2" type="radio">
+                <label for="star2"></label>
+
+                <input value="1" name="rating" id="star1" type="radio">
+                <label for="star1"></label>
+            </div>
+
+            <h2>Расскажите о товаре</h2>
+
+            <div class="input-group">
+                <input required="" type="text" name="text" autocomplete="off" class="review-input"
+                    data-aos="flip-right">
+                <label class="review-label">Опишите плюсы товара*</label>
+            </div>
+
+            <div class="input-group">
+                <input required type="text" id="negativeInput" name="negative" autocomplete="off" class="review-input"
+                    data-aos="flip-right">
+                <label class="review-label">Опишите недостатки товара*</label>
+            </div>
+
+            <div class="input-group">
+                <input required type="text" id="commentsInput" name="comments" autocomplete="off" class="review-input"
+                    data-aos="flip-right">
+                <label class="review-label">Дополнительные комментарии</label>
+            </div>
+
+            <button type="submit" class="submit-button button" data-aos="zoom-out-right"
+                data-aos-duration="1500">Отправить
+                отзыв</button>
+        </form>
+    </main>
+
+    <div class="reviewsList">
+        <h2>Отзывы:</h2>
+        <div></div>
+    </div>
+
+    <footer>
+        <button class="button" id="rentButton">Арендовать</button>
+
+        <div class="help">
+            <h3>Tex поддержка</h3>
+            <button class="button">Связаться</button>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init();
+        console.log(document.querySelector('.prev-button').previousElementSibling)
+    </script>
+</body>
+
+</html>

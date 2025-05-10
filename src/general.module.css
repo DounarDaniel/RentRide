@@ -1,0 +1,60 @@
+/* Basic colors */
+:root {
+    --white: #ffffff;
+    --black: #000000;
+}
+
+/* Primary colors */
+:root {
+    --primary-white: #e0e5ec;
+    --primary-grey: #777;
+    --primary-black: #2b3035;
+    --primary-opacity-black: #212529c7;
+    --primary-blue: #2196F3;
+}
+
+/* Primary fond family */
+:root {
+    --primary-font-family: "Montserrat Alternates", sans-serif;
+}
+
+/* Secondary colors */
+:root {
+    --secondary-blue: #007bff;
+    --secondary-grey: #535353;
+    --dark-grey: #333;
+    --secondary-white: #e7f5ff;
+
+    --shadow-grey: #bec3c9;
+
+    --error-color: red;
+    --success-color: green;
+
+    --close-btn-color: #dc3545;
+}
+
+/* Earth loading colors */
+:root {
+    --watercolor: #3344c1;
+    --landcolor: #7cc133;
+}
+
+/* Backgrouns */
+:root {
+    --popup-content-bg: #dee2e6;
+    --badge-bg: #0080ffb9;
+    --rating-bg: #ffffffcc;
+}
+
+/* Rotating */
+:root {
+    --small-rotate-deg: 45deg;
+    --big-rotate-deg: 135deg;
+}
+
+/* Basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

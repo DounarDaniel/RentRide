@@ -1,0 +1,104 @@
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 100%;
+    max-width: 30%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 7px 7px 14px var(--shadow-grey),
+        -7px -7px 14px var(--white);
+    transition: all 0.3s ease;;
+    background-color: var(--white);
+    font-family: 'Montserrat Alternates';
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 10px 10px 20px var(--shadow-grey),
+        -10px -10px 20px var(--white);
+}
+
+.image {
+    position: relative;
+    background-color: var(--black);
+    height: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.imageInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.badge {
+    background-color: var(--badge-bg);
+    border-radius: 10px;
+    padding: 5px 8px;
+    width: fit-content;
+    color: var(--secondary-white);
+    font-weight: 600;
+}
+
+.model {
+    color: var(--secondary-white);
+    font-weight: 500;
+    margin: 0;
+}
+
+.rating {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: var(--rating-bg);
+    padding: 4px 8px;
+    border-radius: 5px;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.info {
+    padding: 15px;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: var(--primary-grey);
+}
+
+.detailsBtn {
+    background-color: var(--primary-blue);
+    color: var(--secondary-white);
+    border: 1px solid var(--primary-blue);
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;;
+}
+
+.detailsBtn:hover,
+.detailsBtn:focus {
+    color: var(--primary-blue);
+    background-color: var(--secondary-white);
+    outline: none;
+}
+
+.detailsBtn:focus-visible {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}

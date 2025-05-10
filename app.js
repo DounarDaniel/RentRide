@@ -1,10 +1,27 @@
-import { registerUser, renderPopUp, renderMainPage } from "./src/index.js";
+import { registerUser, renderMainPage } from "./src/index.js";
+import { onAuthStateChanged, getAuth } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
 
-const userId = localStorage.getItem('userId');
-renderPopUp();
+import './src/general.module.css'
 
-if (!userId) {
-    registerUser()
-} else {
-    renderMainPage();
-}
+const auth = getAuth();
+onAuthStateChanged(auth, user => {
+    if (!user) {
+        registerUser()
+    } else {
+        renderMainPage()
+    }
+})
+
+// else {
+//     let userData;
+//     let isAdmin = false;
+
+//     firebase.getDoc(USERS_COLLECTION_NAME, loginCode)
+//         .then(data => userData = data)
+//         .then(userData => isAdmin = userData.isAdmin)
+//         .then(isAdmin => renderMainPage(isAdmin))
+//         .catch(error => {
+//             console.error(error);
+//             registerUser();
+//         });
+// }

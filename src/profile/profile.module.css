@@ -1,0 +1,195 @@
+.profile{
+    font-family: 'Montserrat Alternates', sans-serif;
+    background-color: #f0f2f5;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.profileTop {
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 50px;
+}
+
+.profileTop:hover {
+    transform: translateY(-3px);
+}
+
+.profileBottom {
+    width: 90%;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.avatar {
+    position: relative;
+    width: 130px;
+    margin: 0 auto 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+.avatarPicture {
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+    background-color: #e9ecef;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.avatarButton {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background-color: #007bff;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.avatarButton:hover {
+    background-color: #0056b3;
+}
+
+.avatarButton label{
+    color: #fff;
+}
+
+.avatarButton input{
+    display: none;
+}
+
+.info h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 8px;
+}
+
+.info p {
+    font-size: 17px;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+}
+
+.statBox {
+    background-color: #fff;
+    padding: 33px;
+    border-radius: 8px;
+    width: 45%;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    transition: border-color 0.2s ease-in-out;
+    height: 110px;
+}
+
+.statBox:hover {
+    border-color: #007bff;
+}
+
+.statBox p:first-child {
+    font-size: 22px;
+    font-weight: bold;
+    color: #495057;
+    margin: 0;
+}
+
+.statBox p:last-child {
+    font-size: 15px;
+    color: #707780;
+}
+
+.logout {
+    background-color: #a8a8a8;
+    border: none;
+    color: #fff;
+    padding: 14px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logout:hover {
+    background-color: #ff0000;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.switching {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.switching p {
+    padding: 12px 25px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+    color: #777;
+}
+
+.switching p.active {
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.trips {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.trip {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+}
+
+.trip h3 {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.date {
+    font-size: 0.9em;
+    color: #777;
+    margin: auto;
+}

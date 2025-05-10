@@ -1,9 +1,10 @@
+import { TRANSPORT_MARKERS_DOC_ID, TRANSPORT_MARKERS_COLLECTION_NAME } from "../constants.js";
 import { firebase } from "../index.js";
-import { TRANSPORT_COLLECTION_NAME, TRANSPORT_DOC_ID } from '../constants.js';
+import { renderTransportCard } from "../transportCard/renderTransportCard.js";
 
 export async function addMapMarkers(map) {
-    const transportData = await firebase.getDoc(TRANSPORT_COLLECTION_NAME, TRANSPORT_DOC_ID);
-    const transportList = transportData.transportList;
+    const transportMarkersData = await firebase.getDoc(TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID)
+    const transportList = transportMarkersData.transportData;
 
     transportList.forEach(transport => {
         const position = {
@@ -13,7 +14,7 @@ export async function addMapMarkers(map) {
 
         let transportImageUrl
 
-        switch (transport.name) {
+        switch (transport.type) {
             case 'scooter':
                 transportImageUrl = '../../mapIcons/scooter.png'
                 break;
@@ -34,6 +35,17 @@ export async function addMapMarkers(map) {
                 break;
         }
 
+        const infoWindowContent = `
+        <div>
+            <h3>${transport.type}</h3>
+            <p>${transport.basic_info}</p>
+            <p>Номер: ${transport.plate_number}</p>
+        </div>`
+
+        const infoWindow = new google.maps.InfoWindow({
+            content: infoWindowContent
+        })
+
         const marker = new google.maps.Marker({
             position,
             map,
@@ -44,13 +56,13 @@ export async function addMapMarkers(map) {
                 anchor: new google.maps.Point(15, 15)
             },
 
-            info: new google.maps.InfoWindow({
-                content: transport.basic_info
-            })
+            info: infoWindow,
         })
 
         marker.addListener('click', function () {
             this.info.open(map, this);
         });
+
+        renderTransportCard(transport.plate_number);
     });
 }
