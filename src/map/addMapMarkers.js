@@ -1,9 +1,9 @@
 import { TRANSPORT_MARKERS_DOC_ID, TRANSPORT_MARKERS_COLLECTION_NAME } from "../constants.js";
-import { firebase } from "../index.js";
+import { firebaseFirestore } from "../index.js";
 import { renderTransportCard } from "../transportCard/renderTransportCard.js";
 
 export async function addMapMarkers(map) {
-    const transportMarkersData = await firebase.getDoc(TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID)
+    const transportMarkersData = await firebaseFirestore.getDoc(TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID)
     const transportList = transportMarkersData.transportData;
 
     transportList.forEach(transport => {

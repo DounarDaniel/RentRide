@@ -1,8 +1,9 @@
 import { ROOT_ELEMENT, TRANSPORT_LIST } from '../../constants';
-import { renderMainPage } from '../../index.js';
+import { renderMainPage, startLoading, triggerPopUp } from '../../index.js';
 import { createAndAppendFormContainer } from '../createFormContainer'
 
 import generalStyles from '../style.module.css'
+import { submitErrorHandle } from '../submitHandlers.js';
 import additionalStyles from './addTransport.module.css'
 
 export function renderTransportForm() {
@@ -43,8 +44,17 @@ export function renderTransportForm() {
         </div>
 
         <div class=${generalStyles.inputGroup}>
-            <label for="nearby">Транспорт находится рядом с вами*</label>
-            <input type="checkbox" id="nearby" name="nearby" required>
+            <label for="nearby">Транспорт находится рядом с вами</label>
+            <input type="checkbox" id="nearby" name="nearby">
+        </div>
+
+        <hr class=${generalStyles.orLine}>
+
+        <div class=${generalStyles.inputGroup}>
+            <label for="address ">Адрес транспорта</label> 
+            <input type="text" id="address " name="address " placeholder="Введите адрес транспорта">
+            <p class=${generalStyles.infoText}></p>
+            <button type="button" id="addressSearch" class=${generalStyles.button}>Найти</button>
         </div>
 
         <button type="submit" class=${generalStyles.button}>Добавить</button>
@@ -77,5 +87,24 @@ export function renderTransportForm() {
         ROOT_ELEMENT.style.overflow = 'hidden';
         container.remove();
         renderMainPage(true);
+    })
+
+    const addressSearchBtn = document.querySelector('#address Search');
+    const addressInput = document.querySelector('#address ')
+
+    addressSearchBtn.addEventListener('click', async () => {
+        const address = addressInput.value;
+
+        if (address.trim().lenght > 0) {
+            startLoading('default')
+            const responce = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`);
+
+            if (!responce.ok) {
+                submitErrorHandle([addressInput]);
+                return;
+            }
+
+            console.log(responce)
+        }
     })
 }

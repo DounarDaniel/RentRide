@@ -1,5 +1,5 @@
 import { TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from "../../constants";
-import { firebase, renderMainPage, triggerPopUp, startLoading, stopLoading } from "../../index.js";
+import { firebaseFirestore, renderMainPage, triggerPopUp, startLoading, stopLoading } from "../../index.js";
 import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 import { renderTransportForm } from "./renderTransportForm";
 
@@ -10,6 +10,7 @@ export async function addTransport() {
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
+        // Получение данных с формы
         const form = event.target
         const formElements = form.elements;
 
@@ -23,6 +24,7 @@ export async function addTransport() {
 
         const fuelLevel = formElements.fuelLevel.value;
 
+        // Начало загрузки
         const loaderType = 'addTransportLoader';
         startLoading(loaderType);
 
@@ -31,17 +33,27 @@ export async function addTransport() {
             https://68135912129f6313e210ff51.mockapi.io/api/rentride/vehicles?plate_number=${transportNumber}
         `
 
+        // Проверка номера транспорта и получение данных из MockAPI
         try {
             const responce = await fetch(TRANSPORT_URL);
 
             if (!responce.ok) {
-                throw new Error('Такого номера не существует!')
+                stopLoading();
+
+                triggerPopUp({
+                    title: 'Такого номера не существует!',
+                    text: 'Проверьте пожалуйсто номер транспорта'
+                })
+
+                submitErrorHandle([transportNumberInput])
+
+                throw new Error('Такого номера не существует!');
             }
 
             transportData = await responce.json();
 
             if (!transportData) {
-                throw new Error('Не получена transportData');
+                throw new Error('Ошибка получения данных');
             }
 
             transportData = transportData[0]
@@ -52,8 +64,10 @@ export async function addTransport() {
             console.error(error);
 
             submitErrorHandle([transportNumberInput]);
+            return;
         }
 
+        // Проверка на тип транспорта
         if (transportData.type !== transportType) {
             submitErrorHandle([transportTypeSelect, transportNumberInput]);
             stopLoading();
@@ -62,12 +76,13 @@ export async function addTransport() {
             submitSuccessHandle([transportTypeSelect, transportNumberInput]);
         }
 
-        if (await firebase.getDoc(TRANSPORT_COLLECTION_NAME, transportData.plate_number)) {
+        // Проверка на уникальность
+        if (await firebaseFirestore.getDoc(TRANSPORT_COLLECTION_NAME, transportData.plate_number)) {
             stopLoading()
             submitErrorHandle([transportTypeSelect, transportNumberInput]);
 
             triggerPopUp({
-                title: 'Error',
+                title: 'Такой транспорт уже существует!',
                 text: 'Такой транспорт уже существует!'
             })
 
@@ -77,7 +92,7 @@ export async function addTransport() {
         }
 
         const newTransport = {
-            status: 'addedByAdmin',
+            status: 'active',
             picture: URL.createObjectURL(imageInput.files[0]),
             plate_number: transportData.plate_number,
             type: transportData.type,
@@ -108,18 +123,18 @@ export async function addTransport() {
                     }
 
                     try {
-                        await firebase.setDoc(
+                        await firebaseFirestore.setDoc(
                             TRANSPORT_COLLECTION_NAME,
                             transportData.plate_number,
                             newTransport
                         )
 
-                        const transportMarkersPrevData = await firebase.getDoc(
+                        const transportMarkersPrevData = await firebaseFirestore.getDoc(
                             TRANSPORT_MARKERS_COLLECTION_NAME,
                             TRANSPORT_MARKERS_DOC_ID
                         )
 
-                        await firebase.updateDoc(
+                        await firebaseFirestore.updateDoc(
                             TRANSPORT_MARKERS_COLLECTION_NAME,
                             TRANSPORT_MARKERS_DOC_ID,
                             { transportData: [...transportMarkersPrevData.transportData, transportMarkersNewData] }

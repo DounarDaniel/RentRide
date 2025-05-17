@@ -1,4 +1,5 @@
-export { firebase } from "./firebaseActions.js";
+export { firebaseFirestore } from "./firebaseActions.js";
+export { firebaseAuth } from "./firebaseActions.js";
 export { initMap } from './map/initMap.js';
 export { renderTransportContainer } from './transportContainer/transportContainer.js';
 export { registerUser } from './forms/register/registerUser.js';

@@ -1,5 +1,5 @@
 import { ROOT_ELEMENT, USERS_COLLECTION_NAME } from "../constants.js";
-import { firebase, registerUser, renderHeader, startLoading, stopLoading } from "../index.js";
+import { firebaseAuth, firebaseFirestore, registerUser, renderHeader, startLoading, stopLoading } from "../index.js";
 
 import styles from './profile.module.css'
 
@@ -15,7 +15,7 @@ export async function renderProfile() {
 
     startLoading();
 
-    const userData = await firebase.getDoc(USERS_COLLECTION_NAME, loginCode);
+    const userData = await firebaseFirestore.getDoc(USERS_COLLECTION_NAME, loginCode);
 
     renderHeader(true);
 
@@ -106,11 +106,11 @@ export async function renderProfile() {
         alert("Ваш браузер не поддерживает геолокацию!");
     }
 
-    document.querySelector('#logoutBtn').addEventListener('click', () => {
+    document.querySelector('#logoutBtn').addEventListener('click', async () => {
         const isSure = confirm("Вы точно хотите выйти из аккаунта?");
 
         if (isSure) {
-            firebase.logoutUser()
+            await firebaseAuth.logoutUser()
         }
     })
 

@@ -2,6 +2,8 @@
 :root {
     --white: #ffffff;
     --black: #000000;
+    --green: green;
+    --red: red;
 }
 
 /* Primary colors */
@@ -24,13 +26,21 @@
     --secondary-grey: #535353;
     --dark-grey: #333;
     --secondary-white: #e7f5ff;
+    --secondary-black: #282828;
 
-    --shadow-grey: #bec3c9;
-
-    --error-color: red;
-    --success-color: green;
+    --error-color: var(--red);
+    --success-color: var(--green);
 
     --close-btn-color: #dc3545;
+}
+
+/* Shadows */
+:root {
+    --shadow-grey: #bec3c9;
+    --profile-shadow: #0000001a;
+
+    --header-shadow: 0 10px 20px rgba(0, 150, 255, 0.5),
+        0 -5px 15px rgba(255, 255, 255, 0.3);
 }
 
 /* Earth loading colors */
@@ -44,12 +54,23 @@
     --popup-content-bg: #dee2e6;
     --badge-bg: #0080ffb9;
     --rating-bg: #ffffffcc;
+    --slider-bg: #eee;
+    --select-hover-bg: #0d6efd40;
+    --profile-bg: #f0f2f5;
+    --avatar-bg: #e9ecef;
+    --avatarBtn-hover-bg: #0056b3;
 }
 
 /* Rotating */
 :root {
     --small-rotate-deg: 45deg;
     --big-rotate-deg: 135deg;
+}
+
+/* Slider */
+:root {
+    --select-border: #ced4da;
+    --select-border-hover: #86b7fe;
 }
 
 /* Basic styles */

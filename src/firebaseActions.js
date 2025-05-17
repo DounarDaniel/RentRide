@@ -1,20 +1,14 @@
 import { FIREBASE_CONFIG } from "./constants.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getFirestore, doc, collection, getDoc, updateDoc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
 
 const app = initializeApp(FIREBASE_CONFIG);
 
 const db = getFirestore(app);
-const auth = getAuth(app)
+const auth = getAuth(app);
 
-// const user = auth.currentUser;
-
-// все кнопочки синие
-// grid для карточек транспорта
-console.log(auth)
-
-class FirebaseService {
+class FirebaseFirestoreService {
     async getDoc(collectionName, docId) {
         const docRef = doc(db, collectionName, docId);
         const docSnap = await getDoc(docRef);
@@ -55,11 +49,13 @@ class FirebaseService {
             console.warn('Error in setting data to firebase!', error);
         }
     };
+}
 
+class FirebaseAuthService {
     async createUser(email, password) {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         const user = cred.user;
-        console.log(user)
+        return user
     }
 
     async lodinUser(email, password) {
@@ -69,8 +65,9 @@ class FirebaseService {
     }
 
     async logoutUser() {
-        await signOut()
+        console.log(await signOut(auth))
     }
 }
 
-export const firebase = new FirebaseService();
+export const firebaseFirestore = new FirebaseFirestoreService();
+export const firebaseAuth = new FirebaseAuthService();

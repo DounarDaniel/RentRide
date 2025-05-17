@@ -1,5 +1,5 @@
 import { renderRegisterForm } from "./renderRegisterForm.js";
-import { firebase, encryptPassword, triggerPopUp, renderMainPage, renderPopUp } from "../../index.js";
+import { firebaseAuth, encryptPassword, triggerPopUp, renderMainPage, renderPopUp } from "../../index.js";
 import { USERS_COLLECTION_NAME, DEFAULT_AVATAR, ROOT_ELEMENT } from "../../constants.js";
 import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 
@@ -60,10 +60,10 @@ export function registerUser() {
             trips: [],
         }
 
-        firebase.createUser(userEmail, passwordInput.value)
+        firebaseAuth.createUser(userEmail, passwordInput.value)
         return;
 
-        const loginCode = await firebase.addDoc(USERS_COLLECTION_NAME, firebaseUserData);
+        const loginCode = await firebaseAuth.addDoc(USERS_COLLECTION_NAME, firebaseUserData);
         localStorage.setItem('loginCode', loginCode);
 
         triggerPopUp({

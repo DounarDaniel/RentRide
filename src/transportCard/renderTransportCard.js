@@ -1,6 +1,5 @@
 import { TRANSPORT_COLLECTION_NAME } from "../constants.js";
-import { firebase, renderTransportContainer } from "../index.js";
-import { renderCardsWrapper } from "./wrapper/renderCardsWrapper.js";
+import { firebaseFirestore, renderTransportContainer } from "../index.js";
 
 import styles from './transportCard.module.css'
 
@@ -14,7 +13,7 @@ export async function renderTransportCard(transportId) {
         wrapper = document.querySelector('#transportCardWrapper')
     }
 
-    const transportData = await firebase.getDoc(TRANSPORT_COLLECTION_NAME, transportId);
+    const transportData = await firebaseFirestore.getDoc(TRANSPORT_COLLECTION_NAME, transportId);
 
     const reviews = transportData.reviews
     let averageRating = 5;

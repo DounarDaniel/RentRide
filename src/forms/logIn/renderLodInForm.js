@@ -20,12 +20,6 @@ export function renderLogInForm() {
         </div>
 
         <div class=${styles.inputGroup}>
-            <label for="username">Username*</label>
-            <input type="text" id="username" name="username" placeholder="Username" required>
-            <p class=${styles.infoText}></p>
-        </div>
-
-        <div class=${styles.inputGroup}>
             <label for="password">Password*</label>
             <input type="password" id="password" name="password" placeholder="••••••••" required>
             <p class=${styles.infoText}></p>

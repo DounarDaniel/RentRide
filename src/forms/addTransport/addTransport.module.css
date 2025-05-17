@@ -4,7 +4,7 @@
     height: 20px;
     cursor: pointer;
     border-radius: 10px;
-    background-color: #eee;
+    background-color: var(--slider-bg);
 }
 
 .sliderFill {
@@ -12,7 +12,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    background-color: green;
+    background-color: var(--green);
     border-radius: 10px;
     transition: width 0.1s linear;
     width: 30%;
@@ -28,7 +28,7 @@
     left: 5px;
     transform: translateY(-50%);
     font-size: 14px;
-    color: #ffffff;
+    color: var(--white);
 }
 
 .select {
@@ -36,16 +36,32 @@
     padding: 6px 36px 6px 12px;
     font-size: 16px;
     line-height: 1.5;
-    background-color: #e0e5ec;
-    border: 0.5px solid #ced4da;
+    background-color: var(--primary-white);
+    border: .5px solid var(--select-border);
     border-radius: 0.375rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    box-shadow: 7px 7px 14px #bec3c9,
-        -7px -7px 14px #ffffff;
+    box-shadow: 7px 7px 14px var(--shadow-grey),
+        -7px -7px 14px var(--white);
 }
 
 .select:hover {
-    border-color: #86b7fe;
+    border-color: var(--select-border-hover);
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 0.25rem var(--select-hover-bg);
+}
+
+.searchAddressBtn {
+    width: 20%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--secondary-blue);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px var(--shadow-grey),
+        -5px -5px 10px var(--white);
+    transition: all 0.3s ease-in-out;
+    margin: 10px;
 }
