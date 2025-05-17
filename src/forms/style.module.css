@@ -6,7 +6,7 @@
 
 .form {
     width: 450px;
-    background-color: var(--white);
+    background-color: var(--primary-white);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 7px 7px 14px #bec3c9,
@@ -72,20 +72,20 @@ input.successfull {
     padding: 14px;
     border: none;
     border-radius: 20px;
-    background-color: var(--secondary-blue);
-    color: var(--white);
+    background-color: var(--primary-white);
+    color: var(--primary-grey);
     font-weight: 600;
     font-size: 18px;
-    cursor: pointer;
     box-shadow: 5px 5px 10px var(--shadow-grey),
         -5px -5px 10px var(--white);
-    transition: all .2s ease-in-out;
+    transition: all 0.5s ease-in-out;
     margin: 10px;
 }
 
 .button:hover {
-    color: var(--secondary-blue);
-    background-color: var(--white);
+    box-shadow: inset 5px 5px 10px var(--shadow-grey),
+        inset -5px -5px 10px var(--white);
+    color: var(--dark-grey);
 }
 
 .successText {
@@ -139,7 +139,7 @@ input.successfull {
 }
 
 .orLine::after {
-    content: 'OR';
+    content: 'ИЛИ';
     position: relative;
     top: -10px;
     background-color: var(--primary-white);

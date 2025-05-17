@@ -105,87 +105,123 @@ export async function addTransport() {
             cords: {}
         }
 
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
+        const transportMarkersNewData = {
+            status: newTransport.status,
+            plate_number: newTransport.plate_number,
+            cords: {},
+            basic_info: newTransport.basic_info,
+            type: newTransport.type,
+        }
 
-                    newTransport.cords.lat = latitude;
-                    newTransport.cords.lon = longitude;
-
-                    const transportMarkersNewData = {
-                        status: newTransport.status,
-                        plate_number: newTransport.plate_number,
-                        cords: newTransport.cords,
-                        basic_info: newTransport.basic_info,
-                        type: newTransport.type,
-                    }
-
-                    try {
-                        await firebaseFirestore.setDoc(
-                            TRANSPORT_COLLECTION_NAME,
-                            transportData.plate_number,
-                            newTransport
+        if (formElements.nearby.checked) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        addDataToFirebaseAndFinish(
+                            transportData,
+                            newTransport,
+                            transportMarkersNewData,
+                            position.coords,
+                            form
                         )
+                    },
+                    (error) => {
+                        switch (error.code) {
+                            case 'PERMISSION_DENIED':
+                                stopLoading();
 
-                        const transportMarkersPrevData = await firebaseFirestore.getDoc(
-                            TRANSPORT_MARKERS_COLLECTION_NAME,
-                            TRANSPORT_MARKERS_DOC_ID
-                        )
+                                triggerPopUp({
+                                    title: 'Ошибка геолокации',
+                                    text: 'Доступ к геолокации запрещён. Разрешите его в настройках браузера'
+                                })
 
-                        await firebaseFirestore.updateDoc(
-                            TRANSPORT_MARKERS_COLLECTION_NAME,
-                            TRANSPORT_MARKERS_DOC_ID,
-                            { transportData: [...transportMarkersPrevData.transportData, transportMarkersNewData] }
-                        )
-                    } catch (error) {
-                        console.error(error)
-                        stopLoading();
+                                break;
+                            case 'POSITION_UNAVAILABLE':
+                                stopLoading();
+
+                                triggerPopUp({
+                                    title: 'Ошибка геолокации',
+                                    text: 'Не удалось получить данные геолокации.'
+                                })
+
+                                break;
+                            case 'TIMEOUT':
+                                stopLoading();
+
+                                triggerPopUp({
+                                    title: 'Ошибка геолокации',
+                                    text: 'Время ожидания истекло.'
+                                })
+
+                                break;
+                            default:
+                                stopLoading();
+
+                                alert('Ошибка геолокации');
+                                break;
+                        }
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 30000,
+                        timeout: 27000
                     }
-
-                    stopLoading();
-                    form.remove();
-
-                    renderMainPage(true);
-                },
-                (error) => {
-                    switch (error.code) {
-                        case 'PERMISSION_DENIED':
-                            triggerPopUp({
-                                title: 'Ошибка геолокации',
-                                text: 'Доступ к геолокации запрещён. Разрешите его в настройках браузера'
-                            })
-
-                            break;
-                        case 'POSITION_UNAVAILABLE':
-                            triggerPopUp({
-                                title: 'Ошибка геолокации',
-                                text: 'Не удалось получить данные геолокации.'
-                            })
-
-                            break;
-                        case 'TIMEOUT':
-                            triggerPopUp({
-                                title: 'Ошибка геолокации',
-                                text: 'Время ожидания истекло.'
-                            })
-
-                            break;
-                        default:
-                            alert('Ошибка геолокации');
-                            break;
-                    }
-                },
-                {
-                    enableHighAccuracy: true,
-                    maximumAge: 30000,
-                    timeout: 27000
-                }
-            );
+                );
+            } else {
+                stopLoading();
+                console.error("Геолокация не поддерживается вашим браузером");
+                alert("Ваш браузер не поддерживает геолокацию!");
+                return;
+            }
         } else {
-            console.error("Геолокация не поддерживается вашим браузером");
-            alert("Ваш браузер не поддерживает геолокацию!");
+            const choosenPosition = localStorage.getItem('choosenPosition');
+
+            if (!choosenPosition || choosenPosition.length === 0) {
+                stopLoading();
+                return;
+            }
+
+            const parsedPosition = JSON.parse(choosenPosition);
+
+            addDataToFirebaseAndFinish(
+                transportData, 
+                newTransport, 
+                transportMarkersNewData,
+                parsedPosition, 
+                form
+            )
         }
     })
+}
+
+async function addDataToFirebaseAndFinish(transportData, newTransport, transportMarkersNewData, cords, form) {
+    newTransport.cords = cords;
+    transportMarkersNewData.cords = cords;
+
+    try {
+        await firebaseFirestore.setDoc(
+            TRANSPORT_COLLECTION_NAME,
+            transportData.plate_number,
+            newTransport
+        )
+
+        const transportMarkersPrevData = await firebaseFirestore.getDoc(
+            TRANSPORT_MARKERS_COLLECTION_NAME,
+            TRANSPORT_MARKERS_DOC_ID
+        )
+
+        await firebaseFirestore.updateDoc(
+            TRANSPORT_MARKERS_COLLECTION_NAME,
+            TRANSPORT_MARKERS_DOC_ID,
+            { transportData: [...transportMarkersPrevData.transportData, transportMarkersNewData] }
+        )
+    } catch (error) {
+        console.error(error)
+        stopLoading();
+    }
+
+    stopLoading();
+    form.remove();
+
+    renderMainPage(true);
 }

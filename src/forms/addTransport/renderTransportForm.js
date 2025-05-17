@@ -1,9 +1,8 @@
-import { ROOT_ELEMENT, TRANSPORT_LIST } from '../../constants';
-import { renderMainPage, startLoading, triggerPopUp } from '../../index.js';
-import { createAndAppendFormContainer } from '../createFormContainer'
+import { MAP_OPTIONS, ROOT_ELEMENT, TRANSPORT_LIST } from '../../constants';
+import { renderMainPage, triggerPopUp } from '../../index.js';
+import { createAndAppendFormContainer } from '../createFormContainer';
 
 import generalStyles from '../style.module.css'
-import { submitErrorHandle } from '../submitHandlers.js';
 import additionalStyles from './addTransport.module.css'
 
 export function renderTransportForm() {
@@ -50,18 +49,22 @@ export function renderTransportForm() {
 
         <hr class=${generalStyles.orLine}>
 
-        <div class=${generalStyles.inputGroup}>
-            <label for="address ">Адрес транспорта</label> 
-            <input type="text" id="address " name="address " placeholder="Введите адрес транспорта">
-            <p class=${generalStyles.infoText}></p>
-            <button type="button" id="addressSearch" class=${generalStyles.button}>Найти</button>
+        <div class=${additionalStyles.addressInputGroup}>
+            <label for="address">Адрес транспорта</label> 
+
+            <div class=${additionalStyles.addressBox} id="addressBox">
+                <input type="text" id="address" name="address" placeholder="Введите адрес транспорта" class=${additionalStyles.addressInput}>
+                <p class=${generalStyles.infoText}></p>
+                <button type="button" id="addressSearch" class="${additionalStyles.searchAddressBtn} ${generalStyles.button}">Найти</button>
+            </div>
         </div>
+
+        <div class=${additionalStyles.inputGroup} id="addresses"></div>
+        <p id="choosenAddress"></p>
 
         <button type="submit" class=${generalStyles.button}>Добавить</button>
         <button type="button" class=${generalStyles.button} id="cancelBtn">Отмена</button>
     </form>`
-
-    // TODO: сделать так чтобы можно было вводить трансорт
 
     container.insertAdjacentHTML('afterbegin', form);
     ROOT_ELEMENT.appendChild(container);
@@ -89,22 +92,91 @@ export function renderTransportForm() {
         renderMainPage(true);
     })
 
-    const addressSearchBtn = document.querySelector('#address Search');
-    const addressInput = document.querySelector('#address ')
+    const addressSearchBtn = document.querySelector('#addressSearch');
+    const addressInput = document.querySelector('#address');
+
+    const addressList = document.querySelector('#addresses');
 
     addressSearchBtn.addEventListener('click', async () => {
         const address = addressInput.value;
 
-        if (address.trim().lenght > 0) {
-            startLoading('default')
-            const responce = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`);
+        if (address.trim().length < 0) {
+            return;
+        }
 
-            if (!responce.ok) {
-                submitErrorHandle([addressInput]);
-                return;
+        const responce = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`);
+
+        if (!responce.ok) {
+            triggerPopUp({ title: 'Адрес не найден', text: 'Перепроверьте адрес и введите его ещё раз!' });
+            return;
+        }
+
+        const result = await responce.json();
+
+        if (result.length === 0) {
+            triggerPopUp({ title: 'Адрес не найден', text: 'Перепроверьте адрес и введите его ещё раз!' });
+            return;
+        }
+
+        let transportMap = document.querySelector('#transportMap')
+
+        if (!!transportMap) {
+            transportMap.remove();
+        }
+
+        const mapElem = document.createElement('div');
+        mapElem.setAttribute('id', 'transportMap');
+        mapElem.style.width = '100%';
+        mapElem.style.height = '150px';
+
+        addressList.appendChild(mapElem);
+
+        const map = new google.maps.Map(document.querySelector('#transportMap'), MAP_OPTIONS);
+
+        result.forEach((address) => {
+            const position = {
+                lat: +address.lat,
+                lng: +address.lon,
             }
 
-            console.log(responce)
-        }
+            const chooseBtn = document.createElement('button');
+            chooseBtn.innerText = 'Выбрать'
+            chooseBtn.classList.add(additionalStyles.chooseBtn);
+            chooseBtn.setAttribute('type', 'button');
+
+            console.log(address)
+            chooseBtn.onclick = () => {
+                const isSure = confirm(`Вы точно хотите выбрать этот адрес: ${address.display_name}`)
+
+                if (isSure) {
+                    mapElem.remove();
+                    addressInput.value = '';
+
+                    document.querySelector('#choosenAddress').innerText = `Выбранный адрес: ${address.display_name}`
+                    localStorage.setItem('choosenPosition', JSON.stringify(position));
+                }
+            }
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: chooseBtn,
+                position,
+            })
+
+            const marker = new google.maps.Marker({
+                position,
+                map,
+                icon: {
+                    url: '../../../mapIcons/location.png',
+                    scaledSize: new google.maps.Size(30, 30),
+                    anchor: new google.maps.Point(15, 15)
+                },
+
+                info: infoWindow,
+            })
+
+            marker.addListener('click', function () {
+                this.info.open(map, this);
+            });
+        })
     })
 }

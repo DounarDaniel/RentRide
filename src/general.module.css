@@ -73,6 +73,11 @@
     --select-border-hover: #86b7fe;
 }
 
+/* General button styles */
+button {
+    cursor: pointer;
+}
+
 /* Basic styles */
 * {
     margin: 0;
