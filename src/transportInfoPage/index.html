@@ -26,15 +26,15 @@
             <h2>Bicycle</h2>
         </div>
 
-        <button data-aos="fade-up" data-aos-duration="1500" class="button" id="rentButton">Арендовать</button>
+        <button class="button" id="rentButton">Арендовать</button>
     </section>
 
     <main>
-        <div class="slider-container" data-aos="fade-down" data-aos-duration="1500">
-            <div class="slider">
-                <img src="./photo_1.avif" alt="transport" class="active">
-                <img src="./photo_2.avif" alt="transport">
-                <img src="./photo_3.avif" alt="transport">
+        <div class="slider-container">
+            <div class="slider" id="slider">
+                <img src="./photo_1.avif" alt="transport" class="slide active" id="photo_1">
+                <img src="./photo_2.avif" alt="transport" class="slide" id="photo_2">
+                <img src="./photo_3.avif" alt="transport" class="slide" id="photo_3">
             </div>
 
             <button class="prev-button" type="button"><img src="./Allow.png" alt="Allow"></button>
@@ -42,8 +42,8 @@
         </div>
 
         <section class="content">
-            <h3 class="title" data-aos="fade-right" data-aos-duration="1500">Bicycle</h3>
-            <p class="text" data-aos="fade-left" data-aos-duration="1500">Lorem ipsum dolor sit amet consectetur
+            <h3 class="title">Bicycle</h3>
+            <p class="text">Lorem ipsum dolor sit amet consectetur
                 adipisicing elit. Nulla molestiae, modi cumque
                 aliquid voluptas culpa?</p>
         </section>
@@ -69,8 +69,8 @@
         </div>
 
         <form name="reviewForm" class="reviewForm" action="">
-            <h2 data-aos="fade-left" data-aos-duration="1500">Оставьте отзыв о транспорте</h2>
-            <p data-aos="fade-right" data-aos-duration="1500">Это поможет нам узнать какой транспорт не пользуется
+            <h2>Оставьте отзыв о транспорте</h2>
+            <p>Это поможет нам узнать какой транспорт не пользуется
                 популярностью и убрать его, а те которые понравились - зарядить побольше!</p>
 
             <div class="rating">
@@ -93,25 +93,21 @@
             <h2>Расскажите о товаре</h2>
 
             <div class="input-group">
-                <input required="" type="text" name="text" autocomplete="off" class="review-input"
-                    data-aos="flip-right">
+                <input required="" type="text" name="text" autocomplete="off" class="review-input">
                 <label class="review-label">Опишите плюсы товара*</label>
             </div>
 
             <div class="input-group">
-                <input required type="text" id="negativeInput" name="negative" autocomplete="off" class="review-input"
-                    data-aos="flip-right">
+                <input required type="text" id="negativeInput" name="negative" autocomplete="off" class="review-input">
                 <label class="review-label">Опишите недостатки товара*</label>
             </div>
 
             <div class="input-group">
-                <input required type="text" id="commentsInput" name="comments" autocomplete="off" class="review-input"
-                    data-aos="flip-right">
+                <input required type="text" id="commentsInput" name="comments" autocomplete="off" class="review-input">
                 <label class="review-label">Дополнительные комментарии</label>
             </div>
 
-            <button type="submit" class="submit-button button" data-aos="zoom-out-right"
-                data-aos-duration="1500">Отправить
+            <button type="submit" class="submit-button button">Отправить
                 отзыв</button>
         </form>
     </main>
@@ -132,8 +128,9 @@
 
     <script>
         AOS.init();
-        console.log(document.querySelector('.prev-button').previousElementSibling)
     </script>
+
+    <script src="./scripts.js"></script>
 </body>
 
 </html>
