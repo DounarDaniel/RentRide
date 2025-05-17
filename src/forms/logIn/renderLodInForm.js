@@ -6,7 +6,6 @@ import styles from '../style.module.css'
 
 export function renderLogInForm() {
     const container = createAndAppendFormContainer();
-    ROOT_ELEMENT.style.overflow = 'visible';
 
     const form = `
     <form action="" method="GET" class=${styles.form} name="logIn">

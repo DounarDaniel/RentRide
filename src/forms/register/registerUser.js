@@ -1,6 +1,6 @@
 import { renderRegisterForm } from "./renderRegisterForm.js";
-import { firebaseAuth, encryptPassword, triggerPopUp, renderMainPage, renderPopUp } from "../../index.js";
-import { USERS_COLLECTION_NAME, DEFAULT_AVATAR, ROOT_ELEMENT } from "../../constants.js";
+import { firebaseAuth, triggerPopUp, renderPopUp } from "../../index.js";
+import { DEFAULT_AVATAR } from "../../constants.js";
 import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 
 export function registerUser() {
@@ -11,7 +11,7 @@ export function registerUser() {
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        // Getting data from register form
+        // Получение данных с формы
         const form = event.target
         const formsElements = form.elements;
 
@@ -23,6 +23,7 @@ export function registerUser() {
         const emailInput = form.email;
         const userEmail = emailInput.value;
 
+        // Получение аватара
         const avatarInput = formsElements.avatar;
         let avatar;
 
@@ -32,6 +33,7 @@ export function registerUser() {
             avatar = URL.createObjectURL(avatarInput.files[0])
         }
 
+        // Проверка пароля
         const passwordInputs = [passwordInput, confirmPasswordInput];
 
         if (passwordInput.value !== confirmPasswordInput.value) {
@@ -50,33 +52,14 @@ export function registerUser() {
         const pieceOfAdminPassword = 'adminLK0'
         const isAdmin = !!passwordInput.value.includes(pieceOfAdminPassword)
 
-        const encryptedPassword = encryptPassword(passwordInput.value)
-
         const firebaseUserData = {
             isAdmin,
             avatar,
             nickname: nicknameInput.value,
-            password: encryptedPassword,
             trips: [],
         }
 
+        // Регистрация пользователя
         firebaseAuth.createUser(userEmail, passwordInput.value)
-        return;
-
-        const loginCode = await firebaseAuth.addDoc(USERS_COLLECTION_NAME, firebaseUserData);
-        localStorage.setItem('loginCode', loginCode);
-
-        triggerPopUp({
-            title: 'Welcome',
-            text: `You have been successfully registered! Here is your logIn code - ${loginCode}. 
-                Please remember it to login in your account in the future`
-        });
-
-        this.remove();
-        document.querySelector('#container').remove();
-
-        ROOT_ELEMENT.style.overflow = 'hidden';
-        renderMainPage(isAdmin);
     })
 }
-

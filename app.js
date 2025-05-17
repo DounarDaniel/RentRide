@@ -8,9 +8,11 @@ const auth = getAuth();
 onAuthStateChanged(auth, user => {
     if (user) {
         ROOT_ELEMENT.innerHTML = "";
+        ROOT_ELEMENT.style.overflow = 'hidden';
         renderMainPage(true)
     } else {
         ROOT_ELEMENT.innerHTML = "";
+        ROOT_ELEMENT.style.overflow = 'visible';
         registerUser()
     }
 })

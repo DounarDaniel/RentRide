@@ -6,7 +6,6 @@ import styles from '../style.module.css'
 
 export function renderRegisterForm() {
     const container = createAndAppendFormContainer();
-    ROOT_ELEMENT.style.overflow = 'visible';
 
     const form = `
     <form action="" class=${styles.form} name="register">

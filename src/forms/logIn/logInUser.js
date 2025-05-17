@@ -23,7 +23,5 @@ export function logInUser(container = null) {
         } catch (error) {
             submitErrorHandle(allInputs);
         }
-
-        ROOT_ELEMENT.style.overflow = 'hidden';
     });
 }

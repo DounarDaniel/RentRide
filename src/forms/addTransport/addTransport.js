@@ -1,4 +1,4 @@
-import { TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from "../../constants";
+import { ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from "../../constants";
 import { firebaseFirestore, renderMainPage, triggerPopUp, startLoading, stopLoading } from "../../index.js";
 import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 import { renderTransportForm } from "./renderTransportForm";
@@ -184,10 +184,10 @@ export async function addTransport() {
             const parsedPosition = JSON.parse(choosenPosition);
 
             addDataToFirebaseAndFinish(
-                transportData, 
-                newTransport, 
+                transportData,
+                newTransport,
                 transportMarkersNewData,
-                parsedPosition, 
+                parsedPosition,
                 form
             )
         }
@@ -222,6 +222,13 @@ async function addDataToFirebaseAndFinish(transportData, newTransport, transport
 
     stopLoading();
     form.remove();
+    ROOT_ELEMENT.style.overflow = 'hidden';
+
+    const container = document.querySelector('#container');
+
+    if (container) {
+        container.remove();
+    }
 
     renderMainPage(true);
 }

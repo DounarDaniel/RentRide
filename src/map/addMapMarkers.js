@@ -51,7 +51,7 @@ export async function addMapMarkers(map) {
             map,
             title: transport.name,
             icon: {
-                url: transportImageUrl,
+                url: '../../mapIcons/scooter.png',
                 scaledSize: new google.maps.Size(30, 30),
                 anchor: new google.maps.Point(15, 15)
             },
