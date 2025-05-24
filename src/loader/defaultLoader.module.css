@@ -8,25 +8,23 @@
 }
 
 .loader div {
-    width: 8%;
-    height: 24%;
-    background: #808080;
+    width: 12%;
+    height: 36%;
+    background-color: var(--white);
     position: absolute;
     left: 50%;
     top: 30%;
-    opacity: 0;
     border-radius: 50px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    animation: fade458 1s linear infinite;
+    animation: fade 1s linear infinite;
 }
 
-@keyframes fade458 {
+@keyframes fade {
     from {
-        opacity: 1;
+        background: var(--secondary-blue);
     }
 
     to {
-        opacity: 0.25;
+        background: var(--white);
     }
 }
 
