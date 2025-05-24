@@ -1,5 +1,5 @@
 import { ROOT_ELEMENT } from '../constants.js';
-import { addTransportLoader, mapLoader, defaultLoader } from './loaders.js';
+import { addTransportLoader, defaultLoader } from './loaders.js';
 
 import styles from './container.module.css'
 
@@ -10,14 +10,6 @@ export function startLoading(loaderType) {
     switch (loaderType) {
         case 'addTransportLoader':
             loader = addTransportLoader;
-            break;
-
-        case 'mapLoader':
-            loader = mapLoader;
-            break;
-
-        case 'default':
-            loader = defaultLoader
             break;
 
         default:

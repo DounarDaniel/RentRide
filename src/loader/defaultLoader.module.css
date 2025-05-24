@@ -3,13 +3,14 @@
     width: 54px;
     height: 54px;
     border-radius: 10px;
-    z-index: 1000;
+    z-index: 100;
+    margin: 0 auto;
 }
 
 .loader div {
     width: 8%;
     height: 24%;
-    background: rgb(128, 128, 128);
+    background: #808080;
     position: absolute;
     left: 50%;
     top: 30%;

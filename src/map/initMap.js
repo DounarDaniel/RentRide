@@ -5,8 +5,7 @@ import { startLoading, stopLoading } from '../index.js';
 
 let map;
 export async function initMap() {
-    const loaderType = 'mapLoader';
-    startLoading(loaderType)
+    startLoading()
 
     createAndAppendMapElement();
 
