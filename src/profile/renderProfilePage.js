@@ -1,13 +1,13 @@
-import { ROOT_ELEMENT, USERS_COLLECTION_NAME } from "../constants.js";
-import { firebaseAuth, firebaseFirestore, registerUser, renderHeader, startLoading, stopLoading } from "../index.js";
+import { ROOT_ELEMENT, TRIPS_COLLECTION_NAME } from "../constants.js";
+import { firebaseAuth, firebaseFirestore, registerUser, startLoading, stopLoading } from "../index.js";
 
 import styles from './profile.module.css'
 
 export async function renderProfile() {
-    const loginCode = localStorage.getItem('loginCode');
-    ROOT_ELEMENT.innerHTML = '';
+    // getting current user
+    const currentUser = firebaseAuth.getCurrentUser();
 
-    if (!loginCode) {
+    if (!currentUser) {
         registerUser();
         console.error('Аккаунт утерен');
         return;
@@ -15,25 +15,20 @@ export async function renderProfile() {
 
     startLoading();
 
-    const userData = await firebaseFirestore.getDoc(USERS_COLLECTION_NAME, loginCode);
+    // TODO: logic for avatarButton
+    // TODO: logic for switching
 
-    renderHeader(true);
+    console.log(currentUser)
 
-    const header = document.querySelector('header')
-    header.style.position = 'sticky';
-
-    // avatarButton
-    // switching
-
-    console.log(userData.avatar)
+    const trips = await firebaseFirestore.getDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
 
     const profile = `
     <section class=${styles.profile} id="profile">
         <section class=${styles.profileTop}>
             <div class=${styles.avatar}>
-                <div class=${styles.avatarPicture}>
-                    <img src=${URL.revokeObjectURL(userData.avatar)} alt="Ваше фото">
-                </div>
+                <div class=${styles.avatarPicture} 
+                    style="background-image: url(${currentUser.photoURL || '../../person.png'})"></div>
+
                 <div class=${styles.avatarButton}>
                     <label for="avatarPlusBtn">+</label>
                     <input type="file" id="avatarPlusBtn">
@@ -41,19 +36,21 @@ export async function renderProfile() {
             </div>
 
             <div class=${styles.info}>
-                <h2>${userData.nickname}</h2>
+                <h2>${currentUser.displayName}</h2>
                 <p id="yourPosition"></p>
             </div>
 
             <div class=${styles.stats}>
                 <div class=${styles.statBox}>
-                    <p>${userData.trips?.length || 0}</p>
+        // TODO
+                    <p>${currentUser.trips?.length || 0}</p>
                     <p>Trips</p>
                 </div>
                 <div class=${styles.statBox}>
-                    <p>${userData.trips?.length || 0}</p>
+        // TODO
+                    <p>${currentUser.trips?.length || 0}</p> 
                     <p>transports</p>
-                </div>
+                </div>  
             </div>
 
             <button class=${styles.logout} id="logoutBtn">Log Out</button>
@@ -74,6 +71,7 @@ export async function renderProfile() {
     stopLoading();
     ROOT_ELEMENT.insertAdjacentHTML('beforeend', profile);
 
+    // get usre geolocation
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             async (position) => {
@@ -106,6 +104,7 @@ export async function renderProfile() {
         alert("Ваш браузер не поддерживает геолокацию!");
     }
 
+    // logout logic
     document.querySelector('#logoutBtn').addEventListener('click', async () => {
         const isSure = confirm("Вы точно хотите выйти из аккаунта?");
 
@@ -114,21 +113,29 @@ export async function renderProfile() {
         }
     })
 
+    // add users trips
     const tripsContainer = document.querySelector('#trips');
+    let tripBox;
 
-    if (userData.trips.length) {
-        userData.trips.forEach(trip => {
-            const tripBox = `
-        <div class=${styles.trip}>
-            <div>
-                <h3>${trip.transport}</h3>
-                <p class=${styles.date}>${trip.date}</p>
-            </div>
+    if (!trips.length || !trips) {
+        tripBox = `
+            <h2>У вас ещё нет поездок</h2>
+            <button class=${styles.startTripBtn}>Начать поездку</button>
+        `
+    } else {
+        trips.forEach(trip => {
+            tripBox = `
+            <div class=${styles.trip}>
+                <div>
+                    <h3>${trip.transport}</h3>
+                    <p class=${styles.date}>${trip.date}</p>
+                </div>
 
-            <p>Distance: ${trip.distance}</p>
-        </div>`
+                <p>Distance: ${trip.distance}</p>
+            </div>`
 
-            tripsContainer.insertAdjacentHTML('beforeend', tripBox);
         })
     }
+
+    tripsContainer.insertAdjacentHTML('beforeend', tripBox);
 }

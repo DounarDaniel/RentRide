@@ -9,7 +9,7 @@ export async function addMapMarkers(map) {
     transportList.forEach(transport => {
         const position = {
             lat: +transport.cords.lat,
-            lng: +transport.cords.lon
+            lng: +transport.cords.lng
         };
 
         let transportImageUrl
@@ -51,7 +51,7 @@ export async function addMapMarkers(map) {
             map,
             title: transport.name,
             icon: {
-                url: '../../mapIcons/scooter.png',
+                url: transportImageUrl,
                 scaledSize: new google.maps.Size(30, 30),
                 anchor: new google.maps.Point(15, 15)
             },

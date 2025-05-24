@@ -19,11 +19,6 @@ export function renderHeader(isAdmin) {
                     <img src="../../headerIcons/profile.png" alt="" class=${styles.icon}>
                     <span class=${styles.text}>Profile</span>
                 </li>
-                
-                <li id="historyLi">
-                    <img src="../../headerIcons/history.png" alt="" class=${styles.icon}>
-                    <span class=${styles.text}>History</span>
-                </li>
 
                 <li id="chatLi">
                     <img src="../../headerIcons/chat.png" alt="" class=${styles.icon}>
@@ -81,12 +76,9 @@ export function renderHeader(isAdmin) {
         if (!profile) {
             renderProfile();
         }
-    });
 
-    document.querySelector('#historyLi').addEventListener('click', () => {
-        // renderProfilePage('history')
-        // отрисовывает страницу аккаунта пользователя и перелистывает страницу на секцию с 
-        // историей пользователя
+        const header = document.querySelector('header');
+        header.style.position = 'sticky';
     });
 
     document.querySelector('#chatLi').addEventListener('click', () => {

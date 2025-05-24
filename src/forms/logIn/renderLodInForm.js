@@ -20,7 +20,7 @@ export function renderLogInForm() {
 
         <div class=${styles.inputGroup}>
             <label for="password">Password*</label>
-            <input type="password" id="password" name="password" placeholder="••••••••" required>
+            <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6">
             <p class=${styles.infoText}></p>
         </div>
 

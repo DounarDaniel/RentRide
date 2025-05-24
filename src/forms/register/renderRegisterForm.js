@@ -14,32 +14,32 @@ export function renderRegisterForm() {
 
         <div class=${styles.inputGroup}>
             <label for="nickname">Nickname*</label>
-            <input type="text" id="nickname" name="nickname" placeholder="Enter your nickname" minlength="2" required>
+            <input type="text" id="nickname" name="nickname" placeholder="Enter your nickname" minlength="2">
             <p class=${styles.infoText}></p>
         </div>
 
         <div class=${styles.inputGroup}>
             <label for="email">Email*</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" minlength="2" required>
-        </div>
-
-        <div class=${styles.inputGroup}>
-            <label for="avatar">Profile Picture:</label>
-            <input type="file" id="avatar" name="avatar" accept="image/*" placeholder="Chose your avatar">
+            <input type="email" id="email" name="email" placeholder="Enter your email">
         </div>
 
         <div class=${styles.inputGroup}>
             <label for="password">Password*</label>
-            <input type="password" id="password" name="password" placeholder="Choose password" minlength="4" 
-                required value="">
+            <input type="password" id="password" name="password" placeholder="Choose password" minlength="6" 
+                 value="">
             <p class=${styles.infoText}></p>
         </div>
 
          <div class=${styles.inputGroup}>
             <label for="confirm_password">Confirm Password*</label>
             <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password"
-                required minlength="4">
+                 minlength="6">
             <p class=${styles.infoText}></p>
+        </div>
+
+        <div class=${styles.inputGroup}>
+            <label for="avatar">Profile Picture:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*" placeholder="Chose your avatar">
         </div>
 
         <button type="submit" class=${styles.button}>Register</button>

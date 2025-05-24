@@ -8,16 +8,12 @@ export const FIREBASE_CONFIG = {
     measurementId: "G-F84P41D9MH"
 };
 
-export const FIREBSE_REALTIME_DB_CONFIG = {
-    
-}
-
 export const TRANSPORT_MARKERS_COLLECTION_NAME = "transportMarkersData";
 export const TRANSPORT_MARKERS_DOC_ID = "aCRWqZndAxq46h5IMtP5";
 
 export const TRANSPORT_COLLECTION_NAME = 'transport';
 
-export const USERS_COLLECTION_NAME = 'users';
+export const TRIPS_COLLECTION_NAME = 'trips';
 
 export const DEFAULT_AVATAR = 'https://png.pngtree.com/thumb_back/fw800/background/20230610/pngtree-picture-of-a-blue-bird-on-a-black-background-image_2937385.jpg';
 
@@ -38,3 +34,5 @@ export const ROOT_ELEMENT = document.querySelector('#root');
 
 export const ESC_KEY_CODE = 27;
 export const TRANSPORT_LIST = ['scooter', 'car', 'moped', 'electric_bike', 'bike'];
+
+export const PIECE_OF_ADMIN_NICKNAME = 'adminLK0'

@@ -1,7 +1,7 @@
 import { FIREBASE_CONFIG } from "./constants.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getFirestore, doc, collection, getDoc, updateDoc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
 
 const app = initializeApp(FIREBASE_CONFIG);
 
@@ -20,16 +20,16 @@ class FirebaseFirestoreService {
         }
     };
 
-    async addDoc(collectionName, data) {
-        try {
-            const firebaseCollection = collection(db, collectionName);
-            const docRef = await addDoc(firebaseCollection, data);
+    // async addDoc(collectionName, data) {
+    //     try {
+    //         const firebaseCollection = collection(db, collectionName);
+    //         const docRef = await addDoc(firebaseCollection, data);
 
-            return docRef.id;
-        } catch (error) {
-            console.error("Error in adding document!", error);
-        }
-    }
+    //         return docRef.id;
+    //     } catch (error) {
+    //         console.error("Error in adding document!", error);
+    //     }
+    // }
 
     async updateDoc(collectionName, docId, updatedFirebaseDoc) {
         const docRef = doc(db, collectionName, docId);
@@ -52,20 +52,27 @@ class FirebaseFirestoreService {
 }
 
 class FirebaseAuthService {
-    async createUser(email, password) {
+    async createUser(email, password, profileInfo) {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         const user = cred.user;
+
+        await updateProfile(user, profileInfo);
+
         return user
     }
 
-    async lodinUser(email, password) {
+    getCurrentUser() {
+        return auth.currentUser
+    }
+
+    async signInUser(email, password) {
         const cred = await signInWithEmailAndPassword(auth, email, password);
         const user = cred.user
         return user
     }
 
     async logoutUser() {
-        console.log(await signOut(auth))
+        await signOut(auth)
     }
 }
 

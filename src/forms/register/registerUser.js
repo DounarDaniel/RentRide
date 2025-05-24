@@ -1,6 +1,6 @@
 import { renderRegisterForm } from "./renderRegisterForm.js";
-import { firebaseAuth, triggerPopUp, renderPopUp } from "../../index.js";
-import { DEFAULT_AVATAR } from "../../constants.js";
+import { firebaseAuth, triggerPopUp, renderPopUp, firebaseFirestore } from "../../index.js";
+import { DEFAULT_AVATAR, TRIPS_COLLECTION_NAME } from "../../constants.js";
 import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 
 export function registerUser() {
@@ -30,7 +30,7 @@ export function registerUser() {
         if (!avatarInput.files[0]) {
             avatar = DEFAULT_AVATAR;
         } else {
-            avatar = URL.createObjectURL(avatarInput.files[0])
+            avatar = new Blob(['../../../public/person.png'], { type: 'image/png' });
         }
 
         // Проверка пароля
@@ -49,17 +49,15 @@ export function registerUser() {
             submitSuccessHandle(passwordInputs);
         }
 
-        const pieceOfAdminPassword = 'adminLK0'
-        const isAdmin = !!passwordInput.value.includes(pieceOfAdminPassword)
-
-        const firebaseUserData = {
-            isAdmin,
-            avatar,
-            nickname: nicknameInput.value,
-            trips: [],
+        const profileInfo = {
+            displayName: nicknameInput.value,
+            photoURL: avatar,
         }
 
         // Регистрация пользователя
-        firebaseAuth.createUser(userEmail, passwordInput.value)
+        const user = await firebaseAuth.createUser(userEmail, passwordInput.value, profileInfo);
+
+        // Создание базы данных для поездок пользователя
+        await firebaseFirestore.setDoc(TRIPS_COLLECTION_NAME, user.uid, {trips: []});
     })
 }

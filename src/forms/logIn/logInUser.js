@@ -1,6 +1,5 @@
 import { renderLogInForm } from "./renderLodInForm.js";
 import { firebaseAuth } from "../../index.js";
-import { ROOT_ELEMENT } from "../../constants.js";
 import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 
 export function logInUser(container = null) {
@@ -18,7 +17,7 @@ export function logInUser(container = null) {
         const allInputs = [passwordInput, emailInput];
 
         try {
-            await firebaseAuth.lodinUser(emailInput.value, passwordInput.value);
+            await firebaseAuth.signInUser(emailInput.value, passwordInput.value);
             submitSuccessHandle(allInputs);
         } catch (error) {
             submitErrorHandle(allInputs);

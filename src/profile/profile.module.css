@@ -1,5 +1,5 @@
-.profile{
-    font-family: 'Montserrat Alternates', sans-serif;
+.profile {
+    font-family: var(--primary-font-family);
     background-color: var(--profile-bg);
     width: 100%;
     display: flex;
@@ -48,6 +48,9 @@
     border-radius: 100%;
     background-color: var(--avatar-bg);
     box-shadow: 0 2px 6px var(--profile-shadow);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .avatarButton {
@@ -67,24 +70,27 @@
     background-color: var(--avatarBtn-hover-bg);
 }
 
-.avatarButton label{
+.avatarButton label {
     color: var(--white);
+    position: absolute;
+    top: 6px;
+    left: 0;
 }
 
-.avatarButton input{
+.avatarButton input {
     display: none;
 }
 
 .info h2 {
     font-size: 26px;
     font-weight: 600;
-    color: #343a40;
+    color: var(--info-h2-color);
     margin-bottom: 8px;
 }
 
 .info p {
     font-size: 17px;
-    color: #6c757d;
+    color: var(--info-p-color);
     margin-bottom: 20px;
 }
 
@@ -100,7 +106,7 @@
     border-radius: 8px;
     width: 45%;
     text-align: center;
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--border-color);
     transition: border-color 0.2s ease-in-out;
     height: 110px;
 }
@@ -145,7 +151,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
-    background-color: #eee;
+    background-color: var(--white);
     border-radius: 10px;
     padding: 5px;
 }
@@ -157,13 +163,13 @@
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     font-weight: 500;
-    color: #777;
+    color: var(--primary-grey);
 }
 
 .switching p.active {
-    background-color: #007bff;
+    background-color: var(--secondary-blue);
     color: var(--white);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px var(--profile-shadow);
 }
 
 .trips {
@@ -177,7 +183,7 @@
     padding: 15px;
     border-radius: 8px;
     background-color: var(--white);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px var(--profile-shadow);
     display: flex;
     justify-content: space-between;
 }
@@ -185,11 +191,30 @@
 .trip h3 {
     font-size: 1.3em;
     margin-bottom: 5px;
-    color: #333;
+    color: var(--dark-grey);
 }
 
 .date {
     font-size: 0.9em;
-    color: #777;
+    color: var(--primary-grey);
     margin: auto;
+}
+
+.startTripBtn {
+    margin-top: 20px;
+    background-color: var(--secondary-blue);
+    color: var(--white);
+    border-radius: 10px;
+    border: solid 2px var(--white);
+    padding: 10px 20px;
+    font-family: var(--primary-font-family);
+    font-weight: 500;
+    font-size: 15px;
+    transition: all .4s ease-in-out;
+}
+
+.startTripBtn:hover {
+    color: var(--secondary-blue);
+    background-color: var(--white);
+    border: solid 2px var(--secondary-blue);
 }
