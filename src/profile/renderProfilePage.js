@@ -18,8 +18,6 @@ export async function renderProfile() {
     // TODO: logic for avatarButton
     // TODO: logic for switching
 
-    console.log(currentUser)
-
     const trips = await firebaseFirestore.getDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
 
     const profile = `
@@ -42,13 +40,11 @@ export async function renderProfile() {
 
             <div class=${styles.stats}>
                 <div class=${styles.statBox}>
-        // TODO
-                    <p>${currentUser.trips?.length || 0}</p>
+                    <p>${trips?.length || 0}</p>
                     <p>Trips</p>
                 </div>
                 <div class=${styles.statBox}>
-        // TODO
-                    <p>${currentUser.trips?.length || 0}</p> 
+                    <p>${trips?.length || 0}</p> 
                     <p>transports</p>
                 </div>  
             </div>
@@ -127,7 +123,7 @@ export async function renderProfile() {
             tripBox = `
             <div class=${styles.trip}>
                 <div>
-                    <h3>${trip.transport}</h3>
+                    <h4>${trip.transport}</h4>
                     <p class=${styles.date}>${trip.date}</p>
                 </div>
 

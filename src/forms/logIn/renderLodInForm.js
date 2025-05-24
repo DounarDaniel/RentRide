@@ -1,4 +1,3 @@
-import { ROOT_ELEMENT } from '../../constants.js';
 import { createAndAppendFormContainer } from '../createFormContainer.js';
 import { registerUser } from '../register/registerUser.js';
 

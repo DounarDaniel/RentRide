@@ -1,6 +1,6 @@
 import { FIREBASE_CONFIG } from "./constants.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-import { getFirestore, doc, collection, getDoc, updateDoc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
 
 const app = initializeApp(FIREBASE_CONFIG);
@@ -19,17 +19,6 @@ class FirebaseFirestoreService {
             console.error("Document is undefined");
         }
     };
-
-    // async addDoc(collectionName, data) {
-    //     try {
-    //         const firebaseCollection = collection(db, collectionName);
-    //         const docRef = await addDoc(firebaseCollection, data);
-
-    //         return docRef.id;
-    //     } catch (error) {
-    //         console.error("Error in adding document!", error);
-    //     }
-    // }
 
     async updateDoc(collectionName, docId, updatedFirebaseDoc) {
         const docRef = doc(db, collectionName, docId);
