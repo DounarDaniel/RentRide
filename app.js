@@ -2,9 +2,10 @@ import { registerUser, renderMainPage } from "./src/index.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
 import { PIECE_OF_ADMIN_NICKNAME, ROOT_ELEMENT } from "./src/constants.js";
 
-import './src/general.module.css'
+import './src/global.module.css'
 
 const auth = getAuth();
+// todo: сделать предстраницу с лого посередине и кнопочкой при нажатии открыть формы login
 onAuthStateChanged(auth, user => {
     if (user) {
         let isAdmin;

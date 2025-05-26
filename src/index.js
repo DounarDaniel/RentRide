@@ -1,11 +1,9 @@
-export { firebaseFirestore } from "./firebaseActions.js";
-export { firebaseAuth } from "./firebaseActions.js";
+export { firebaseFirestore } from "./firebaseActions/firestore.js";
+export { firebaseAuth } from "./firebaseActions/auth.js";
 export { initMap } from './map/initMap.js';
 export { renderTransportContainer } from './transportContainer/transportContainer.js';
 export { registerUser } from './forms/register/registerUser.js';
 export { logInUser } from './forms/logIn/logInUser.js';
-export { encryptPassword } from './encryption.js';
-export { decryptPassword } from './encryption.js';
 export { renderPopUp } from './popUp/renderPopUp.js';
 export { triggerPopUp } from './popUp/triggerPopUp.js';
 export { renderHeader } from './header/renderHeader.js';
