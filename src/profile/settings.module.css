@@ -1,0 +1,84 @@
+.settingItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--secondary-grey);
+}
+
+.settingItem:last-child {
+    border-bottom: none;
+}
+
+.settingText h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--dark-grey);
+}
+
+.settingText p {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--secondary-black);
+}
+
+.switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+}
+
+.switchCheckbox {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: var(--primary-grey);
+    border-radius: 15px;
+    height: 24px;
+    width: 44px;
+    transition: all .3s ease-in;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 2px;
+    background-color: var(--white);
+    border-radius: 100%;
+    transition: all .3s ease-in;
+}
+
+.switchCheckbox:checked+.slider {
+    background-color: var(--secondary-color);
+}
+
+.switchCheckbox:focus+.slider {
+    box-shadow: 0 0 2px var(--secondary-color);
+}
+
+.switchCheckbox:checked+.slider:before {
+    transform: translateX(18px);
+}
+
+.select {
+    outline: none;
+    background-color: var(--white);
+    border: 1px solid var(--select-border);
+    padding: 10px 35px 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .3s ease-in;
+    color: var(--black);
+}
+
+.select:hover {
+    border: 1px solid var(--select-border-hover);
+    box-shadow: 0 0 0 0.2rem var(--select-box-shadow-hover);
+}

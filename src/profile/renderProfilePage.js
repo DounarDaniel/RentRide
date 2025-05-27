@@ -1,15 +1,21 @@
-import { ROOT_ELEMENT, TRIPS_COLLECTION_NAME } from "../constants.js";
-import { firebaseAuth, firebaseFirestore, registerUser, startLoading, stopLoading } from "../index.js";
+import { GEOLOCATION_OPTIONS, ROOT_ELEMENT, TRIPS_COLLECTION_NAME } from "../constants.js";
+import { firebaseAuth, firebaseFirestore, registerUser, startLoading, stopLoading, triggerPopUp } from "../index.js";
 
 import styles from './profile.module.css'
+import { removeActiveFromAllBtns, renderSettings, renderTripsBox } from "./swithingHandler.js";
 
 export async function renderProfile() {
     // getting current user
     const currentUser = firebaseAuth.getCurrentUser();
 
     if (!currentUser) {
-        registerUser();
         console.error('Аккаунт утерен');
+        triggerPopUp({
+            title: 'Аккаунт утерен',
+            text: 'Войдите в свой старый аккаунт или создайте новый'
+        })
+
+        registerUser();
         return;
     }
 
@@ -53,14 +59,14 @@ export async function renderProfile() {
         </section>
 
         <section class=${styles.profileBottom}>
-            <div class=${styles.switching}>
-                <p class=${styles.active}>Trip History</p>
-                <p>Settings</p>
+            <div class=${styles.switching} id="switching">
+                <button class=${styles.active} id="tripHistoryBtn">Trip History</button>
+                <button id="settingsBtn">Settings</button>
             </div>
 
-            <h2>Recent Trips</h2>
+            <h2 id="switchingTitle" class=${styles.switchingTitle}>Recent Trips</h2>
 
-            <div class=${styles.trips} id="trips"></div>
+            <section id="switchingContent"></section>
         </section>
     </section>`
 
@@ -77,6 +83,11 @@ export async function renderProfile() {
                 const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`;
 
                 const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('Error in responce');
+                }
+
                 const data = await response.json();
 
                 if (data.error) {
@@ -87,13 +98,8 @@ export async function renderProfile() {
             },
             (error) => {
                 console.error(error);
-                alert("Ошибка в получении геолокации!");
             },
-            {
-                enableHighAccuracy: true,
-                maximumAge: 30000,
-                timeout: 27000
-            }
+            GEOLOCATION_OPTIONS
         );
     } else {
         console.error("Геолокация не поддерживается вашим браузером");
@@ -109,29 +115,31 @@ export async function renderProfile() {
         }
     })
 
-    // add users trips
-    const tripsContainer = document.querySelector('#trips');
-    let tripBox;
+    // getting all the neccesary elements for switching
+    const switchingBtns = document.querySelector('#switching').children;
+    const tripHistoryBtn = document.querySelector('#tripHistoryBtn');
+    const settingsBtn = document.querySelector('#settingsBtn');
+    const switchingContent = document.querySelector('#switchingContent');
+    const switchingTitle = document.querySelector('#switchingTitle');
 
-    if (!trips.length || !trips) {
-        tripBox = `
-            <h2>У вас ещё нет поездок</h2>
-            <button class=${styles.startTripBtn}>Начать поездку</button>
-        `
-    } else {
-        trips.forEach(trip => {
-            tripBox = `
-            <div class=${styles.trip}>
-                <div>
-                    <h4>${trip.transport}</h4>
-                    <p class=${styles.date}>${trip.date}</p>
-                </div>
+    // add event listeners to switch buttons
+    tripHistoryBtn.addEventListener('click', () => {
+        removeActiveFromAllBtns(switchingBtns);
+        tripHistoryBtn.classList.add(styles.active);
+        switchingTitle.innerHTML = 'Recent Trips';
 
-                <p>Distance: ${trip.distance}</p>
-            </div>`
+        renderTripsBox(trips, switchingContent);
+    })
 
-        })
+    settingsBtn.addEventListener('click', () => {
+        removeActiveFromAllBtns(switchingBtns);
+        settingsBtn.classList.add(styles.active);
+        switchingTitle.innerHTML = 'Settings';
+
+        renderSettings(switchingContent);
+    })
+
+    if (tripHistoryBtn.classList.contains(styles.active)) {
+        renderTripsBox(trips, switchingContent);
     }
-
-    tripsContainer.insertAdjacentHTML('beforeend', tripBox);
 }

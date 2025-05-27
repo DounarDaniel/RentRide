@@ -3,7 +3,7 @@ header {
     justify-content: space-between;
     padding: 20px 35px;
     box-shadow: var(--header-shadow);
-    background-color: var(--white);
+    background-color: var(--header-bg);
     position: fixed;
     top: 0;
     z-index: 1;
@@ -11,7 +11,7 @@ header {
 }
 
 .title {
-    color: var(--secondary-blue);
+    color: var(--secondary-color);
     font-family: var(--primary-font-family);
     font-weight: 600;
     font-size: 35px;

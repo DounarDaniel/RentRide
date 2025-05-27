@@ -12,7 +12,8 @@
     --primary-grey: #777;
     --primary-black: #2b3035;
     --primary-opacity-black: #212529c7;
-    --primary-blue: #2196F3;
+    --primary-color: #2196F3;
+    --primary-opacity-color: #0096ff80;
 }
 
 /* Primary fond family */
@@ -22,8 +23,8 @@
 
 /* Secondary colors */
 :root {
-    --secondary-blue: #007bff;
-    --secondary-grey: #535353;
+    --secondary-color: #007bff;
+    --secondary-grey: #050505;
     --dark-grey: #333;
     --secondary-white: #e7f5ff;
     --secondary-black: #282828;
@@ -39,7 +40,7 @@
     --shadow-grey: #bec3c9;
     --profile-shadow: rgba(0, 0, 0, 0.102);
 
-    --header-shadow: 0 10px 20px rgba(0, 150, 255, 0.5),
+    --header-shadow: 0 10px 20px var(--primary-opacity-color),
         0 -5px 15px rgba(255, 255, 255, 0.3);
 }
 
@@ -53,6 +54,14 @@
     --profile-bg: #f0f2f5;
     --avatar-bg: #e9ecef;
     --avatarBtn-hover-bg: #0056b3;
+    --logout-bg: #a8a8a8;
+    --trips-bg: #f8f9fa;
+
+    --forms-container-bg: var(--primary-white);
+    --transport-card-bg: var(--white);
+    --profile-part-bg: var(--white);
+    --header-bg: var(--white);
+    --stat-box-bg: var(--white);
 }
 
 /* Rotating */
@@ -68,10 +77,52 @@
 }
 
 /* Profile colors */
-:root{
+:root {
     --info-h2-color: #343a40;
     --info-p-color: #6c757d;
     --border-color: #dee2e6;
+    --select-border-hover: #80bdff;
+    --select-box-shadow-hover: #007bff40;
+    --stat-box-title-color: #495057;
+    --stat-box-subtitle-color: #707780;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --white: #000000;
+    --black: #ffffff;
+
+    --primary-white: #353638;
+    --primary-color: #2a5c85;
+    --primary-opacity-color: #1778df80;
+    --primary-grey: #b3b3b3;
+
+    --secondary-color: #52a6ff;
+    --secondary-white: #b8b8b8;
+    --secondary-black: #c2c2c2;
+    --secondary-grey: #f2f2f2f2;
+
+    --shadow-grey: #2d2f30;
+
+    --select-border: #6f6f6f;
+
+    --rating-bg: #000000;
+    --profile-bg: #4a4b4e;
+    --avatar-bg: #000000;
+    --logout-bg: #e7e7e7;
+    --trips-bg: #524d4d;
+    --profile-part-bg: #565252;
+    --dark-grey: #efefef;
+    --header-bg: #5c5c5c;
+    --stat-box-bg: #20202091;
+    --transport-card-bg: #373737;
+    --forms-container-bg: #484848;
+    --slider-bg: #d7d0d0;
+
+    --stat-box-title-color: #d5e1ec;
+    --stat-box-subtitle-color: #ddebff;
+    --info-h2-color: #ffffff;
+    --info-p-color: #ffffff;
 }
 
 /* General button styles */

@@ -1,3 +1,5 @@
+import { GEOLOCATION_OPTIONS } from "../constants";
+
 let userMarker = null;
 let watchId = null;
 
@@ -11,17 +13,13 @@ export function watchUserPosition(map) {
                 (error) => {
                     console.error("Ошибка геолокации:", error);
                 },
-                {
-                    enableHighAccuracy: true,
-                    maximumAge: 30000,
-                    timeout: 27000
-                }
+                GEOLOCATION_OPTIONS
             );
         },
         (error) => {
             console.error("Ошибка геолокации:", error);
         },
-        { enableHighAccuracy: true }
+        GEOLOCATION_OPTIONS
     );
 }
 

@@ -5,7 +5,7 @@
     box-shadow: 7px 7px 14px var(--shadow-grey),
         -7px -7px 14px var(--white);
     transition: all 0.3s ease;;
-    background-color: var(--white);
+    background-color: var(--transport-card-bg);
     font-family: 'Montserrat Alternates';
 }
 
@@ -17,7 +17,6 @@
 
 .image {
     position: relative;
-    background-color: var(--black);
     height: 250px;
     width: 100%;
     display: flex;
@@ -73,9 +72,9 @@
 }
 
 .detailsBtn {
-    background-color: var(--primary-blue);
+    background-color: var(--primary-color);
     color: var(--secondary-white);
-    border: 1px solid var(--primary-blue);
+    border: 1px solid var(--primary-color);
     border-radius: 15px;
     padding: 10px;
     width: 100%;
@@ -86,12 +85,12 @@
 
 .detailsBtn:hover,
 .detailsBtn:focus {
-    color: var(--primary-blue);
+    color: var(--primary-color);
     background-color: var(--secondary-white);
     outline: none;
 }
 
 .detailsBtn:focus-visible {
-    outline: 2px solid var(--primary-blue);
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }

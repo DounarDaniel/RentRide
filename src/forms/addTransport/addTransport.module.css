@@ -42,6 +42,7 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     box-shadow: 7px 7px 14px var(--shadow-grey),
         -7px -7px 14px var(--white);
+    color: var(--primary-grey);
 }
 
 .select:hover {
@@ -75,7 +76,7 @@
 .chooseBtn {
     width: 100%;
     color: var(--white);
-    background-color: var(--primary-blue);
+    background-color: var(--primary-color);
     border: none;
     border-radius: 10px;
     padding: 5px;
@@ -83,6 +84,6 @@
 }
 
 .chooseBtn:hover {
-    color: var(--primary-blue);
+    color: var(--primary-color);
     background-color: var(--white);
 }

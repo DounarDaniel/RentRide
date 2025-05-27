@@ -1,3 +1,5 @@
+import { lightMapStyle } from "./mapStyles";
+
 export const FIREBASE_CONFIG = {
     apiKey: "AIzaSyCSTSl4bXYt7Qnu1AOCkZsZzWarA7r8kXw",
     authDomain: "rentride-3ff8a.firebaseapp.com",
@@ -27,7 +29,7 @@ export const MAP_OPTIONS = {
     zoom: DEFAULT_MAP_ZOOM,
     minZoom: MIN_MAP_ZOOM,
     maxZoom: MAX_MAP_ZOOM,
-    // styles: darkMapStyles
+    styles: lightMapStyle
 }
 
 export const ROOT_ELEMENT = document.querySelector('#root');
@@ -35,4 +37,26 @@ export const ROOT_ELEMENT = document.querySelector('#root');
 export const ESC_KEY_CODE = 27;
 export const TRANSPORT_LIST = ['scooter', 'car', 'moped', 'electric_bike', 'bike'];
 
-export const PIECE_OF_ADMIN_NICKNAME = 'adminLK0'
+export const PIECE_OF_ADMIN_NICKNAME = 'adminLK0';
+
+export const GEOLOCATION_OPTIONS = {
+    enableHighAccuracy: true,
+    maximumAge: 30000,
+    timeout: 27000
+};
+
+export const SETTINGS_ELEMENTS = [
+
+    {
+        type: 'select',
+        title: 'Main font',
+        text: '',
+        optionsText: [],
+    },
+    {
+        type: 'select',
+        title: 'Header shadow',
+        text: '',
+        optionsText: [],
+    }
+]
