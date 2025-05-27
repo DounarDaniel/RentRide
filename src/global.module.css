@@ -81,7 +81,6 @@
     --info-h2-color: #343a40;
     --info-p-color: #6c757d;
     --border-color: #dee2e6;
-    --select-border-hover: #80bdff;
     --select-box-shadow-hover: #007bff40;
     --stat-box-title-color: #495057;
     --stat-box-subtitle-color: #707780;
@@ -123,6 +122,51 @@
     --stat-box-subtitle-color: #ddebff;
     --info-h2-color: #ffffff;
     --info-p-color: #ffffff;
+}
+
+/* Main colors changing */
+[main-color='green'] {
+    --primary-color: #acdc7b;
+    --primary-opacity-color: #acdc7b80;
+    --secondary-color: #8bc34a;
+    --badge-bg: #8bc34ab9;
+    --select-hover-bg: #8bc34a40;
+    --avatarBtn-hover-bg: #689f38;
+    --select-border-hover: #aed581;
+    --select-box-shadow-hover: #8bc34a40;
+}
+
+[main-color='orange'] {
+    --primary-color: #FFA726;
+    --primary-opacity-color: #FFA72680;
+    --secondary-color: #FB8C00;
+    --badge-bg: #FB8C00b9;
+    --select-hover-bg: #FB8C0040;
+    --avatarBtn-hover-bg: #E65100;
+    --select-border-hover: #FFB74D;
+    --select-box-shadow-hover: #13131340;
+}
+
+[main-color='purple'] {
+    --primary-color: #9C27B0;
+    --primary-opacity-color: #9C27B080;
+    --secondary-color: #7B1FA2;
+    --badge-bg: #7B1FA2b9;
+    --select-hover-bg: #7B1FA240;
+    --avatarBtn-hover-bg: #4A148C;
+    --select-border-hover: #BA68C8;
+    --select-box-shadow-hover: #7B1FA240;
+}
+
+[main-color='turquoise'] {
+    --primary-color: #26C6DA;
+    --primary-opacity-color: #26C6DA80;
+    --secondary-color: #00ACC1;
+    --badge-bg: #00ACC1b9;
+    --select-hover-bg: #00ACC140;
+    --avatarBtn-hover-bg: #00838F;
+    --select-border-hover: #80DEEA;
+    --select-box-shadow-hover: #00ACC140;
 }
 
 /* General button styles */

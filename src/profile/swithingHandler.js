@@ -1,4 +1,4 @@
-import { MAP_OPTIONS } from '../constants.js'
+import { DOCUMENT_ELEMENT, MAP_OPTIONS } from '../constants.js'
 
 import { active as activeClass } from './profile.module.css'
 import tripStyles from './tripHistory.module.css'
@@ -83,10 +83,12 @@ export function renderSettings(switchingContent) {
                 <p>Choose your own main color!</p>
             </div>
 
-            <select class=${settingsStyles.select}>
-                <option style="background-color: var(--secondary-color); color: var(--white)">Blue (basic)</option>
-                <option>Grey</option>
-                // todo: choose colors and do logic
+            <select class=${settingsStyles.select} id="colorSelect" >
+                <option style="background-color: #007bff;" value="blue">Blue (basic)</option>
+                <option style="background-color: #acdc7b;" value="green">Green</option>
+                <option style="background-color: #FFA726;" value="orange">Orange</option>
+                <option style="background-color: #9C27B0;" value="purple">Purple</option>
+                <option style="background-color: #26C6DA;" value="turquoise">Turquoise</option>
             </select>
         </div>
 
@@ -97,10 +99,11 @@ export function renderSettings(switchingContent) {
             </div>
 
             <label class=${settingsStyles.switch}>
-                <input type="checkbox" class=${settingsStyles.switchCheckbox}>
+                <input type="checkbox" class=${settingsStyles.switchCheckbox} checked="true">
                 <span class=${settingsStyles.slider}></span>
             </label>
         </div>
+        // todo: do logic for stop watching pos
 
         <div class=${settingsStyles.settingItem}>
             <div class=${settingsStyles.settingText}>
@@ -133,26 +136,46 @@ export function renderSettings(switchingContent) {
 
     const themeToggleInput = document.getElementById('themeToggle');
     const currentTheme = localStorage.getItem('theme') || 'light';
-    const documentElement = document.documentElement;
 
     if (currentTheme === 'dark') {
-        documentElement.setAttribute('data-theme', 'dark');
         themeToggleInput.checked = true;
-        MAP_OPTIONS.styles = darkMapStyle;
-    } else {
-        documentElement.setAttribute('data-theme', 'light');
-        MAP_OPTIONS.styles = lightMapStyle;
     }
 
     themeToggleInput.addEventListener('change', () => {
         if (themeToggleInput.checked) {
-            documentElement.setAttribute('data-theme', 'dark');
+            DOCUMENT_ELEMENT.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
             MAP_OPTIONS.styles = darkMapStyle;
         } else {
-            documentElement.setAttribute('data-theme', 'light');
+            DOCUMENT_ELEMENT.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
             MAP_OPTIONS.styles = lightMapStyle;
+        }
+    });
+
+    const colorSelect = document.querySelector('#colorSelect');
+    const currentMainColor = localStorage.getItem('main-color') || 'blue';
+
+    if (currentMainColor !== 'blue' && !!currentMainColor) {
+        for (let i = 0; i < colorSelect.length; i++) {
+            const select = colorSelect[i];
+
+            if (select.value === currentMainColor) {
+                select.selected = true;
+            }
+        }
+    }
+
+    colorSelect.addEventListener('change', () => {
+        const selectedOption = colorSelect.selectedOptions[colorSelect.selectedOptions.length - 1];
+        const selectedColor = selectedOption.value;
+
+        if (selectedColor === 'blue' || !selectedColor) {
+            DOCUMENT_ELEMENT.removeAttribute('main-color')
+            localStorage.setItem('main-color', 'blue');
+        } else {
+            DOCUMENT_ELEMENT.setAttribute('main-color', selectedColor);
+            localStorage.setItem('main-color', selectedColor);
         }
     });
 }

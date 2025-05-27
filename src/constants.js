@@ -33,6 +33,7 @@ export const MAP_OPTIONS = {
 }
 
 export const ROOT_ELEMENT = document.querySelector('#root');
+export const DOCUMENT_ELEMENT = document.documentElement;
 
 export const ESC_KEY_CODE = 27;
 export const TRANSPORT_LIST = ['scooter', 'car', 'moped', 'electric_bike', 'bike'];
@@ -44,19 +45,3 @@ export const GEOLOCATION_OPTIONS = {
     maximumAge: 30000,
     timeout: 27000
 };
-
-export const SETTINGS_ELEMENTS = [
-
-    {
-        type: 'select',
-        title: 'Main font',
-        text: '',
-        optionsText: [],
-    },
-    {
-        type: 'select',
-        title: 'Header shadow',
-        text: '',
-        optionsText: [],
-    }
-]
