@@ -10,4 +10,5 @@ export { renderHeader } from './header/renderHeader.js';
 export { renderMainPage } from './renderMainPage.js';
 export { addTransport } from './forms/addTransport/addTransport.js';
 export { startLoading, stopLoading } from './loader/loaderHandles.js';
-export { renderProfile } from './profile/renderProfilePage.js'
+export { renderProfile } from './profile/renderProfilePage.js';
+export { stopTracking } from './map/watchUserPos.js';

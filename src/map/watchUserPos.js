@@ -15,6 +15,8 @@ export function watchUserPosition(map) {
                 },
                 GEOLOCATION_OPTIONS
             );
+
+            localStorage.setItem('watchId', watchId);
         },
         (error) => {
             console.error("Ошибка геолокации:", error);
@@ -53,6 +55,6 @@ function updateUserPosition(position, map) {
     }
 }
 
-// function stopTracking(watchId) {
-//     navigator.geolocation.clearWatch(watchId);
-// }
+export function stopTracking(watchId) {
+    navigator.geolocation.clearWatch(watchId);
+}

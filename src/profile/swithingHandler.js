@@ -1,9 +1,10 @@
-import { DOCUMENT_ELEMENT, MAP_OPTIONS } from '../constants.js'
-
-import { active as activeClass } from './profile.module.css'
-import tripStyles from './tripHistory.module.css'
-import settingsStyles from './settings.module.css'
+import { DOCUMENT_ELEMENT, MAP_OPTIONS } from '../constants.js';
 import { darkMapStyle, lightMapStyle } from '../mapStyles.js';
+import { stopTracking } from '../index.js';
+
+import { active as activeClass } from './profile.module.css';
+import tripStyles from './tripHistory.module.css';
+import settingsStyles from './settings.module.css';
 
 export function removeActiveFromAllBtns(switchingBtns) {
     for (let i = 0; i < switchingBtns.length; i++) {
@@ -84,26 +85,25 @@ export function renderSettings(switchingContent) {
             </div>
 
             <select class=${settingsStyles.select} id="colorSelect" >
-                <option style="background-color: #007bff;" value="blue">Blue (basic)</option>
-                <option style="background-color: #acdc7b;" value="green">Green</option>
-                <option style="background-color: #FFA726;" value="orange">Orange</option>
-                <option style="background-color: #9C27B0;" value="purple">Purple</option>
-                <option style="background-color: #26C6DA;" value="turquoise">Turquoise</option>
+                <option style="color: #007bff;" value="blue">Blue (basic)</option>
+                <option style="color: #acdc7b;" value="green">Green</option>
+                <option style="color: #FFA726;" value="orange">Orange</option>
+                <option style="color: #9C27B0;" value="purple">Purple</option>
+                <option style="color: #26C6DA;" value="turquoise">Turquoise</option>
             </select>
         </div>
 
         <div class=${settingsStyles.settingItem}>
             <div class=${settingsStyles.settingText}>
                 <h3>Watch Position</h3>
-                <p>Stop watching your pos?</p>
+                <p id="watchPosText">Мы видим где вы прямо сейчас 😑. Хотите спрятаться?</p>
             </div>
 
             <label class=${settingsStyles.switch}>
-                <input type="checkbox" class=${settingsStyles.switchCheckbox} checked="true">
+                <input type="checkbox" class=${settingsStyles.switchCheckbox} checked="true" id="watchPos">
                 <span class=${settingsStyles.slider}></span>
             </label>
         </div>
-        // todo: do logic for stop watching pos
 
         <div class=${settingsStyles.settingItem}>
             <div class=${settingsStyles.settingText}>
@@ -134,6 +134,7 @@ export function renderSettings(switchingContent) {
     switchingContent.innerHTML = '';
     switchingContent.insertAdjacentHTML('beforeend', settings);
 
+    // Переключение темы
     const themeToggleInput = document.getElementById('themeToggle');
     const currentTheme = localStorage.getItem('theme') || 'light';
 
@@ -153,6 +154,7 @@ export function renderSettings(switchingContent) {
         }
     });
 
+    // Выбор цвета
     const colorSelect = document.querySelector('#colorSelect');
     const currentMainColor = localStorage.getItem('main-color') || 'blue';
 
@@ -178,4 +180,26 @@ export function renderSettings(switchingContent) {
             localStorage.setItem('main-color', selectedColor);
         }
     });
+
+    // Геопозиция (на стадии разаботки)
+    const watchId = localStorage.getItem('watchId');
+    const watchPosInput = document.querySelector('#watchPos');
+    const watchPosText = document.querySelector('#watchPosText');
+
+    if (!watchId) {
+        watchPosInput.checked = false;
+        watchPosText.innerHTML = 'Мы больше не видим где вы 😔';
+    } else {
+        watchPosInput.checked = true;
+        watchPosText.innerHTML = 'Мы видим где вы прямо сейчас 😑. Хотите спрятаться?';
+    }
+
+    watchPosInput.addEventListener('change', () => {
+        if (!watchPosInput.checked) {
+            watchPosText.innerHTML = 'Мы больше не видим где вы 😔';
+            stopTracking(watchId);
+        } else {
+            watchPosText.innerHTML = 'Мы видим где вы прямо сейчас 😑. Хотите спрятаться?';
+        }
+    })
 }
