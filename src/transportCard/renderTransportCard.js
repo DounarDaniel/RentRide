@@ -1,5 +1,5 @@
 import { TRANSPORT_COLLECTION_NAME } from "../constants.js";
-import { firebaseFirestore, renderTransportContainer } from "../index.js";
+import { firebaseFirestore, renderTransportContainer, renderTransportInfo } from "../index.js";
 
 import styles from './transportCard.module.css'
 
@@ -39,15 +39,14 @@ export async function renderTransportCard(transportId) {
                 <span>${transportData.price.per_hour}$/hr</span>
             </div>
             
-            <button class=${styles.detailsBtn} id="detailsBtn">More Details</button>
+            <button class=${styles.detailsBtn} id="${transportId}">More Details</button>
         </div>
     </div>
     `
 
     wrapper.insertAdjacentHTML('beforeend', card);
 
-    document.querySelector('#detailsBtn').addEventListener('click', () => {
-        // render info about this transport
-        // renderTransportInfo(transportData)
+    document.querySelector(`#${transportId}`).addEventListener('click', () => {
+        renderTransportInfo(transportData)
     })
 }   

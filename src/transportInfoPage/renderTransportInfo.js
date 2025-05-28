@@ -3,7 +3,7 @@ import { renderMainPage } from '../index.js';
 
 import styles from './transportInfo.module.css';
 
-export function renderTransportInfo() {
+export function renderTransportInfo(transportData) {
     ROOT_ELEMENT.innerHTML = '';
 
     const transportInfoPage = `
@@ -13,7 +13,7 @@ export function renderTransportInfo() {
                 <img src="../../transportInfoIcons/arrow_back.png" alt="arrow" id="arrowBack">
             </button>
 
-            <h2>Bicycle</h2>
+            <h2>${transportData.type[0].toUpperCase() + transportData.type.slice(1)}</h2>
         </div>
 
         <button class=${styles.button} id="rentButton">Арендовать</button>
@@ -37,29 +37,30 @@ export function renderTransportInfo() {
         </div>
 
         <section>
-            <h3 class=${styles.name}>Bicycle</h3>
-            <p class=${styles.text}>Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Nulla molestiae, modi cumque
-                aliquid voluptas culpa?</p>
+            <h3 class=${styles.name}>${transportData.model}</h3>
+            <p class=${styles.text}>${transportData.basic_info}</p>
+            <p class=${styles.text}>${transportData.additional_info}</p>
+            <p class=${styles.text}>Заряд/топливо: ${transportData.fuelLevel}%</p>
+            <p class=${styles.text}>Номер: ${transportData.plate_number}</p>
         </section>
 
         <div class=${styles.prices}>
             <div class=${styles.price}>
                 <img src="../../transportInfoIcons/money.png" alt="clock">
                 <h4>За минуту</h4>
-                <p>$0.10</p>
+                <p>${transportData.price.per_minute}$</p>
             </div>
 
             <div class=${styles.price}>
                 <img src="../../transportInfoIcons/money.png" alt="clock">
                 <h4>За час</h4>
-                <p>$5.00</p>
+                <p>${transportData.price.per_hour}$</p>
             </div>
 
             <div class=${styles.price}>
                 <img src="../../transportInfoIcons/money.png" alt="clock">
                 <h4>За день</h4>
-                <p>$35.00</p>
+                <p>${transportData.price.per_day}$</p>
             </div>
         </div>
 
