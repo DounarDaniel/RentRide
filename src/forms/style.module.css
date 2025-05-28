@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     padding: 20px 0;
-    background-color: var(--white);
     background-color: var(--forms-container-bg);
     min-height: 100vh;
 }
@@ -15,6 +14,7 @@
     box-shadow: 7px 7px 14px #bec3c9,
         -7px -7px 14px var(--white);
     height: 100%;
+    margin: auto;
 }
 
 .title {
