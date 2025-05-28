@@ -10,9 +10,13 @@ class FirebaseAuthService {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         const user = cred.user;
 
-        await updateProfile(user, profileInfo);
+        await this.updateUserProfile(user, profileInfo);
 
         return user
+    }
+
+    async updateUserProfile(user, profileInfo){
+        await updateProfile(user, profileInfo);
     }
 
     getCurrentUser() {

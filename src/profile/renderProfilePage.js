@@ -1,4 +1,4 @@
-import { GEOLOCATION_OPTIONS, ROOT_ELEMENT, TRIPS_COLLECTION_NAME } from "../constants.js";
+import { DEFAULT_AVATAR, GEOLOCATION_OPTIONS, ROOT_ELEMENT, TRIPS_COLLECTION_NAME } from "../constants.js";
 import { firebaseAuth, firebaseFirestore, registerUser, startLoading, stopLoading, triggerPopUp } from "../index.js";
 
 import styles from './profile.module.css'
@@ -21,8 +21,6 @@ export async function renderProfile() {
 
     startLoading();
 
-    // TODO: logic for avatarButton
-
     const trips = await firebaseFirestore.getDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
 
     const profile = `
@@ -30,11 +28,11 @@ export async function renderProfile() {
         <section class=${styles.profileTop}>
             <div class=${styles.avatar}>
                 <div class=${styles.avatarPicture} 
-                    style="background-image: url(${currentUser.photoURL || '../../person.png'})"></div>
+                    style="background-image: url(${currentUser.photoURL || DEFAULT_AVATAR})"></div>
 
                 <div class=${styles.avatarButton}>
-                    <label for="avatarPlusBtn">+</label>
-                    <input type="file" id="avatarPlusBtn">
+                    <label for="avatarPlusInput">+</label>
+                    <input type="file" id="avatarPlusInput">
                 </div> 
             </div>
 
@@ -141,4 +139,22 @@ export async function renderProfile() {
     if (tripHistoryBtn.classList.contains(styles.active)) {
         renderTripsBox(trips, switchingContent);
     }
+
+    // logic for avatar input
+    const avatarPlusInput = document.querySelector('#avatarPlusInput');
+
+    avatarPlusInput.addEventListener('input', (e) => {
+        e.preventDefault();
+
+        const newAvatarPicture = avatarPlusInput.value;
+
+        if (!newAvatarPicture) {
+            return;
+        }
+
+        firebaseAuth.updateUserProfile(currentUser, {
+            displayName: currentUser.displayName,
+            photoURL: newAvatarPicture,
+        })
+    })
 }
