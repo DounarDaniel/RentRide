@@ -33,6 +33,7 @@
     --success-color: var(--green);
 
     --close-btn-color: #dc3545;
+    --rating-stars-color: #ffc107;
 }
 
 /* Shadows */
@@ -56,6 +57,7 @@
     --avatarBtn-hover-bg: #0056b3;
     --logout-bg: #a8a8a8;
     --trips-bg: #f8f9fa;
+    --rent-button-gradient: 45deg, var(--rating-stars-color), var(--primary-blue);
 
     --forms-container-bg: var(--primary-white);
     --transport-card-bg: var(--white);
@@ -74,6 +76,11 @@
 :root {
     --select-border: #ced4da;
     --select-border-hover: #86b7fe;
+}
+
+/* Transition */
+:root {
+    --rating-transition: color 0.3s ease;
 }
 
 /* Profile colors */

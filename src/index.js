@@ -12,4 +12,5 @@ export { addTransport } from './forms/addTransport/addTransport.js';
 export { startLoading, stopLoading } from './loader/loaderHandles.js';
 export { renderProfile } from './profile/renderProfilePage.js';
 export { stopTracking } from './map/watchUserPos.js';
-export { renderPrevPage } from './prevPage/renderPrevPage.js'
+export { renderPrevPage } from './prevPage/renderPrevPage.js';
+export { renderTransportInfo } from './transportInfoPage/renderTransportInfo.js'
