@@ -118,19 +118,6 @@ export function renderSettings(switchingContent) {
                 <option value="Playfair Display">Playfair Display</option>
             </select>
         </div>
-
-        <div class=${settingsStyles.settingItem}>
-            <div class=${settingsStyles.settingText}>
-                <h3>Header shadow</h3>
-                <p>Choose your own main color!</p>
-            </div>
-
-            // todo: choose shadows and do logic
-            <select class=${settingsStyles.select}>
-                <option style="background-color: var(--secondary-color); color: var(--white)">Blue (basic)</option>
-                <option>Grey</option>
-            </select>
-        </div>
     `
     switchingContent.innerHTML = '';
     switchingContent.insertAdjacentHTML('beforeend', settings);
