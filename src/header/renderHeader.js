@@ -20,6 +20,11 @@ export function renderHeader(isAdmin) {
                     <span class=${styles.text}>Profile</span>
                 </li>
 
+                <li id="settingsLi">
+                    <img src="../../headerIcons/settings.png" alt="" class=${styles.icon}>
+                    <span class=${styles.text}>Settings</span>
+                </li>
+
                 <li id="chatLi">
                     <img src="../../headerIcons/chat.png" alt="" class=${styles.icon}>
                     <span class=${styles.text}>Chat</span>
@@ -75,6 +80,19 @@ export function renderHeader(isAdmin) {
         const profile = document.querySelector('#profile');
         if (!profile) {
             renderProfile();
+        }
+
+        const header = document.querySelector('header');
+        header.style.position = 'sticky';
+    });
+
+    document.querySelector('#settingsLi').addEventListener('click', () => {
+        removeUnnecessaryChildren(child => child.id === "profile")
+
+        const profile = document.querySelector('#profile');
+        if (!profile) {
+            const activeBlok = 'settings'
+            renderProfile(activeBlok);
         }
 
         const header = document.querySelector('header');

@@ -4,7 +4,7 @@ import { firebaseAuth, firebaseFirestore, registerUser, startLoading, stopLoadin
 import styles from './profile.module.css'
 import { removeActiveFromAllBtns, renderSettings, renderTripsBox } from "./swithingHandler.js";
 
-export async function renderProfile() {
+export async function renderProfile(activeBlock = 'tripHistory') {
     // getting current user
     const currentUser = firebaseAuth.getCurrentUser();
 
@@ -57,7 +57,7 @@ export async function renderProfile() {
 
         <section class=${styles.profileBottom}>
             <div class=${styles.switching} id="switching">
-                <button class=${styles.active} id="tripHistoryBtn">Trip History</button>
+                <button id="tripHistoryBtn">Trip History</button>
                 <button id="settingsBtn">Settings</button>
             </div>
 
@@ -69,6 +69,25 @@ export async function renderProfile() {
 
     stopLoading();
     ROOT_ELEMENT.insertAdjacentHTML('beforeend', profile);
+
+    // getting all the neccesary elements for switching
+    const switchingBtns = document.querySelector('#switching').children;
+    const switchingContent = document.querySelector('#switchingContent');
+    const switchingTitle = document.querySelector('#switchingTitle');
+    const tripHistoryBtn = document.querySelector('#tripHistoryBtn');
+    const settingsBtn = document.querySelector('#settingsBtn');
+
+    const profileElement = document.querySelector('#profile');
+
+    if (activeBlock === 'tripHistory' || !activeBlock) {
+        tripHistoryBtn.classList.add(styles.active);
+    } else {
+        removeActiveFromAllBtns(switchingBtns);
+        settingsBtn.classList.add(styles.active);
+        switchingTitle.innerHTML = 'Settings';
+
+        renderSettings(switchingContent);
+    }
 
     // get usre geolocation
     if (navigator.geolocation) {
@@ -111,13 +130,6 @@ export async function renderProfile() {
             await firebaseAuth.logoutUser()
         }
     })
-
-    // getting all the neccesary elements for switching
-    const switchingBtns = document.querySelector('#switching').children;
-    const tripHistoryBtn = document.querySelector('#tripHistoryBtn');
-    const settingsBtn = document.querySelector('#settingsBtn');
-    const switchingContent = document.querySelector('#switchingContent');
-    const switchingTitle = document.querySelector('#switchingTitle');
 
     // add event listeners to switch buttons
     tripHistoryBtn.addEventListener('click', () => {
