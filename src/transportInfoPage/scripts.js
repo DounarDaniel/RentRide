@@ -1,13 +1,6 @@
 function initReviews() {
   loadReviews();
-
-  const reviewForm = document.querySelector('.reviewForm');
-  if (reviewForm) {
-    reviewForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      submitReview();
-    });
-  }
+ 
 
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
@@ -89,8 +82,3 @@ function searchReviews() {
   const searchTerm = document.getElementById('searchInput')?.value || '';
   loadReviews(searchTerm);
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  initSlider();
-  initReviews();
-});

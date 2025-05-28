@@ -46,7 +46,7 @@ export async function renderTransportCard(transportId) {
 
     wrapper.insertAdjacentHTML('beforeend', card);
 
-    document.querySelector(`#${transportId}`).addEventListener('click', () => {
-        renderTransportInfo(transportData)
+    document.querySelector(`#${transportId}`).addEventListener('click', async () => {
+        await renderTransportInfo(transportData)
     })
 }   

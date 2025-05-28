@@ -1,9 +1,9 @@
-import { PIECE_OF_ADMIN_NICKNAME, ROOT_ELEMENT } from '../constants.js';
-import { firebaseAuth, renderMainPage } from '../index.js';
+import { PIECE_OF_ADMIN_NICKNAME, ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME } from '../constants.js';
+import { firebaseAuth, firebaseFirestore, renderMainPage, triggerPopUp } from '../index.js';
 
 import styles from './transportInfo.module.css';
 
-export function renderTransportInfo(transportData) {
+export async function renderTransportInfo(transportData) {
     ROOT_ELEMENT.innerHTML = '';
 
     const transportInfoPage = `
@@ -70,39 +70,37 @@ export function renderTransportInfo(transportData) {
                 популярностью и убрать его, а те которые понравились - зарядить побольше!</p>
 
             <div class=${styles.rating}>
-                <input value="1" name="rating" id="star1" type="radio">
-                <label for="star1"></label>
-
-                <input value="2" name="rating" id="star2" type="radio">
-                <label for="star2"></label>
-
-                <input value="3" name="rating" id="star3" type="radio">
-                <label for="star3"></label>
+                <input value="5" name="rating" id="star5" type="radio" required>
+                <label for="star5"></label>
 
                 <input value="4" name="rating" id="star4" type="radio">
                 <label for="star4"></label>
 
-                <input value="5" name="rating" id="star5" type="radio">
-                <label for="star5"></label>
+                <input value="3" name="rating" id="star3" type="radio">
+                <label for="star3"></label>
+
+                <input value="2" name="rating" id="star2" type="radio">
+                <label for="star2"></label>
+
+                <input value="1" name="rating" id="star1" type="radio">
+                <label for="star1"></label>
             </div>
 
             <h2>Расскажите о товаре</h2>
 
             <div class=${styles.inputGroup}>
                 <label>Опишите плюсы транспорта*</label>
-                <input required type="text" name="text"  class=${styles.reviewInput} placeholder="Плюсы транспорта">
+                <input required type="text" name="pluses" class=${styles.reviewInput} placeholder="Плюсы транспорта">
             </div>
 
             <div class=${styles.inputGroup}>
                 <label>Опишите недостатки транспорта*</label>
-                <input required type="text" id="negativeInput" name="negative" class=${styles.reviewInput}
-                    placeholder="Недостатки транспорта -">
+                <input required type="text" name="cons" class=${styles.reviewInput} placeholder="Недостатки транспорта -">
             </div>
 
             <div class=${styles.inputGroup}>
                 <label>Дополнительные комментарии</label>
-                <input type="text" id="commentsInput" name="comments" class=${styles.reviewInput} 
-                    placeholder="Дополнительные комментарии">
+                <input type="text" name="comments" class=${styles.reviewInput} placeholder="Дополнительные комментарии">
             </div>
 
             <button type="submit" class="${styles.submitButton} ${styles.button}">Отправить
@@ -110,9 +108,8 @@ export function renderTransportInfo(transportData) {
         </form>
     </main>
 
-    <div class=${styles.reviewsList}>
-        <h2>Отзывы:</h2>
-        <div></div>
+    <div class=${styles.reviewContainer} id="reviewContainer">
+        <h2>Отзывы</h2>
     </div>
 
     <footer class=${styles.footer}>
@@ -157,11 +154,11 @@ export function renderTransportInfo(transportData) {
         });
     });
 
+    const currentUser = firebaseAuth.getCurrentUser();
     // Выход на основную страницу
     document.querySelector('#arrowBack').addEventListener('click', () => {
         ROOT_ELEMENT.innerHTML = '';
 
-        const currentUser = firebaseAuth.getCurrentUser();
         let isAdmin;
 
         if (currentUser.displayName) {
@@ -171,5 +168,95 @@ export function renderTransportInfo(transportData) {
         }
 
         renderMainPage(isAdmin);
+    });
+
+    // Отзывы
+    const reviewContainer = document.querySelector('#reviewContainer');
+
+    if (transportData.reviews.length) {
+        transportData.reviews.forEach((review) => {
+            const reviewElement = `
+            <div class=${styles.review}>
+                <div class=${styles.reviewTop}>
+                    <div class=${styles.userInfo}>
+                        <p${review?.owner || 'anonim'}</p>
+                        <p>${review.date}</p>
+                    </div>
+                </div>
+                
+                <div class=${styles.reviewSection}>
+                    <div class="${styles.sectionTitle} ${styles.pros}">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L4 12l8 10 8-10z"/>
+                        </svg>
+                        Плюсы
+                    </div>
+
+                    <div>${review.pluses}</div>
+                </div>
+                
+                <div class=${styles.reviewSection}>
+                    <div class="${styles.sectionTitle} ${styles.cons}">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 22L4 12l8-10 8 10z"/>
+                        </svg>
+                        Минусы
+                    </div>
+                    <div>${review.cons}</div>
+                </div>
+                
+                <div class=${styles.reviewSection} id="commentsSection">
+                    <div class="${styles.sectionTitle} ${styles.comments}">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.557 1.522 4.82 3.889 6.115l-.78 2.77 3.116-1.65c.88.275 1.823.425 2.775.425 4.97 0 9-3.186 9-7.115C21 6.186 16.97 3 12 3z"/>
+                        </svg>
+                        Дополнительные комментарии
+                    </div>
+
+                    <div>${review?.comments}</div>
+                </div>
+            </div>`
+
+            reviewContainer.insertAdjacentHTML('beforeend', reviewElement);
+
+            if (!review.comments) {
+                document.querySelector('#commentsSection').remove();
+            }
+        })
+    } else {
+        reviewContainer.innerHTML = ''
+    }
+
+    // Добавление отзывов
+    const reviewForm = document.forms.reviewForm;
+
+    reviewForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const form = event.target
+        const formElements = form.elements;
+
+        const rating = document.querySelector('input[name="rating"]:checked').value;
+
+        const pluses = formElements.pluses.value;
+        const cons = formElements.cons.value;
+        const comments = formElements.comments.value;
+
+        const review = {
+            owner: currentUser.displayName || 'anonim',
+            rating: Number(rating),
+            pluses,
+            cons,
+            comments,
+            date: new Date().toLocaleString()
+        };
+
+        triggerPopUp({
+            title: 'Спасибо!',
+            text: 'Ваше мнение – топливо для нашего прогресса ⚡',
+        })
+
+        transportData.reviews.push(review);
+        firebaseFirestore.updateDoc(TRANSPORT_COLLECTION_NAME, transportData.plate_number, transportData)
     });
 }
