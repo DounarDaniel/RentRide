@@ -5,6 +5,15 @@ import { darkMapStyle, lightMapStyle } from "./src/mapStyles.js";
 
 import './src/global.module.css'
 
+const defaultMainFont = 'Montserrat Alternates'
+const currentMainFont = localStorage.getItem('main-font') || defaultMainFont;
+
+if (currentMainFont === defaultMainFont || !currentMainFont) {
+    DOCUMENT_ELEMENT.setAttribute('main-font', defaultMainFont);
+} else {
+    DOCUMENT_ELEMENT.setAttribute('main-font', currentMainFont);
+}
+
 const currentMainColor = localStorage.getItem('main-color') || 'blue';
 
 if (currentMainColor === 'blue' || !currentMainColor) {

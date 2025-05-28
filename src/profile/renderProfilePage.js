@@ -22,7 +22,6 @@ export async function renderProfile() {
     startLoading();
 
     // TODO: logic for avatarButton
-    // TODO: logic for switching
 
     const trips = await firebaseFirestore.getDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
 

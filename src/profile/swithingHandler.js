@@ -111,10 +111,11 @@ export function renderSettings(switchingContent) {
                 <p>Choose your own main font!</p>
             </div>
 
-            <select class=${settingsStyles.select}>
-                <option>Montserrat Alternates, sans-serif</option>
-                <option>Inter</option>
-                // todo: choose fonts and do logic
+            <select class=${settingsStyles.select} id="fontSelect">
+                <option value="Montserrat Alternates">Montserrat Alternates (recommended)</option>
+                <option value="Inter">Inter</option>
+                <option value="Open Sans">Open Sans</option>
+                <option value="Playfair Display">Playfair Display</option>
             </select>
         </div>
 
@@ -197,9 +198,38 @@ export function renderSettings(switchingContent) {
     watchPosInput.addEventListener('change', () => {
         if (!watchPosInput.checked) {
             watchPosText.innerHTML = 'Мы больше не видим где вы 😔';
+            localStorage.removeItem('watchId')
             stopTracking(watchId);
         } else {
             watchPosText.innerHTML = 'Мы видим где вы прямо сейчас 😑. Хотите спрятаться?';
         }
     })
+
+    // Смена главного шрифта
+    const defaultMainFont = 'Montserrat Alternates'
+    const fontSelect = document.querySelector('#fontSelect');
+    const currentMainFont = localStorage.getItem('main-font') || defaultMainFont;
+
+    if (currentMainFont !== defaultMainFont && !!currentMainFont) {
+        for (let i = 0; i < fontSelect.length; i++) {
+            const select = fontSelect[i];
+
+            if (select.value === currentMainFont) {
+                select.selected = true;
+            }
+        }
+    }
+
+    fontSelect.addEventListener('change', () => {
+        const selectedOption = fontSelect.selectedOptions[fontSelect.selectedOptions.length - 1];
+        const selectedFont = selectedOption.value;
+
+        if (selectedFont === defaultMainFont || !selectedFont) {
+            DOCUMENT_ELEMENT.removeAttribute('main-font')
+            localStorage.setItem('main-font', defaultMainFont);
+        } else {
+            DOCUMENT_ELEMENT.setAttribute('main-font', selectedFont);
+            localStorage.setItem('main-font', selectedFont);
+        }
+    });
 }
