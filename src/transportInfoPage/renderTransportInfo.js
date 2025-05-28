@@ -1,5 +1,5 @@
-import { ROOT_ELEMENT } from '../constants.js';
-import { renderMainPage } from '../index.js';
+import { PIECE_OF_ADMIN_NICKNAME, ROOT_ELEMENT } from '../constants.js';
+import { firebaseAuth, renderMainPage } from '../index.js';
 
 import styles from './transportInfo.module.css';
 
@@ -157,10 +157,19 @@ export function renderTransportInfo(transportData) {
         });
     });
 
+    // Выход на основную страницу
     document.querySelector('#arrowBack').addEventListener('click', () => {
         ROOT_ELEMENT.innerHTML = '';
-        // const user = firebaseAuth.getCurrentUser()
-        // todo: check if User = Admin
-        // renderMainPage()
+
+        const currentUser = firebaseAuth.getCurrentUser();
+        let isAdmin;
+
+        if (currentUser.displayName) {
+            isAdmin = currentUser.displayName.includes(PIECE_OF_ADMIN_NICKNAME);
+        } else {
+            isAdmin = false;
+        }
+
+        renderMainPage(isAdmin);
     });
 }
