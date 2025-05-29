@@ -1,5 +1,5 @@
-import { GEOLOCATION_OPTIONS, ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from "../../constants";
-import { firebaseFirestore, renderMainPage, triggerPopUp, startLoading, stopLoading } from "../../index.js";
+import { GEOLOCATION_OPTIONS, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from "../../constants";
+import { firebaseFirestore, triggerPopUp, startLoading, stopLoading } from "../../index.js";
 import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 import { renderTransportForm } from "./renderTransportForm";
 

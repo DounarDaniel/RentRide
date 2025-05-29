@@ -1,5 +1,6 @@
+import { renderPopUp } from '../index.js';
+
 import styles from './popUp.module.css'
-import { renderPopUp } from './renderPopUp';
 
 export function triggerPopUp({ title, text }) {
     let popUp = document.querySelector('#popUp');

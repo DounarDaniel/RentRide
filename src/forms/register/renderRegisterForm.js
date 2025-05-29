@@ -1,6 +1,6 @@
 import { ROOT_ELEMENT } from "../../constants";
 import { createAndAppendFormContainer } from "../createFormContainer.js";
-import { logInUser } from "../logIn/logInUser.js";
+import { logInUser } from "../../index.js";
 
 import styles from '../style.module.css'
 

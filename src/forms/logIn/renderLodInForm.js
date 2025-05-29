@@ -1,5 +1,5 @@
 import { createAndAppendFormContainer } from '../createFormContainer.js';
-import { registerUser } from '../register/registerUser.js';
+import { registerUser } from '../../index.js';
 
 import styles from '../style.module.css'
 

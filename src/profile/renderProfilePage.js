@@ -1,8 +1,8 @@
 import { DEFAULT_AVATAR, GEOLOCATION_OPTIONS, ROOT_ELEMENT, TRIPS_COLLECTION_NAME } from "../constants.js";
 import { firebaseAuth, firebaseFirestore, registerUser, startLoading, stopLoading, triggerPopUp } from "../index.js";
+import { removeActiveFromAllBtns, renderSettings, renderTripsBox } from "./swithingHandler.js";
 
 import styles from './profile.module.css'
-import { removeActiveFromAllBtns, renderSettings, renderTripsBox } from "./swithingHandler.js";
 
 export async function renderProfile(activeBlock = 'tripHistory') {
     // getting current user
