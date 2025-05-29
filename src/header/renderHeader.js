@@ -1,4 +1,4 @@
-import { ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from '../constants.js'
+import { ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID, TRIPS_COLLECTION_NAME } from '../constants.js'
 import { initMap, renderProfile, addTransport, renderTransportContainer, triggerPopUp, startLoading, firebaseAuth, firebaseFirestore, stopLoading } from '../index.js';
 
 import styles from './header.module.css'
@@ -91,9 +91,6 @@ export function renderHeader(isAdmin, isOnTrip = false) {
         }, 1000);
 
         stopButton.addEventListener('click', async () => {
-            localStorage.removeItem('isOnTrip');
-            localStorage.removeItem('startTime')
-
             startLoading('default')
 
             clearInterval(timerInterval);
@@ -134,6 +131,24 @@ export function renderHeader(isAdmin, isOnTrip = false) {
                 TRANSPORT_MARKERS_DOC_ID,
                 { transportData: transportMarkerData }
             );
+
+            localStorage.removeItem('isOnTrip');
+            localStorage.removeItem('startTime');
+
+            const currentUser = await firebaseAuth.getCurrentUser();
+
+            const usersTripsData = await firebaseFirestore.getDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
+            const usersTrips = usersTripsData.trips;
+
+            const newTrip = {
+                transport: rentedTransport.model,
+                date: new Date().toLocaleString(),
+                duration: display.innerHTML,
+            }
+
+            usersTrips.push(newTrip);
+
+            await firebaseFirestore.updateDoc(TRIPS_COLLECTION_NAME, currentUser.uid, { trips: usersTrips })
 
             stopLoading();
         });

@@ -38,8 +38,13 @@ export function renderTripsBox(trips, switchingContent) {
             <h3>У вас ещё нет поездок</h3>
             <button class=${tripStyles.startTripBtn}>Начать поездку</button>
         `
+
+        tripsBox.insertAdjacentHTML('beforeend', trip);
+
     } else {
         trips.forEach(trip => {
+            console.log(trip.transport, trip.date, trip.duration);
+
             trip = `
             <div class=${tripStyles.trip}>
                 <div>
@@ -47,15 +52,15 @@ export function renderTripsBox(trips, switchingContent) {
                     <p class=${tripStyles.date}>${trip.date}</p>
                 </div>
 
-                <p>Distance: ${trip.distance}</p>
+                <p>Длительность поездки: ${trip.duration}</p>
             </div>`
+
+            tripsBox.insertAdjacentHTML('beforeend', trip);
         })
     }
 
-    // insert HTML elements
-    tripsBox.insertAdjacentHTML('beforeend', trip);
+    // insert HTML element
     switchingContent.appendChild(tripsBox, switchingContent);
-
 }
 
 export function renderSettings(switchingContent) {

@@ -21,7 +21,8 @@ export async function renderProfile(activeBlock = 'tripHistory') {
 
     startLoading();
 
-    const trips = await firebaseFirestore.getDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
+    const tripsData = await firebaseFirestore.getDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
+    const trips = tripsData.trips;
 
     const profile = `
     <section class=${styles.profile} id="profile">
@@ -77,8 +78,6 @@ export async function renderProfile(activeBlock = 'tripHistory') {
     const tripHistoryBtn = document.querySelector('#tripHistoryBtn');
     const settingsBtn = document.querySelector('#settingsBtn');
 
-    const profileElement = document.querySelector('#profile');
-
     if (activeBlock === 'tripHistory' || !activeBlock) {
         tripHistoryBtn.classList.add(styles.active);
     } else {
@@ -89,7 +88,7 @@ export async function renderProfile(activeBlock = 'tripHistory') {
         renderSettings(switchingContent);
     }
 
-    // get usre geolocation
+    // get user geolocation
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             async (position) => {
@@ -127,7 +126,8 @@ export async function renderProfile(activeBlock = 'tripHistory') {
         const isSure = confirm("Вы точно хотите выйти из аккаунта?");
 
         if (isSure) {
-            await firebaseAuth.logoutUser()
+            await firebaseAuth.logoutUser();
+            // await firebaseFirestore.deleteDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
         }
     })
 

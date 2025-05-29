@@ -33,9 +33,19 @@ class FirebaseFirestoreService {
             const firebaseDoc = doc(db, collectionName, docId);
             await setDoc(firebaseDoc, data, { merge: true });
         } catch (error) {
-            console.warn('Error in setting data to firebase!', error);
+            console.error('Error in setting data to firebase!', error);
         }
     };
+
+    async deleteDoc(collectionName, docId) {
+        const docRef = doc(db, collectionName, docId);
+
+        try {
+            await deleteDoc(docRef);
+        } catch (error) {
+            console.error('Error in deleting document from firebase!', error);
+        }
+    }
 }
 
 export const firebaseFirestore = new FirebaseFirestoreService();
