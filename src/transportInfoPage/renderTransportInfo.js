@@ -1,5 +1,5 @@
-import { PIECE_OF_ADMIN_NICKNAME, ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME } from '../constants.js';
-import { firebaseAuth, firebaseFirestore, renderMainPage, triggerPopUp } from '../index.js';
+import { PIECE_OF_ADMIN_NICKNAME, ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from '../constants.js';
+import { firebaseAuth, firebaseFirestore, renderMainPage, startLoading, stopLoading, triggerPopUp } from '../index.js';
 
 import styles from './transportInfo.module.css';
 
@@ -208,7 +208,9 @@ export async function renderTransportInfo(transportData) {
                 <div class=${styles.reviewSection} id="commentsSection">
                     <div class="${styles.sectionTitle} ${styles.comments}">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.557 1.522 4.82 3.889 6.115l-.78 2.77 3.116-1.65c.88.275 1.823.425 2.775.425 4.97 0 9-3.186 9-7.115C21 6.186 16.97 3 12 3z"/>
+                            <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.557 1.522 4.82 3.889 
+                                6.115l-.78 2.77 3.116-1.65c.88.275 1.823.425 2.775.425 4.97 
+                                0 9-3.186 9-7.115C21 6.186 16.97 3 12 3z"/>
                         </svg>
                         Дополнительные комментарии
                     </div>
@@ -259,4 +261,58 @@ export async function renderTransportInfo(transportData) {
         transportData.reviews.push(review);
         firebaseFirestore.updateDoc(TRANSPORT_COLLECTION_NAME, transportData.plate_number, transportData)
     });
+
+    // Аренда
+    const rentButtons = document.querySelectorAll('#rentButton');
+
+    for (let i = 0; i < rentButtons.length; i++) {
+        const rentButton = rentButtons[i];
+
+        rentButton.addEventListener('click', async () => {
+            startLoading('default');
+
+            ROOT_ELEMENT.innerHTML = '';
+
+            let isAdmin;
+
+            if (currentUser.displayName) {
+                isAdmin = currentUser.displayName.includes(PIECE_OF_ADMIN_NICKNAME);
+            } else {
+                isAdmin = false;
+            }
+
+            transportData.status = 'rented';
+
+            const markersData = await firebaseFirestore.getDoc(
+                TRANSPORT_MARKERS_COLLECTION_NAME,
+                TRANSPORT_MARKERS_DOC_ID
+            );
+
+            const transportMarkerData = markersData.transportData;
+
+            const rentedTransport = transportMarkerData.find(
+                (transport) => transport.plate_number === transportData.plate_number
+            )
+
+            rentedTransport.status = 'rented';
+
+            await firebaseFirestore.updateDoc(
+                TRANSPORT_COLLECTION_NAME,
+                transportData.plate_number,
+                transportData
+            );
+
+            await firebaseFirestore.updateDoc(
+                TRANSPORT_MARKERS_COLLECTION_NAME,
+                TRANSPORT_MARKERS_DOC_ID,
+                { transportData: transportMarkerData }
+            );
+
+            localStorage.setItem('rentedTransportId', rentedTransport.plate_number)
+            stopLoading();
+
+            const isOnTrip = true;
+            renderMainPage(isAdmin, isOnTrip);
+        })
+    }
 }

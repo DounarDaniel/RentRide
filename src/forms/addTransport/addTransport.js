@@ -93,7 +93,7 @@ export async function addTransport() {
 
         const newTransport = {
             status: 'active',
-            picture: URL.createObjectURL(imageInput.files[0]),
+            picture: 'https://minsktrans.by/o-predpriyatii/istoriya-predpriyatiya-i-transporta-goroda-minska/',
             plate_number: transportData.plate_number,
             type: transportData.type,
             basic_info: transportData.basic_info,
@@ -117,11 +117,16 @@ export async function addTransport() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     async (position) => {
+                        const cords = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        }
+
                         addDataToFirebaseAndFinish(
                             transportData,
                             newTransport,
                             transportMarkersNewData,
-                            position.coords,
+                            cords,
                             form
                         )
                     },
@@ -206,25 +211,24 @@ async function addDataToFirebaseAndFinish(transportData, newTransport, transport
             TRANSPORT_MARKERS_DOC_ID
         )
 
-        await firebaseFirestore.updateDoc(
-            TRANSPORT_MARKERS_COLLECTION_NAME,
-            TRANSPORT_MARKERS_DOC_ID,
-            { transportData: [...transportMarkersPrevData.transportData, transportMarkersNewData] }
-        )
+        if (!!transportMarkersPrevData.transportData.length) {
+            await firebaseFirestore.updateDoc(
+                TRANSPORT_MARKERS_COLLECTION_NAME,
+                TRANSPORT_MARKERS_DOC_ID,
+                { transportData: [...transportMarkersPrevData.transportData, transportMarkersNewData] }
+            )
+        } else {
+            await firebaseFirestore.updateDoc(
+                TRANSPORT_MARKERS_COLLECTION_NAME,
+                TRANSPORT_MARKERS_DOC_ID,
+                { transportData: [transportMarkersNewData] }
+            )
+        }
     } catch (error) {
         console.error(error)
         stopLoading();
     }
 
     stopLoading();
-    form.remove();
-    ROOT_ELEMENT.style.overflow = 'hidden';
-
-    const container = document.querySelector('#container');
-
-    if (container) {
-        container.remove();
-    }
-
-    renderMainPage(true);
+    form.trigger('reset');
 }

@@ -11,10 +11,10 @@ header {
 }
 
 .title {
-    color: var(--secondary-color);
+    /* color: var(--secondary-color);
     font-family: var(--primary-font-family);
     font-weight: 600;
-    font-size: 35px;
+    font-size: 35px; */
 }
 
 nav {
@@ -68,6 +68,41 @@ nav {
 
 .menu li:hover .icon {
     left: 0;
+}
+
+.stopwatch {
+    text-align: center;
+    background-color: var(--white);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 325px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.display {
+    font-family: var(--primary-font-family);
+    font-family: monospace;
+    font-size: 21px;
+    margin-bottom: 20px;
+    color: var(--dark-grey);
+    margin: auto 0;
+}
+
+.stopBtn {
+    background: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all .4s ease-in-out;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.stopBtn:hover {
+    background: var(--white);
+    color: var(--primary-color);
 }
 
 @keyframes textTransformBack {

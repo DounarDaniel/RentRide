@@ -1,12 +1,12 @@
-import { ROOT_ELEMENT } from '../constants.js'
-import { initMap, renderProfile, addTransport, renderTransportContainer } from '../index.js';
+import { ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from '../constants.js'
+import { initMap, renderProfile, addTransport, renderTransportContainer, triggerPopUp, startLoading, firebaseAuth, firebaseFirestore, stopLoading } from '../index.js';
 
 import styles from './header.module.css'
 
-export function renderHeader(isAdmin) {
+export function renderHeader(isAdmin, isOnTrip = false) {
     const headerElem = `
     <header>
-        <h2 class=${styles.title}>RentRide</h2>
+        <h2 class=${styles.title} id="headerTitle">RentRide</h2>
 
         <nav>
             <ul class=${styles.menu}>
@@ -57,8 +57,91 @@ export function renderHeader(isAdmin) {
         });
     }
 
+    if (Boolean(isOnTrip)) {
+        localStorage.setItem('isOnTrip', true);
+        const headerTitle = document.querySelector('#headerTitle');
+
+        const onTripBox = `
+        <div class=${styles.stopwatch} id="stopwatch">
+            <div class=${styles.display} id="display">00:00:00</div>
+            <button class=${styles.stopBtn} id="stopButton">Закончить поездку</button>
+        </div>
+        `
+
+        headerTitle.insertAdjacentHTML('afterend', onTripBox);
+
+        const display = document.querySelector('#display');
+        const stopButton = document.querySelector('#stopButton');
+        const stopwatch = document.querySelector('#stopwatch');
+
+        let startTime;
+
+        const savedStartTime = localStorage.getItem('startTime');
+
+        if (!savedStartTime) {
+            startTime = Date.now();
+            localStorage.setItem('startTime', startTime);
+        } else {
+            startTime = savedStartTime;
+        }
+
+        let timerInterval = setInterval(() => {
+            const currentTime = Date.now() - startTime;
+            display.textContent = formatTime(currentTime);
+        }, 1000);
+
+        stopButton.addEventListener('click', async () => {
+            localStorage.removeItem('isOnTrip');
+            localStorage.removeItem('startTime')
+
+            startLoading('default')
+
+            clearInterval(timerInterval);
+
+            stopwatch.remove();
+
+            triggerPopUp({
+                title: 'Поездка закончена!',
+                text: 'Благодарим, что воспользывались нашим приложением, теперь вы сможете оставить отзыв о транспорте, перейдя на его страницу'
+            })
+
+            const rentedTransportId = localStorage.getItem('rentedTransportId');
+
+            if (!rentedTransportId) {
+                return;
+            }
+
+            const rentedTransport = await firebaseFirestore.getDoc(TRANSPORT_COLLECTION_NAME, rentedTransportId);
+            rentedTransport.status = 'active';
+
+            await firebaseFirestore.updateDoc(TRANSPORT_COLLECTION_NAME, rentedTransportId, rentedTransport)
+
+            const markersData = await firebaseFirestore.getDoc(
+                TRANSPORT_MARKERS_COLLECTION_NAME,
+                TRANSPORT_MARKERS_DOC_ID
+            );
+
+            const transportMarkerData = await markersData.transportData;
+
+            const rentedMarkerTransport = transportMarkerData.find(
+                (transport) => transport.plate_number === rentedTransportId
+            )
+
+            rentedMarkerTransport.status = 'active';
+
+            await firebaseFirestore.updateDoc(
+                TRANSPORT_MARKERS_COLLECTION_NAME,
+                TRANSPORT_MARKERS_DOC_ID,
+                { transportData: transportMarkerData }
+            );
+
+            stopLoading();
+        });
+    }
+
     document.querySelector('#homeLi').addEventListener('click', () => {
         removeUnnecessaryChildren((child) => child.id === "map" || child.id === "transportContainer")
+        ROOT_ELEMENT.style.overflow = 'hidden';
 
         const map = document.querySelector('#map');
         if (!map) {
@@ -117,4 +200,13 @@ function removeUnnecessaryChildren(callback) {
     }
 
     unnecessaryChildren.forEach(child => child.remove())
+}
+
+function formatTime(ms) {
+    let date = new Date(ms);
+    let hours = date.getUTCHours().toString().padStart(2, '0');
+    let minutes = date.getUTCMinutes().toString().padStart(2, '0');
+    let seconds = date.getUTCSeconds().toString().padStart(2, '0');
+
+    return `${hours}:${minutes}:${seconds}`;
 }

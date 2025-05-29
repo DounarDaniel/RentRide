@@ -6,7 +6,15 @@ export async function addMapMarkers(map) {
     const transportMarkersData = await firebaseFirestore.getDoc(TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID)
     const transportList = transportMarkersData.transportData;
 
+    if (!transportList.length) {
+        return;
+    }
+
     transportList.forEach(transport => {
+        if (transport.status !== 'active') {
+            return;
+        }
+
         const position = {
             lat: +transport.cords.lat,
             lng: +transport.cords.lng

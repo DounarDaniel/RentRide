@@ -49,7 +49,9 @@ onAuthStateChanged(auth, user => {
 
         ROOT_ELEMENT.innerHTML = "";
         ROOT_ELEMENT.style.overflow = 'hidden';
-        renderMainPage(isAdmin)
+
+        const isOnTrip = localStorage.getItem('isOnTrip') || false;
+        renderMainPage(isAdmin, isOnTrip)
     } else {
         ROOT_ELEMENT.innerHTML = "";
         ROOT_ELEMENT.style.overflow = 'visible';

@@ -15,8 +15,8 @@ export function renderTransportForm() {
         <p class=${generalStyles.subtitle}>Добавить транспорт</p>
 
         <div class=${generalStyles.inputGroup}>
-            <label for="transportImage">Картинка транспорта (вживую)*</label>
-            <input type="file" id="transportImage" name="transportImage" required>
+            <label for="transportImage">Картинка транспорта (вживую)</label>
+            <input type="file" id="transportImage" name="transportImage">
         </div>
 
         <div class=${generalStyles.inputGroup}>
