@@ -10,10 +10,12 @@ header {
     width: 100%;
 }
 
-.title {
-    /* color: var(--secondary-color);
+.logo {
+    color: var(--secondary-color);
     font-weight: 600;
-    font-size: 35px; */
+    font-size: 35px;
+    min-height: 50px;
+    width: 55px;
 }
 
 nav {

@@ -6,7 +6,7 @@ import styles from './header.module.css'
 export function renderHeader(isAdmin, isOnTrip = false) {
     const headerElem = `
     <header>
-        <h2 class=${styles.title} id="headerTitle">RentRide</h2>
+        <img class=${styles.logo} src="../../RentRide_logo.png" id="headerIcon" alt="RentRide">
 
         <nav>
             <ul class=${styles.menu}>
@@ -59,7 +59,7 @@ export function renderHeader(isAdmin, isOnTrip = false) {
 
     if (Boolean(isOnTrip)) {
         localStorage.setItem('isOnTrip', true);
-        const headerTitle = document.querySelector('#headerTitle');
+        const headerIcon = document.querySelector('#headerIcon');
 
         const onTripBox = `
         <div class=${styles.stopwatch} id="stopwatch">
@@ -68,7 +68,7 @@ export function renderHeader(isAdmin, isOnTrip = false) {
         </div>
         `
 
-        headerTitle.insertAdjacentHTML('afterend', onTripBox);
+        headerIcon.insertAdjacentHTML('afterend', onTripBox);
 
         const display = document.querySelector('#display');
         const stopButton = document.querySelector('#stopButton');
