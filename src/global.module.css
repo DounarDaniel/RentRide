@@ -93,6 +93,16 @@
     --stat-box-subtitle-color: #707780;
 }
 
+/* transport info page */
+:root {
+    --review-border: #e0e0e0;
+    --pluses-green: #2e7d32;
+    --cons-red: #c62828;
+    --comments-blue: #1565c0;
+
+    --main-bg: var(--white);
+}
+
 /* Dark theme */
 [data-theme="dark"] {
     --white: #000000;
@@ -124,6 +134,7 @@
     --transport-card-bg: #373737;
     --forms-container-bg: #484848;
     --slider-bg: #d7d0d0;
+    --main-bg: #58555f;
 
     --stat-box-title-color: #d5e1ec;
     --stat-box-subtitle-color: #ddebff;

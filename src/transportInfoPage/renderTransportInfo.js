@@ -185,7 +185,7 @@ export async function renderTransportInfo(transportData) {
                 </div>
                 
                 <div class=${styles.reviewSection}>
-                    <div class="${styles.sectionTitle} ${styles.pros}">
+                    <div class="${styles.sectionTitle} ${styles.pluses}">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2L4 12l8 10 8-10z"/>
                         </svg>
