@@ -24,6 +24,8 @@ export async function renderProfile(activeBlock = 'tripHistory') {
     const tripsData = await firebaseFirestore.getDoc(TRIPS_COLLECTION_NAME, currentUser.uid);
     const trips = tripsData.trips;
 
+    currentUser.photoURL= '';
+
     const profile = `
     <section class=${styles.profile} id="profile">
         <section class=${styles.profileTop}>

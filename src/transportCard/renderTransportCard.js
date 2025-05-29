@@ -24,7 +24,7 @@ export async function renderTransportCard(transportId) {
 
     const card = `
     <div class=${styles.card}>
-        <div class=${styles.image}>
+        <div class=${styles.image} style="background-image: url(../../public/HyundaiSolaris.jpg)">
             <span class=${styles.rating}>${averageRating}⭐</span>
 
             <div class=${styles.imageInfo}>

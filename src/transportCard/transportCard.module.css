@@ -24,6 +24,9 @@
     justify-content: flex-end;
     padding: 15px;
     box-sizing: border-box;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .imageInfo {

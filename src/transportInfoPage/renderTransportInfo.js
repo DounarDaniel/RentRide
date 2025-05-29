@@ -23,7 +23,7 @@ export async function renderTransportInfo(transportData) {
     <main>
         <div class=${styles.sliderContainer}>
             <div class=${styles.slider} id="slider">
-                <img src="../../mapIcons/car.png" alt="transport" class="${styles.active}" id="slide">
+                <img src="../../public/HyundaiSolaris.jpg" alt="transport" class="${styles.active}" id="slide">
                 <img src="../../mapIcons/bike.png" alt="transport" id="slide">
                 <img src="../../mapIcons/electric_bike.png" alt="transport" id="slide">
             </div>
