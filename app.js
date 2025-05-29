@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { DOCUMENT_ELEMENT, MAP_OPTIONS, PIECE_OF_ADMIN_NICKNAME, ROOT_ELEMENT } from "./src/constants.js";
 import { darkMapStyle, lightMapStyle } from "./src/mapStyles.js";
 
-import './src/global.module.css'
+import './src/global.css'
 
 // Получение основного шрифта
 const defaultMainFont = 'Montserrat Alternates'
