@@ -12,7 +12,6 @@ header {
 
 .title {
     /* color: var(--secondary-color);
-    font-family: var(--primary-font-family);
     font-weight: 600;
     font-size: 35px; */
 }
@@ -40,7 +39,6 @@ nav {
 
 .text {
     font-size: 18px;
-    font-family: var(--primary-font-family);
     font-weight: 500;
     opacity: 0;
     display: inline-block;
@@ -82,7 +80,6 @@ nav {
 }
 
 .display {
-    font-family: var(--primary-font-family);
     font-family: monospace;
     font-size: 21px;
     margin-bottom: 20px;

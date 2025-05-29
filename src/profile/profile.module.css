@@ -1,5 +1,4 @@
 .profile {
-    font-family: var(--primary-font-family);
     background-color: var(--profile-bg);
     width: 100%;
     display: flex;

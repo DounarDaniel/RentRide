@@ -20,7 +20,6 @@
 .title {
     text-align: center;
     color: var(--primary-grey);
-    font-family: var(--primary-font-family);
     font-weight: 600;
     font-size: 42px;
 }

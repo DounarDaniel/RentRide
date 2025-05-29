@@ -7,7 +7,6 @@
     transition: all 0.3s ease;
     ;
     background-color: var(--black);
-    font-family: 'Montserrat Alternates';
 }
 
 .card:hover {

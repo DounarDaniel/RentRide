@@ -12,7 +12,6 @@
 
 .arrowBox {
   display: flex;
-  font-family: var(--primary-font-family);
   padding: 10px 20px;
 }
 
@@ -91,14 +90,12 @@ main {
 }
 
 .name {
-  font-family: var(--primary-font-family);
   font-size: 36px;
   margin-bottom: 15px;
   font-weight: 500;
 }
 
 .text {
-  font-family: var(--primary-font-family);
   font-weight: 400;
   font-size: 21px;
   margin-bottom: 7px;
@@ -117,7 +114,6 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: var(--primary-font-family);
   width: 30%;
   padding: 15px;
   border-radius: 25px;
@@ -154,7 +150,6 @@ main {
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: var(--primary-font-family);
 }
 
 .reviewForm h2 {
@@ -209,7 +204,6 @@ main {
   border-radius: 15px;
   padding: 10px;
   font-size: 14px;
-  font-family: var(--primary-font-family);
   color: var(--primary-black);
   background-color: var(--white);
   transition: all .5s ease-in-out;
@@ -224,7 +218,6 @@ main {
 .reviewContainer {
   margin: auto;
   width: 80%;
-  font-family: var(--primary-font-family);
 }
 
 .reviewContainer h2 {
@@ -330,7 +323,6 @@ main {
 .help h3 {
   color: var(--black);
   font-size: 18px;
-  font-family: var(--primary-font-family);
   margin-bottom: 10px;
 }
 

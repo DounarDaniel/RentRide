@@ -37,7 +37,6 @@
     border-radius: 10px;
     border: solid 2px var(--white);
     padding: 10px 20px;
-    font-family: var(--primary-font-family);
     font-weight: 500;
     font-size: 15px;
     transition: all .4s ease-in-out;
