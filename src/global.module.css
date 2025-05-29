@@ -216,3 +216,10 @@ button {
     box-sizing: border-box;
     font-family: var(--primary-font-family);
 }
+
+svg {
+    height: 35px;
+    width: 35px;
+    font-weight: 400;
+    color: var(--black);
+}

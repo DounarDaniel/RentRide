@@ -37,7 +37,7 @@ function updateUserPosition(position, map) {
             map,
             title: "Ваше местоположение",
             icon: {
-                url: '../../mapIcons/location.png',
+                url: '../../location.png',
                 scaledSize: new google.maps.Size(30, 30),
                 anchor: new google.maps.Point(15, 15),
             },

@@ -36,7 +36,7 @@ export const ROOT_ELEMENT = document.querySelector('#root');
 export const DOCUMENT_ELEMENT = document.documentElement;
 
 export const ESC_KEY_CODE = 27;
-export const TRANSPORT_LIST = ['scooter', 'car', 'moped', 'electric_bike', 'bike'];
+export const TRANSPORT_LIST = ['bike', 'electric_scooter', 'electric_bike', 'scooter', 'car'];
 
 export const PIECE_OF_ADMIN_NICKNAME = 'adminLK0';
 

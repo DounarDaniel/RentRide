@@ -34,7 +34,7 @@ nav {
 }
 
 .menu li:hover {
-    background-color: var(--secondary-white);
+    background-color: var(--white);
     border-radius: 15px;
     padding: 10px 10px 10px 45px;
 }
@@ -47,6 +47,7 @@ nav {
     transform: translateY(-300%);
     animation: textTransformBack 1s ease-in-out;
     cursor: pointer;
+    color: var(--black);
 }
 
 .menu li:hover .text {
@@ -56,13 +57,10 @@ nav {
 }
 
 .icon {
-    height: 35px;
-    width: 35px;
     position: absolute;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-weight: 400;
     transition: all .4s ease-in-out;
 }
 

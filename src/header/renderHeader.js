@@ -11,17 +11,30 @@ export function renderHeader(isAdmin, isOnTrip = false) {
         <nav>
             <ul class=${styles.menu}>
                 <li id="homeLi">
-                    <img src="../../headerIcons/home.png" alt="" class=${styles.icon}>
+                    <svg class=${styles.icon} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 9L12 2L21 9V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 21V12H15V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
                     <span class=${styles.text}>Home</span>
                 </li>
                 
                 <li id="profileLi">
-                    <img src="../../headerIcons/profile.png" alt="" class=${styles.icon}>
+                    <svg class=${styles.icon} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="9" r="3" fill="currentColor"/>
+                        <path d="M5 19C5 16.2386 8.13401 14 12 14C15.866 14 19 16.2386 19 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+
                     <span class=${styles.text}>Profile</span>
                 </li>
 
                 <li id="chatLi">
-                    <img src="../../headerIcons/chat.png" alt="" class=${styles.icon}>
+                    <svg class=${styles.icon} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 14V7C19 4.79086 17.2091 3 15 3H5C2.79086 3 1 4.79086 1 7V15C1 17.2091 2.79086 19 5 19H6V22L10.6 19H15C17.2091 19 19 17.2091 19 15V14Z" 
+                                stroke="currentColor"/>
+                    </svg>
+
                     <span class=${styles.text}>Chat</span>
                 </li>
             </ul>
@@ -32,7 +45,13 @@ export function renderHeader(isAdmin, isOnTrip = false) {
 
     const adminButton = `
     <li id="addTransportLi">
-        <img src="../../headerIcons/add.png" alt="" class=${styles.icon}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class=${styles.icon}>
+            <path d="M12 4V20M4 12H20" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round"/>
+        </svg>
+
         <span class=${styles.text}>Add</span>
     </li>`
 

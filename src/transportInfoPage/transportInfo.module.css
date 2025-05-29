@@ -10,6 +10,10 @@
   border: solid 1px var(--white);
 }
 
+.icon {
+  color: var(--black);
+}
+
 .arrowBox {
   display: flex;
   padding: 10px 20px;
