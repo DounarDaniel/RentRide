@@ -14,13 +14,9 @@
     justify-content: space-between;
 }
 
-.trips h3 {
-    color: var(--black);
-}
-
-.trip h3{
+.trip h4 {
     font-size: 1.3em;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     color: var(--dark-grey);
 }
 
