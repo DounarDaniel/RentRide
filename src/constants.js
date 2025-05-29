@@ -45,3 +45,5 @@ export const GEOLOCATION_OPTIONS = {
     maximumAge: 30000,
     timeout: 27000
 };
+
+export const WEATHER_API_KEY = '776a2046074c1c6eea6f33521c8af590';

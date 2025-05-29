@@ -1,24 +1,9 @@
-const API_KEY = '776a2046074c1c6eea6f33521c8af590';
+import { ROOT_ELEMENT, WEATHER_API_KEY } from '../constants.js';
+import { getWeatherBackground, getWeatherIcon } from './weatherPicturesHandler.js';
 
-function getWeatherIcon(iconCode) {
-    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-}
+import styles from './weather.module.css'
 
-function getWeatherBackground(weatherMain) {
-    const weatherImages = {
-        'Clear': 'https://images.unsplash.com/photo-1516912481808-3406841bd33c',
-        'Clouds': 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0',
-        'Rain': 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0',
-        'Snow': 'https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5',
-        'Thunderstorm': 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b',
-        'Drizzle': 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0',
-        'Mist': 'https://images.unsplash.com/photo-1504253163759-c23fccaebb55',
-        'Fog': 'https://images.unsplash.com/photo-1504253163759-c23fccaebb55'
-    };
-    return weatherImages[weatherMain] || 'https://images.unsplash.com/photo-1516912481808-3406841bd33c';
-}
-
-async function displayWeather() {
+export async function displayWeather() {
     try {
         const ipResponse = await fetch('https://ipapi.co/json/');
 
@@ -30,14 +15,14 @@ async function displayWeather() {
         const city = location.city;
 
         const weatherResponse = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
         );
 
         if (!weatherResponse.ok) throw new Error('Weather data error');
         const currentWeather = await weatherResponse.json();
 
         const forecastResponse = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+            `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
         );
 
         if (!forecastResponse.ok) throw new Error('Forecast data error');
@@ -57,23 +42,23 @@ async function displayWeather() {
         }) || forecast.list[8];
 
         const weatherCard = document.createElement('div');
-        weatherCard.classList.add();
+        weatherCard.classList.add(styles.weatherCard);
+        weatherCard.setAttribute('id', 'weatherCard');
 
         // Поменять классы 
         const weather = `
-        <div id="weatherContent">
-            <div class="weather-card-top">
+            <div class=${styles.weatherCardTop}>
                 <p>${currentWeather.weather[0].main}</p>
                 <p>${city.toUpperCase()}</p>
                 <p>${new Date().toLocaleString()}</p>
                 <h1>${Math.round(currentWeather.main.temp)}°C</h1>
             </div>
 
-            <div class="weather-image" style="background-image: url('${getWeatherBackground(currentWeather.weather[0].main)}')">
+            <div class=${styles.weatherImage} style="background-image: url('${getWeatherBackground(currentWeather.weather[0].main)}')">
                 <img src="${getWeatherIcon(currentWeather.weather[0].icon)}" alt="Weather icon" style="width: 150px; height: 100%; object-fit: cover;">
             </div>
 
-            <div class="weather-card-bottom">
+            <div class=${styles.weatherCardBottom}>
                 <table>
                     <tr>
                         <td>Через час</td>
@@ -85,14 +70,12 @@ async function displayWeather() {
                         <td>${Math.round(tomorrowForecast.main.temp)}°C</td>
                     </tr>
                 </table>
-            </div>
-        </div>`
+            </div>`
 
         weatherCard.insertAdjacentHTML('afterbegin', weather);
-        // Вставить в рут элемент
+
+        ROOT_ELEMENT.appendChild(weatherCard);
     } catch (error) {
         console.error('Error:', error);
     }
 }
-
-displayWeather();

@@ -1,0 +1,60 @@
+.weatherCard {
+    width: 250px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px var(--select-box-shadow-hover);
+    overflow: hidden;
+    background-color: var(--white);
+    position: absolute;
+    transform: translateY(-300%);
+    opacity: 0;
+    transition: all .4s ease-in-out;
+    z-index: 9;
+}
+
+.weatherCard.active {
+    transform: translateY(-120%) translateX(20%);
+    opacity: 1;
+}
+
+.weatherCardTop {
+    background: linear-gradient(to top, var(--close-btn-color), var(--secondary-color));
+    color: var(--white);
+    padding: 20px;
+    text-align: left;
+}
+
+.weatherCardTop h1 {
+    margin: 0;
+    font-size: 2em;
+    font-weight: normal;
+}
+
+.weatherCardTop p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.weatherCardBottom {
+    padding: 20px;
+}
+
+.weatherCardBottom table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.weatherCardBottom th,
+.weatherCardBottom td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--slider-bg);
+}
+
+.weatherImage {
+    width: 100%;
+    height: 76px;
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+}

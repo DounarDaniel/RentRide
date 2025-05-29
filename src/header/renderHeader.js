@@ -2,6 +2,7 @@ import { ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_N
 import { initMap, renderProfile, addTransport, renderTransportContainer, triggerPopUp, startLoading, firebaseAuth, firebaseFirestore, stopLoading } from '../index.js';
 
 import styles from './header.module.css'
+import { active as weatherActive } from '../weather/weather.module.css'
 
 export function renderHeader(isAdmin, isOnTrip = false) {
     const headerElem = `
@@ -108,6 +109,12 @@ export function renderHeader(isAdmin, isOnTrip = false) {
             startLoading('default')
 
             clearInterval(timerInterval);
+
+            const weatherCard = document.querySelector('#weatherCard');
+
+            if (weatherCard) {
+                weatherCard.classList.remove(weatherActive);
+            }
 
             stopwatch.remove();
 

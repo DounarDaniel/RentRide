@@ -1,7 +1,8 @@
 import { PIECE_OF_ADMIN_NICKNAME, ROOT_ELEMENT, TRANSPORT_COLLECTION_NAME, TRANSPORT_MARKERS_COLLECTION_NAME, TRANSPORT_MARKERS_DOC_ID } from '../constants.js';
-import { firebaseAuth, firebaseFirestore, renderMainPage, startLoading, stopLoading, triggerPopUp } from '../index.js';
+import { displayWeather, firebaseAuth, firebaseFirestore, renderMainPage, startLoading, stopLoading, triggerPopUp } from '../index.js';
 
 import styles from './transportInfo.module.css';
+import { active as weatherActive } from '../weather/weather.module.css'
 
 export async function renderTransportInfo(transportData) {
     ROOT_ELEMENT.innerHTML = '';
@@ -314,7 +315,16 @@ export async function renderTransportInfo(transportData) {
             stopLoading();
 
             const isOnTrip = true;
+
             renderMainPage(isAdmin, isOnTrip);
+
+            await displayWeather();
+
+            const weatherCard = document.querySelector('#weatherCard');
+
+            setTimeout(() => {
+                weatherCard.classList.add(weatherActive);
+            }, 1000)
         })
     }
 }
