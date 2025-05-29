@@ -1,3 +1,5 @@
+import { GEOLOCATION_OPTIONS } from "../constants";
+
 let userMarker = null;
 let watchId = null;
 
@@ -11,17 +13,15 @@ export function watchUserPosition(map) {
                 (error) => {
                     console.error("Ошибка геолокации:", error);
                 },
-                {
-                    enableHighAccuracy: true,
-                    maximumAge: 30000,
-                    timeout: 27000
-                }
+                GEOLOCATION_OPTIONS
             );
+
+            localStorage.setItem('watchId', watchId);
         },
         (error) => {
             console.error("Ошибка геолокации:", error);
         },
-        { enableHighAccuracy: true }
+        GEOLOCATION_OPTIONS
     );
 }
 
@@ -37,7 +37,7 @@ function updateUserPosition(position, map) {
             map,
             title: "Ваше местоположение",
             icon: {
-                url: '../../mapIcons/location.png',
+                url: '../../location.png',
                 scaledSize: new google.maps.Size(30, 30),
                 anchor: new google.maps.Point(15, 15),
             },
@@ -55,6 +55,6 @@ function updateUserPosition(position, map) {
     }
 }
 
-// function stopTracking(watchId) {
-//     navigator.geolocation.clearWatch(watchId);
-// }
+export function stopTracking(watchId) {
+    navigator.geolocation.clearWatch(watchId);
+}

@@ -1,30 +1,31 @@
-import { registerUser } from '../register/registerUser.js';
+import { createAndAppendFormContainer } from '../createFormContainer.js';
+import { registerUser } from '../../index.js';
 
 import styles from '../style.module.css'
 
-export function renderLogInForm(container) {
+export function renderLogInForm() {
+    const container = createAndAppendFormContainer();
+
     const form = `
     <form action="" method="GET" class=${styles.form} name="logIn">
         <h2 class=${styles.title}>RentRide</h2>
         <p class=${styles.subtitle}>Log In</p>
 
         <div class=${styles.inputGroup}>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Username" required>
+            <label for="email">Email*</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <p class=${styles.infoText}></p>
         </div>
 
         <div class=${styles.inputGroup}>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="••••••••" required>
+            <label for="password">Password*</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6">
+            <p class=${styles.infoText}></p>
         </div>
 
         <button type="submit" class=${styles.button}>Sign In</button>
         <p class=${styles.loginText}>No account? <a href="#" class=${styles.loginLink} id="registerLink">Create an account</a></p>
     </form>`
-
-    if (document.forms.length > 0 && !!document.forms.register) {
-        document.forms.register.remove();
-    }
 
     container.insertAdjacentHTML('afterbegin', form);
 

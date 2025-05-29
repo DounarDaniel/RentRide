@@ -1,0 +1,180 @@
+.profile {
+    background-color: var(--profile-bg);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.profileTop {
+    border-radius: 25px;
+    background-color: var(--profile-part-bg);
+    box-shadow: 0 4px 12px var(--profile-shadow);
+    padding: 30px;
+    width: 90%;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 50px;
+}
+
+.profileTop:hover {
+    transform: translateY(-3px);
+}
+
+.profileBottom {
+    width: 90%;
+    padding: 30px;
+    background-color: var(--profile-part-bg);
+    box-shadow: 0 0 20px var(--profile-shadow);
+    border-radius: 15px;
+}
+
+.avatar {
+    position: relative;
+    width: 130px;
+    margin: 0 auto 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+.avatarPicture {
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+    background-color: var(--avatar-bg);
+    box-shadow: 0 2px 6px var(--profile-shadow);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.avatarButton {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background-color: var(--secondary-color);
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px var(--profile-shadow);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.avatarButton:hover {
+    background-color: var(--avatarBtn-hover-bg);
+}
+
+.avatarButton label {
+    color: var(--white);
+    position: absolute;
+    top: 6px;
+    left: 0;
+}
+
+.avatarButton input {
+    display: none;
+}
+
+.info h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--info-h2-color);
+    margin-bottom: 8px;
+}
+
+.info p {
+    font-size: 17px;
+    color: var(--info-p-color);
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+}
+
+.statBox {
+    background-color: var(--stat-box-bg);
+    padding: 33px;
+    border-radius: 8px;
+    width: 45%;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.2s ease-in-out;
+    height: 110px;
+}
+
+.statBox:hover {
+    border-color: var(--secondary-color);
+}
+
+.statBox p:first-child {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--stat-box-title-color);
+    margin: 0;
+}
+
+.statBox p:last-child {
+    font-size: 15px;
+    color: var(--stat-box-subtitle-color);
+}
+
+.logout {
+    background-color: var(--logout-bg);
+    border: none;
+    color: var(--white);
+    padding: 14px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 2px 5px var(--profile-shadow);
+}
+
+.logout:hover {
+    background-color: var(--red);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.switching {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    background-color: var(--profile-part-bg);
+    border-radius: 10px;
+    padding: 5px;
+    gap: 10px;
+}
+
+.switching button {
+    padding: 12px 25px;
+    border-radius: 20px;
+    border-width: 0;
+    font-size: 18px;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+    background-color: var(--white);
+    color: var(--primary-grey);
+}
+
+.switching button.active {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    box-shadow: 0 2px 5px var(--profile-shadow);
+}
+
+.switchingTitle {
+    margin-bottom: 10px;
+    color: var(--black)
+}

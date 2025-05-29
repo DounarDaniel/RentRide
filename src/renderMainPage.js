@@ -1,7 +1,7 @@
-import { initMap, createTransportContainer, renderHeader } from "./index.js";
+import { initMap, renderTransportContainer, renderHeader } from "./index.js";
 
-export function renderMainPage(){
+export function renderMainPage(isAdmin = false, isOnTrip = false) {
     initMap();
-    createTransportContainer();
-    renderHeader();
+    renderTransportContainer();
+    renderHeader(isAdmin, isOnTrip);
 }

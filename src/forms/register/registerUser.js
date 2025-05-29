@@ -1,89 +1,63 @@
 import { renderRegisterForm } from "./renderRegisterForm.js";
-import { firebase, encryptPassword, triggerPopUp, renderMainPage } from "../../index.js";
-import { USERS_COLLECTION_NAME, USERS_DOC_ID, DEFAULT_AVATAR, ROOT_ELEMENT } from "../../constants.js";
-
-import styles from '../style.module.css'
+import { firebaseAuth, triggerPopUp, renderPopUp, firebaseFirestore } from "../../index.js";
+import { DEFAULT_AVATAR, TRIPS_COLLECTION_NAME } from "../../constants.js";
+import { submitErrorHandle, submitSuccessHandle } from "../submitHandlers.js";
 
 export function registerUser() {
+    renderPopUp();
     renderRegisterForm();
     const form = document.forms.register;
 
     form.addEventListener('submit', async function (event) {
-        event.preventDefault()
+        event.preventDefault();
 
+        // Получение данных с формы
         const form = event.target
         const formsElements = form.elements;
 
         const passwordInput = formsElements.password;
         const confirmPasswordInput = formsElements.confirm_password;
+
         const nicknameInput = formsElements.nickname;
 
+        const emailInput = form.email;
+        const userEmail = emailInput.value;
+
+        // Получение аватара
         const avatarInput = formsElements.avatar;
         let avatar;
 
         if (!avatarInput.files[0]) {
             avatar = DEFAULT_AVATAR;
         } else {
-            avatar = URL.createObjectURL(avatarInput.files[0])
+            avatar = new Blob(['../../../public/person.png'], { type: 'image/png' });
         }
+
+        // Проверка пароля
+        const passwordInputs = [passwordInput, confirmPasswordInput];
 
         if (passwordInput.value !== confirmPasswordInput.value) {
-            passwordInput.classList.add(styles.error);
-            confirmPasswordInput.classList.add(styles.error);
+            submitErrorHandle(passwordInputs);
 
             triggerPopUp({
-                title: 'Uncorrect password',
-                text: 'Please check that password and confirm password are same'
-            });
-            return;
-        } else {
-            passwordInput.classList.add(styles.successfull);
-            confirmPasswordInput.classList.add(styles.successfull);
-        }
-
-        const usersData = await firebase.getDoc(USERS_COLLECTION_NAME, USERS_DOC_ID);
-        const usersList = usersData.users;
-
-        const isNicknameUnique = !usersList.some(user =>
-            user.nickname.toLowerCase() === nicknameInput.value.toLowerCase()
-        );
-
-        if (!isNicknameUnique) {
-            nicknameInput.classList.add(styles.error);
-
-            triggerPopUp({
-                title: 'Unique Nickname',
-                text: 'Please choose another nickname, this nickname has been already taken'
+                title: 'Wrong password',
+                text: 'Please check that password and confirm password are the same.'
             });
 
             return;
         } else {
-            nicknameInput.classList.add(styles.error);
+            submitSuccessHandle(passwordInputs);
         }
 
-        const userId = new Date().getTime() + nicknameInput.value;
-        localStorage.setItem('userId', userId);
-
-        const exampleOfPieceOfAdminPassword = 'adminLK0'
-        const isAdmin = !!passwordInput.value.includes(exampleOfPieceOfAdminPassword)
-
-        const encryptedPassword = encryptPassword(passwordInput.value)
-
-        const firebaseUserData = {
-            isAdmin,
-            avatar,
-            id: userId,
-            nickname: nicknameInput.value,
-            password: encryptedPassword,
+        const profileInfo = {
+            displayName: nicknameInput.value,
+            photoURL: avatar,
         }
 
-        firebase.addDataToFirebase(USERS_COLLECTION_NAME, USERS_DOC_ID, 'users', firebaseUserData);
+        // Регистрация пользователя
+        const user = await firebaseAuth.createUser(userEmail, passwordInput.value, profileInfo);
 
-        this.remove();
-        document.querySelector('#container').remove();
-
-        ROOT_ELEMENT.style.overflow = 'hidden';
-        renderMainPage();
+        // Создание базы данных для поездок пользователя
+        await firebaseFirestore.setDoc(TRIPS_COLLECTION_NAME, user.uid, {trips: []});
     })
 }
-

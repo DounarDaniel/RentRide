@@ -1,0 +1,225 @@
+/* Basic colors */
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --green: green;
+    --red: red;
+}
+
+/* Primary colors */
+:root {
+    --primary-white: #e0e5ec;
+    --primary-grey: #777;
+    --primary-black: #2b3035;
+    --primary-opacity-black: #212529c7;
+    --primary-color: #2196F3;
+    --primary-opacity-color: #0096ff80;
+}
+
+/* Primary fond family */
+:root {
+    --primary-font-family: "Montserrat Alternates", sans-serif;
+}
+
+/* Secondary colors */
+:root {
+    --secondary-color: #007bff;
+    --secondary-grey: #050505;
+    --dark-grey: #333;
+    --secondary-white: #e7f5ff;
+    --secondary-black: #282828;
+
+    --error-color: var(--red);
+    --success-color: var(--green);
+
+    --close-btn-color: #dc3545;
+    --rating-stars-color: #ffc107;
+}
+
+/* Shadows */
+:root {
+    --shadow-grey: #bec3c9;
+    --profile-shadow: rgba(0, 0, 0, 0.102);
+
+    --header-shadow: 0 10px 20px var(--primary-opacity-color),
+        0 -5px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Backgrouns */
+:root {
+    --popup-content-bg: #dee2e6;
+    --badge-bg: #0080ffb9;
+    --rating-bg: #ffffffcc;
+    --slider-bg: #eee;
+    --select-hover-bg: #0d6efd40;
+    --profile-bg: #f0f2f5;
+    --avatar-bg: #e9ecef;
+    --avatarBtn-hover-bg: #0056b3;
+    --logout-bg: #a8a8a8;
+    --trips-bg: #f8f9fa;
+    --rent-button-gradient: 45deg, var(--rating-stars-color), var(--primary-blue);
+
+    --forms-container-bg: var(--primary-white);
+    --transport-card-bg: var(--white);
+    --profile-part-bg: var(--white);
+    --header-bg: var(--white);
+    --stat-box-bg: var(--white);
+}
+
+/* Rotating */
+:root {
+    --small-rotate-deg: 45deg;
+    --big-rotate-deg: 135deg;
+}
+
+/* Slider */
+:root {
+    --select-border: #ced4da;
+    --select-border-hover: #86b7fe;
+}
+
+/* Transition */
+:root {
+    --rating-transition: color 0.3s ease;
+}
+
+/* Profile colors */
+:root {
+    --info-h2-color: #343a40;
+    --info-p-color: #6c757d;
+    --border-color: #dee2e6;
+    --select-box-shadow-hover: #007bff40;
+    --stat-box-title-color: #495057;
+    --stat-box-subtitle-color: #707780;
+}
+
+/* transport info page */
+:root {
+    --review-border: #e0e0e0;
+    --pluses-green: #2e7d32;
+    --cons-red: #c62828;
+    --comments-blue: #1565c0;
+
+    --main-bg: var(--white);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --white: #000000;
+    --black: #ffffff;
+
+    --primary-white: #353638;
+    --primary-color: #2a5c85;
+    --primary-opacity-color: #1778df80;
+    --primary-grey: #b3b3b3;
+
+    --secondary-color: #52a6ff;
+    --secondary-white: #b8b8b8;
+    --secondary-black: #c2c2c2;
+    --secondary-grey: #f2f2f2f2;
+
+    --shadow-grey: #2d2f30;
+
+    --select-border: #6f6f6f;
+
+    --rating-bg: #000000;
+    --profile-bg: #4a4b4e;
+    --avatar-bg: #000000;
+    --logout-bg: #e7e7e7;
+    --trips-bg: #524d4d;
+    --profile-part-bg: #565252;
+    --dark-grey: #efefef;
+    --header-bg: #5c5c5c;
+    --stat-box-bg: #20202091;
+    --transport-card-bg: #373737;
+    --forms-container-bg: #484848;
+    --slider-bg: #d7d0d0;
+    --main-bg: #58555f;
+
+    --stat-box-title-color: #d5e1ec;
+    --stat-box-subtitle-color: #ddebff;
+    --info-h2-color: #ffffff;
+    --info-p-color: #ffffff;
+}
+
+/* Main colors changing */
+[main-color='green'] {
+    --primary-color: #acdc7b;
+    --primary-opacity-color: #acdc7b80;
+    --secondary-color: #8bc34a;
+    --badge-bg: #8bc34ab9;
+    --select-hover-bg: #8bc34a40;
+    --avatarBtn-hover-bg: #689f38;
+    --select-border-hover: #aed581;
+    --select-box-shadow-hover: #8bc34a40;
+}
+
+[main-color='orange'] {
+    --primary-color: #FFA726;
+    --primary-opacity-color: #FFA72680;
+    --secondary-color: #FB8C00;
+    --badge-bg: #FB8C00b9;
+    --select-hover-bg: #FB8C0040;
+    --avatarBtn-hover-bg: #E65100;
+    --select-border-hover: #FFB74D;
+    --select-box-shadow-hover: #13131340;
+}
+
+[main-color='purple'] {
+    --primary-color: #9C27B0;
+    --primary-opacity-color: #9C27B080;
+    --secondary-color: #7B1FA2;
+    --badge-bg: #7B1FA2b9;
+    --select-hover-bg: #7B1FA240;
+    --avatarBtn-hover-bg: #4A148C;
+    --select-border-hover: #BA68C8;
+    --select-box-shadow-hover: #7B1FA240;
+}
+
+[main-color='turquoise'] {
+    --primary-color: #26C6DA;
+    --primary-opacity-color: #26C6DA80;
+    --secondary-color: #00ACC1;
+    --badge-bg: #00ACC1b9;
+    --select-hover-bg: #00ACC140;
+    --avatarBtn-hover-bg: #00838F;
+    --select-border-hover: #80DEEA;
+    --select-box-shadow-hover: #00ACC140;
+}
+
+/* Main colors */
+[main-font="Inter"] {
+    --primary-font-family: "Inter", sans-serif;
+}
+
+[main-font="Special Gothic"] {
+    --primary-font-family: "Special Gothic Expanded One", sans-serif;
+}
+
+[main-font="Open Sans"] {
+    --primary-font-family: "Open Sans", sans-serif;
+}
+
+[main-font="Playfair Display"] {
+    --primary-font-family: "Playfair Display", serif;
+}
+
+/* General button styles */
+button {
+    cursor: pointer;
+}
+
+/* Basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--primary-font-family);
+}
+
+svg {
+    height: 35px;
+    width: 35px;
+    font-weight: 400;
+    color: var(--black);
+}

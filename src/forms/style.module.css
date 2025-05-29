@@ -2,29 +2,31 @@
     display: flex;
     justify-content: center;
     padding: 20px 0;
+    background-color: var(--forms-container-bg);
+    min-height: 100vh;
 }
 
 .form {
     width: 450px;
-    background-color: #e0e5ec;
+    background-color: var(--primary-white);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 7px 7px 14px #bec3c9,
-        -7px -7px 14px #ffffff;
+        -7px -7px 14px var(--white);
+    height: 100%;
+    margin: auto;
 }
 
 .title {
     text-align: center;
-    color: #777;
-    font-family: 'Montserrat Alternates';
+    color: var(--primary-grey);
     font-weight: 600;
     font-size: 42px;
-    margin: 0;
 }
 
 .subtitle {
     text-align: center;
-    color: #535353;
+    color: var(--secondary-grey);
     margin-bottom: 20px;
     font-size: 21px;
     margin-top: 0;
@@ -32,7 +34,7 @@
 
 .inputGroup {
     margin-bottom: 20px;
-    color: #777;
+    color: var(--primary-grey);
 }
 
 label {
@@ -47,25 +49,25 @@ input {
     padding: 12px;
     border-style: none;
     border-radius: 20px;
-    background-color: #e0e5ec;
-    box-shadow: inset 5px 5px 10px #bec3c9,
-        inset -5px -5px 10px #ffffff;
-    color: #333;
+    background-color: var(--primary-white);
+    box-shadow: inset 5px 5px 10px var(--shadow-grey),
+        inset -5px -5px 10px var(--white);
+    color: var(--dark-grey);
     margin-top: 8px;
 }
 
 input::placeholder {
-    color: #aaa;
+    color: var(--primary-grey);
 }
 
 input.error {
     border-style: inset;
-    border-color: red;
+    border-color: var(--error-color);
 }
 
 input.successfull {
     border-style: inset;
-    border-color: green;
+    border-color: var(--success-color);
 }
 
 .button {
@@ -73,35 +75,83 @@ input.successfull {
     padding: 14px;
     border: none;
     border-radius: 20px;
-    background-color: #e0e5ec;
-    color: #777;
+    background-color: var(--primary-white);
+    color: var(--primary-grey);
     font-weight: 600;
     font-size: 18px;
-    cursor: pointer;
-    box-shadow: 5px 5px 10px #bec3c9,
-        -5px -5px 10px #ffffff;
-    transition: all 0.3s ease-in-out;
+    box-shadow: 5px 5px 10px var(--shadow-grey),
+        -5px -5px 10px var(--white);
+    transition: all 0.5s ease-in-out;
     margin: 10px;
 }
 
 .button:hover {
-    box-shadow: inset 5px 5px 10px #bec3c9,
-        inset -5px -5px 10px #ffffff;
-    color: #333;
+    box-shadow: inset 5px 5px 10px var(--shadow-grey),
+        inset -5px -5px 10px var(--white);
+    color: var(--dark-grey);
+}
+
+.successText {
+    color: var(--success-color);
+}
+
+.errorText {
+    color: var(--error-color);
+}
+
+.infoText {
+    font-size: 14px;
+    font-family: 'Montserrat Alternates';
+    font-weight: 600;
+    padding: 5px;
+    opacity: 0;
+    position: absolute;
+    transform: translateY(-1000%);
+    transition: all .3s ease-in-out;
+}
+
+.infoText.active {
+    transform: translateY(-10%);
+    opacity: 1;
 }
 
 .loginText {
     text-align: center;
     margin-top: 20px;
-    color: #777;
+    color: var(--primary-grey);
     font-size: 18px;
 }
 
 .loginLink {
-    color: #007bff;
+    color: var(--secondary-color);
     text-decoration: none;
 }
 
 .loginLink:hover {
     text-decoration: underline;
+}
+
+.orLine {
+    text-align: center;
+    border: none;
+    border-top: 3px double var(--primary-grey);
+    overflow: visible;
+    color: var(--primary-grey);
+    font-size: 13px;
+    margin: 25px 0 18px 0;
+    color: var(--black);
+    transition: all .6s ease-in-out;
+}
+
+.orLine:hover {
+    border-top: 3px solid var(--primary-grey);
+}
+
+.orLine::after {
+    content: 'ИЛИ';
+    position: relative;
+    top: -10px;
+    background-color: var(--primary-white);
+    padding: 0 6px;
+    color: var(--black);
 }

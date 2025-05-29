@@ -1,3 +1,5 @@
+import { lightMapStyle } from "./mapStyles";
+
 export const FIREBASE_CONFIG = {
     apiKey: "AIzaSyCSTSl4bXYt7Qnu1AOCkZsZzWarA7r8kXw",
     authDomain: "rentride-3ff8a.firebaseapp.com",
@@ -8,12 +10,12 @@ export const FIREBASE_CONFIG = {
     measurementId: "G-F84P41D9MH"
 };
 
-export const TRANSPORT_COLLECTION_NAME = "transport";
-export const TRANSPORT_DOC_NAME = "transportList";
-export const TRANSPORT_DOC_ID = "ONqHzt5Wqka6s8UQs93U";
+export const TRANSPORT_MARKERS_COLLECTION_NAME = "transportMarkersData";
+export const TRANSPORT_MARKERS_DOC_ID = "aCRWqZndAxq46h5IMtP5";
 
-export const USERS_COLLECTION_NAME = 'users';
-export const USERS_DOC_ID = 'IlgpJNwGtViN9Lklv2fO';
+export const TRANSPORT_COLLECTION_NAME = 'transport';
+
+export const TRIPS_COLLECTION_NAME = 'trips';
 
 export const DEFAULT_AVATAR = 'https://png.pngtree.com/thumb_back/fw800/background/20230610/pngtree-picture-of-a-blue-bird-on-a-black-background-image_2937385.jpg';
 
@@ -27,9 +29,21 @@ export const MAP_OPTIONS = {
     zoom: DEFAULT_MAP_ZOOM,
     minZoom: MIN_MAP_ZOOM,
     maxZoom: MAX_MAP_ZOOM,
-    // styles: darkMapStyles
+    styles: lightMapStyle
 }
 
 export const ROOT_ELEMENT = document.querySelector('#root');
+export const DOCUMENT_ELEMENT = document.documentElement;
 
 export const ESC_KEY_CODE = 27;
+export const TRANSPORT_LIST = ['bike', 'electric_scooter', 'electric_bike', 'scooter', 'car'];
+
+export const PIECE_OF_ADMIN_NICKNAME = 'adminLK0';
+
+export const GEOLOCATION_OPTIONS = {
+    enableHighAccuracy: true,
+    maximumAge: 30000,
+    timeout: 27000
+};
+
+export const WEATHER_API_KEY = '776a2046074c1c6eea6f33521c8af590';

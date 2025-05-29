@@ -32,4 +32,6 @@ export function renderPopUp() {
             popUp.classList.remove(styles.active);
         }
     })
+
+    return document.querySelector('#popUp');
 }

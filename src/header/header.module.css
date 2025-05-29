@@ -1,28 +1,21 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 header {
     display: flex;
     justify-content: space-between;
     padding: 20px 35px;
-    box-shadow:
-        0 10px 20px rgba(0, 150, 255, 0.5),
-        0 -5px 15px rgba(255, 255, 255, 0.3);
-    background-color: white;
+    box-shadow: var(--header-shadow);
+    background-color: var(--header-bg);
     position: fixed;
     top: 0;
     z-index: 1;
     width: 100%;
 }
 
-.title {
-    color: #5555ff;
-    font-family: "Montserrat Alternates";
+.logo {
+    color: var(--secondary-color);
     font-weight: 600;
     font-size: 35px;
+    min-height: 50px;
+    width: 55px;
 }
 
 nav {
@@ -32,7 +25,7 @@ nav {
 .menu {
     list-style-type: none;
     display: flex;
-    gap: 25px;
+    gap: 20px;
 }
 
 .menu li {
@@ -41,13 +34,20 @@ nav {
 }
 
 .menu li:hover {
-    background-color: #d2d2d2;
+    background-color: var(--white);
     border-radius: 15px;
     padding: 10px 10px 10px 45px;
 }
 
-.menu li:hover .icon {
-    left: 0;
+.text {
+    font-size: 18px;
+    font-weight: 500;
+    opacity: 0;
+    display: inline-block;
+    transform: translateY(-300%);
+    animation: textTransformBack 1s ease-in-out;
+    cursor: pointer;
+    color: var(--black);
 }
 
 .menu li:hover .text {
@@ -56,26 +56,50 @@ nav {
     transform: translateY(0);
 }
 
-.text {
-    font-size: 18px;
-    font-family: "Montserrat Alternates";
-    font-weight: 500;
-    opacity: 0;
-    display: inline-block;
-    transform: translateY(-300%);
-    animation: textTransformBack 1s ease-in-out;
-    cursor: pointer;
-}
-
 .icon {
-    height: 35px;
-    width: 35px;
     position: absolute;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-weight: 400;
     transition: all .4s ease-in-out;
+}
+
+.menu li:hover .icon {
+    left: 0;
+}
+
+.stopwatch {
+    text-align: center;
+    background-color: var(--white);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 325px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.display {
+    font-family: monospace;
+    font-size: 21px;
+    margin-bottom: 20px;
+    color: var(--dark-grey);
+    margin: auto 0;
+}
+
+.stopBtn {
+    background: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all .4s ease-in-out;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.stopBtn:hover {
+    background: var(--white);
+    color: var(--primary-color);
 }
 
 @keyframes textTransformBack {

@@ -1,0 +1,89 @@
+.sliderContainer {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: var(--slider-bg);
+}
+
+.sliderFill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--green);
+    border-radius: 10px;
+    transition: width 0.1s linear;
+    width: 30%;
+}
+
+.slider {
+    opacity: 0;
+}
+
+.batteryPercentage {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: var(--white);
+}
+
+.select {
+    width: 100%;
+    padding: 6px 36px 6px 12px;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: var(--primary-white);
+    border: .5px solid var(--select-border);
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-shadow: 7px 7px 14px var(--shadow-grey),
+        -7px -7px 14px var(--white);
+    color: var(--primary-grey);
+}
+
+.select:hover {
+    border-color: var(--select-border-hover);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--select-hover-bg);
+}
+
+.addressInputGroup {
+    margin-bottom: 15px;
+    color: var(--primary-grey);
+}
+
+.addressBox {
+    display: flex;
+    align-items: center;
+}
+
+.addressBox button {
+    width: 20%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin: 10px 0 auto 10px;
+}
+
+.addressBox input {
+    width: 75%;
+}
+
+.chooseBtn {
+    width: 100%;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    transition: all .5s ease-in-out;
+}
+
+.chooseBtn:hover {
+    color: var(--primary-color);
+    background-color: var(--white);
+}
